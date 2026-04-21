@@ -123,6 +123,17 @@ export function LoyaltyFooter() {
               {loading ? "ENVIANDO..." : "UNIRME!"}
             </button>
           </form>
+          </div>
+        </div>
+
+        <div className="text-cream max-w-xs mx-auto md:mx-0">
+          <h3 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-wide">
+            UBICACIÓN
+          </h3>
+          <p className="flex items-start gap-3 text-cream/90 text-base leading-relaxed">
+            <MapPin size={22} className="mt-1 shrink-0" />
+            Luxury Hall, Plaza Dorada, Parque Puebla
+          </p>
         </div>
       </div>
 
