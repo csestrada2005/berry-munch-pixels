@@ -1,36 +1,23 @@
 
-## Plan: Eliminar tinte rojo del video en Hero Section
+## Plan: Posicionar el logo justo debajo de la navbar
 
-### Problema identificado
-El video en la hero section sigue viéndose con tinte rojizo a pesar de haber cambiado el fondo a blanco. Tras revisar `src/components/berry/HeroSection.tsx`, identifiqué dos causas:
+### Diagnóstico
+La navbar (`Nav.tsx`) está posicionada con `absolute top-6` y vive dentro del layout padre (probablemente el root o `index`), no dentro de `HeroSection`. La navbar pill mide aproximadamente ~52px de alto + 24px de offset desde arriba = ~76px de espacio ocupado desde el tope de la página.
 
-1. **Clase `text-cream`** aplicada al `<section>`: aunque es para texto, no afecta el color del video, pero indica intención de tinte cálido en el contenedor.
-2. **Causa principal — overlay residual**: existe un `<div className="absolute inset-0 bg-white/0 z-10">` que aunque tiene opacidad 0, ocupa espacio en el árbol. No es el culpable real.
-3. **Causa real más probable**: el video MP4 fue generado con tonos cálidos/rojizos intrínsecos (fresas + chocolate). El "tinte" no proviene de CSS sino del contenido propio del video. Adicionalmente, navegadores pueden aplicar perfiles de color que acentúan los rojos saturados.
+Actualmente `HeroSection` tiene `pt-16` (64px) y el contenedor del logo `-mt-4` (-16px), dando un offset efectivo de ~48px desde el tope del hero. Pero como la navbar está superpuesta encima del hero (absolute), el logo aparece **debajo** del área de la navbar, no pegado a ella visualmente.
 
-### Solución
-Aplicar un filtro CSS al elemento `<video>` que neutralice la dominante roja sin desaturar completamente la imagen:
-
-- Usar `filter: saturate(0.85) hue-rotate(-5deg)` para reducir ligeramente la saturación de los rojos y desplazar el matiz hacia tonos neutros.
-- Eliminar el overlay `bg-white/0` innecesario.
-- Quitar la clase `text-cream` del `<section>` (no aporta nada al no haber texto).
+Para que el logo quede inmediatamente debajo de la pill de la navbar, necesita comenzar alrededor de los ~85-95px desde el tope de la página (navbar termina aprox. en ~76px + un pequeño gap de 8-16px).
 
 ### Cambios
 
 **Archivo: `src/components/berry/HeroSection.tsx`**
 
+- Cambiar `pt-16` → `pt-24` (96px) en el `<section>` para empujar el logo debajo del área que ocupa la navbar absoluta.
+- Eliminar `-mt-4` del contenedor del logo (ya no es necesario el ajuste negativo).
+
 ```tsx
-<section className="relative min-h-[480px] md:min-h-[540px] lg:min-h-[600px] overflow-hidden bg-white pt-20 pb-12">
-  <video
-    src={heroVideo}
-    autoPlay
-    loop
-    muted
-    playsInline
-    className="absolute inset-0 h-full w-full object-cover z-0"
-    style={{ filter: "saturate(0.85) hue-rotate(-8deg)" }}
-  />
-  {/* Overlay eliminado */}
+<section className="relative min-h-[480px] md:min-h-[540px] lg:min-h-[600px] overflow-hidden bg-white pt-24 pb-12">
+  <video ... />
   <div className="relative z-40 mx-auto max-w-7xl px-6 md:px-10">
     <div className="flex flex-col items-start">
       <img src={berryMunchLogo} alt="Berry Munch" className="w-88 md:w-[28rem] lg:w-[32rem] h-auto" />
@@ -39,6 +26,8 @@ Aplicar un filtro CSS al elemento `<video>` que neutralice la dominante roja sin
 </section>
 ```
 
-### Notas técnicas
-- Si tras aplicar el filtro persiste el tinte, significa que el video en sí tiene rojos muy dominantes (es contenido de fresas) y se requeriría un ajuste mayor (`saturate(0.7)`) o reemplazar el video. Empezamos con un ajuste sutil para no perder el aspecto natural del producto.
-- No se modifican otros archivos.
+### Validación visual
+Tras aplicar el cambio, verificar visualmente con screenshot que el logo quede separado de la navbar por aproximadamente 8-16px (un gap pequeño y agradable, no pegado pero tampoco lejos). Si queda demasiado cerca o lejos, ajustar `pt-24` a `pt-20` (80px) o `pt-28` (112px) según corresponda.
+
+### Archivos modificados
+- `src/components/berry/HeroSection.tsx`
