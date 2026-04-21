@@ -31,7 +31,7 @@ export function HeroSection() {
           <img
             src={berryMunchLogo}
             alt="Berry Munch"
-            className="w-44 md:w-56 lg:w-64 h-auto"
+            className="w-88 md:w-[28rem] lg:w-[32rem] h-auto"
           />
 
           <a
