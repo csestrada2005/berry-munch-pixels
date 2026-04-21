@@ -27,20 +27,20 @@ export function AboutSection() {
               className="w-64 md:w-80 lg:w-96 -rotate-3 drop-shadow-xl"
             />
             <div
-              className="bg-cream-soft p-3 pb-8 shadow-xl w-48 md:w-56 lg:w-64 -mt-4 md:-mt-6 md:ml-6 lg:ml-8 animate-wiggle"
+              className="bg-white p-3 pb-10 shadow-2xl w-56 md:w-64 lg:w-72 -mt-4 md:-mt-6 md:ml-6 lg:ml-8 animate-wiggle"
               style={{ ["--wiggle-base" as string]: "-3deg" }}
             >
               <img
                 src={strawberryCupPour}
                 alt="Vaso de fresas con chocolate derretido cayendo — Berry Munch"
-                className="aspect-[4/5] w-full object-cover"
+                className="aspect-[4/3] w-full object-cover"
               />
             </div>
           </div>
 
           {/* Center: heading + paragraph + cup with callouts */}
-          <div className="order-1 md:order-2 flex flex-col items-center">
-            <h2 className="self-start font-display text-4xl md:text-5xl lg:text-6xl font-bold text-berry mb-4 text-left">
+          <div className="order-1 md:order-2 flex flex-col items-center md:-ml-6 lg:-ml-10">
+            <h2 className="self-start font-display text-4xl md:text-5xl lg:text-6xl font-bold text-berry mb-4 text-left whitespace-nowrap">
               ¿Quiénes Somos?
             </h2>
             <p className="self-start text-left text-base md:text-lg leading-relaxed mb-8 max-w-md">
@@ -65,7 +65,7 @@ export function AboutSection() {
           </div>
 
           {/* Right: polaroids stack */}
-          <div className="order-3 flex flex-col items-center md:items-end md:pt-16 lg:pt-24 md:-mr-2 lg:-mr-6">
+          <div className="order-3 flex flex-col items-center md:items-end md:pt-28 lg:pt-40 md:-mr-2 lg:-mr-6">
             <div
               className="bg-white p-3 pb-10 shadow-2xl w-56 md:w-64 lg:w-72 animate-wiggle md:-mr-4 lg:-mr-8"
               style={{ ["--wiggle-base" as string]: "4deg" }}
