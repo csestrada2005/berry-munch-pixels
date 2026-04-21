@@ -10,6 +10,17 @@ const links = [
 export function Nav() {
   const [open, setOpen] = useState(false);
 
+  function handleNavClick(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
+    e.preventDefault();
+    setOpen(false);
+    const id = href.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", href);
+    }
+  }
+
   return (
     <nav className="absolute left-1/2 top-6 z-30 -translate-x-1/2 px-4 w-full max-w-5xl">
       <div className="flex items-center justify-between gap-4 rounded-full bg-cream px-6 py-3 shadow-lg">
@@ -20,6 +31,7 @@ export function Nav() {
             <li key={l.href}>
               <a
                 href={l.href}
+                onClick={(e) => handleNavClick(e, l.href)}
                 className="text-sm font-medium text-chocolate transition-colors hover:text-berry"
               >
                 {l.label}
@@ -51,7 +63,7 @@ export function Nav() {
               <li key={l.href}>
                 <a
                   href={l.href}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => handleNavClick(e, l.href)}
                   className="block text-sm font-medium text-chocolate"
                 >
                   {l.label}
