@@ -18,7 +18,7 @@ export function AboutSection() {
       <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-32 md:-mt-48 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-8 md:gap-6 items-start">
           {/* Left: receipt-fork combined image — pegado al chocolate drip */}
-          <div className="order-2 md:order-1 flex justify-center md:justify-start md:-mt-44 lg:-mt-60 md:ml-2 lg:ml-4">
+          <div className="order-2 md:order-1 flex justify-center md:justify-start md:-mt-28 lg:-mt-40 md:ml-2 lg:ml-4">
             <img
               src={receiptFork}
               alt="Fresa con chocolate sobre recibo Berry Munch — The Berry Best"
