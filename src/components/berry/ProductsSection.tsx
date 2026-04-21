@@ -52,7 +52,7 @@ export function ProductsSection() {
                 <div className="h-20 md:h-24" />
 
                 {/* Bottom info panel (cream) — full width, splits the card */}
-                <div className="bg-cream text-chocolate px-4 py-5 text-center">
+                <div className="rounded-b-2xl bg-cream text-chocolate px-4 py-5 text-center">
                   <p className="font-display font-bold text-sm md:text-base uppercase leading-tight tracking-wide">
                     {p.name}
                   </p>
