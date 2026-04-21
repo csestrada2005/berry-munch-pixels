@@ -1,4 +1,7 @@
-import { ChocolateDrip } from "./ChocolateDrip";
+import chocolateDrip from "@/assets/chocolate-drip.png";
+import receipt from "@/assets/receipt.png";
+import pistachioCup from "@/assets/pistachio-cup.png";
+import hand from "@/assets/hand.png";
 
 const callouts = [
   { label: "Deep red", side: "left" as const, top: "18%" },
@@ -10,7 +13,13 @@ const callouts = [
 export function AboutSection() {
   return (
     <section id="sucursal" className="relative bg-cream text-chocolate scroll-mt-24">
-      <ChocolateDrip className="block w-full h-12 text-chocolate -mt-px" />
+      {/* Chocolate drip border */}
+      <img
+        src={chocolateDrip}
+        alt=""
+        aria-hidden="true"
+        className="block w-full h-auto -mt-px select-none pointer-events-none"
+      />
 
       <div className="mx-auto max-w-6xl px-6 py-20">
         <h2 className="text-center font-display text-4xl md:text-6xl font-bold text-berry mb-4">
@@ -23,26 +32,21 @@ export function AboutSection() {
 
         <div className="grid md:grid-cols-3 gap-8 items-center">
           {/* Receipt */}
-          <div className="relative mx-auto w-56 bg-cream-soft border border-chocolate/20 shadow-xl p-5 -rotate-3">
-            <div className="text-xs font-mono space-y-1">
-              <p className="font-display font-bold text-base text-berry text-center">Berry Munch</p>
-              <hr className="border-dashed border-chocolate/40 my-2" />
-              <p>1x Strawberry Cup ........ $140.00</p>
-              <p>1x Dubai Pistachio ....... $140.00</p>
-              <p>1x Lotus Special ......... $120.00</p>
-              <hr className="border-dashed border-chocolate/40 my-2" />
-              <p className="font-bold">TOTAL ................... $400.00</p>
-            </div>
-            <div className="absolute -bottom-4 -right-4 rotate-12 rounded-full border-4 border-berry px-3 py-2">
-              <p className="font-display font-bold text-berry text-xs">The Berry Best!</p>
-            </div>
+          <div className="flex justify-center">
+            <img
+              src={receipt}
+              alt="Recibo Berry Munch — The Berry Best"
+              className="w-56 -rotate-3 drop-shadow-xl"
+            />
           </div>
 
           {/* Center cup with callouts */}
-          <div className="relative mx-auto w-64 h-80">
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-berry/20 to-chocolate/30 border-2 border-chocolate/20 flex items-center justify-center text-7xl">
-              🍓
-            </div>
+          <div className="relative mx-auto w-72 h-96">
+            <img
+              src={pistachioCup}
+              alt="Dubai Pistachio Strawberry cup"
+              className="absolute inset-0 w-full h-full object-contain"
+            />
             {callouts.map((c) => (
               <div
                 key={c.label}
@@ -59,24 +63,13 @@ export function AboutSection() {
             ))}
           </div>
 
-          {/* Polaroids */}
-          <div className="flex flex-col gap-6 items-center">
-            <div className="bg-cream-soft p-3 pb-10 shadow-xl rotate-3 w-44">
-              <div className="aspect-square bg-berry/20 flex items-center justify-center text-4xl">
-                🛒
-              </div>
-              <p className="font-display italic text-center text-xs mt-2 text-chocolate">
-                Mercado
-              </p>
-            </div>
-            <div className="bg-cream-soft p-3 pb-10 shadow-xl -rotate-3 w-44">
-              <div className="aspect-square bg-berry/20 flex items-center justify-center text-4xl">
-                😊
-              </div>
-              <p className="font-display italic text-center text-xs mt-2 text-chocolate">
-                Clientes felices
-              </p>
-            </div>
+          {/* Hand reaching */}
+          <div className="flex justify-center">
+            <img
+              src={hand}
+              alt="Mano alcanzando producto"
+              className="w-48 rotate-6 drop-shadow-xl"
+            />
           </div>
         </div>
       </div>

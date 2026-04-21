@@ -1,22 +1,32 @@
 import { Instagram, Plus } from "lucide-react";
+import strawberryFork from "@/assets/strawberry-fork.png";
+import strawberriesSplash from "@/assets/strawberries-splash.png";
+import pistachioCup from "@/assets/pistachio-cup.png";
 
 const flavors = [
-  { label: "Lotus", rotate: -18, top: "30%", left: "8%" },
-  { label: "Pistache", rotate: 12, top: "22%", right: "10%" },
-  { label: "Bombones", rotate: -8, top: "55%", left: "5%" },
-  { label: "Pretzels", rotate: 15, top: "62%", right: "7%" },
-  { label: "Mazapan", rotate: -22, top: "78%", left: "14%" },
-  { label: "Nuez", rotate: 18, top: "82%", right: "16%" },
+  { label: "Lotus", rotate: -18, top: "28%", left: "6%" },
+  { label: "Pistache", rotate: 12, top: "20%", right: "8%" },
+  { label: "Bombones", rotate: -8, top: "55%", left: "4%" },
+  { label: "Pretzels", rotate: 15, top: "60%", right: "6%" },
+  { label: "Mazapan", rotate: -22, top: "78%", left: "12%" },
+  { label: "Nuez", rotate: 18, top: "82%", right: "14%" },
 ];
 
 export function HeroSection() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-berry text-cream pt-28 pb-20">
-      {/* Decorative flavor labels */}
+      {/* Background strawberry splash */}
+      <img
+        src={strawberriesSplash}
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 m-auto w-[90%] max-w-3xl opacity-30 mix-blend-screen"
+      />
+
       {flavors.map((f) => (
         <span
           key={f.label}
-          className="hidden md:block absolute font-display italic text-cream/70 text-2xl select-none"
+          className="hidden md:block absolute font-display italic text-cream/80 text-2xl select-none z-10"
           style={{
             top: f.top,
             left: f.left,
@@ -28,31 +38,33 @@ export function HeroSection() {
         </span>
       ))}
 
-      <div className="relative mx-auto max-w-6xl px-6 text-center">
+      <div className="relative mx-auto max-w-6xl px-6 text-center z-10">
         <h1 className="font-display text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight">
           Berry Munch
         </h1>
 
-        {/* Outlined display text */}
         <div className="mt-12 relative">
-          <p className="font-display font-black text-stroke text-cream/40 text-5xl md:text-7xl lg:text-8xl tracking-wider select-none leading-none">
+          <p className="font-display font-black text-stroke text-cream/50 text-5xl md:text-7xl lg:text-8xl tracking-wider select-none leading-none">
             THE BERRY SWEET
           </p>
 
-          {/* Centerpiece: strawberry cup placeholder */}
-          <div className="relative mx-auto mt-[-2rem] flex justify-center">
-            <div className="w-48 h-64 md:w-64 md:h-80 rounded-3xl bg-gradient-to-b from-cream/10 to-chocolate/40 border-2 border-cream/20 flex items-center justify-center text-6xl">
-              🍓
-            </div>
+          <div className="relative mx-auto mt-[-3rem] flex justify-center">
+            <img
+              src={strawberryFork}
+              alt="Fresa con chocolate sobre tenedor"
+              className="w-56 md:w-72 lg:w-80 drop-shadow-2xl"
+            />
           </div>
         </div>
 
-        {/* Featured product card (floating) */}
-        <div className="mt-10 md:mt-0 md:absolute md:right-8 md:bottom-32 mx-auto md:mx-0 max-w-xs">
+        {/* Featured product card */}
+        <div className="mt-10 md:mt-0 md:absolute md:right-4 md:bottom-0 mx-auto md:mx-0 max-w-xs">
           <div className="rounded-2xl bg-cream text-chocolate p-4 shadow-2xl">
-            <div className="aspect-square rounded-xl bg-berry/10 flex items-center justify-center text-5xl mb-3">
-              🥤
-            </div>
+            <img
+              src={pistachioCup}
+              alt="Dubai Pistachio Strawberry"
+              className="aspect-square w-full object-contain mb-3"
+            />
             <p className="font-display font-semibold text-sm">Dubai Pistachio Strawberry</p>
             <div className="mt-2 flex items-center justify-between">
               <span className="font-bold text-berry">$140.0</span>
@@ -72,7 +84,7 @@ export function HeroSection() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Instagram"
-        className="absolute bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-full bg-cream text-berry transition-transform hover:scale-110"
+        className="absolute bottom-6 right-6 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-cream text-berry transition-transform hover:scale-110"
       >
         <Instagram size={22} />
       </a>
