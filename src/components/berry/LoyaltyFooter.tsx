@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import strawberryBg from "@/assets/strawberry-bg.png";
 import berryLogo from "@/assets/berry-logo.png";
+import strawberrySplash from "@/assets/strawberry-splash.png";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Nombre requerido").max(100),
