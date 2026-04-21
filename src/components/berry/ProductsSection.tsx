@@ -23,9 +23,24 @@ export function ProductsSection() {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           {products.map((p) => (
-            <div key={p.id} className="relative pt-24 md:pt-28">
+            <div key={p.id} className="relative pt-28 md:pt-32">
               {/* Card */}
               <div className="relative rounded-2xl bg-white/5 ring-2 ring-white pt-20 md:pt-24 pb-7 px-5 shadow-xl">
+                {/* Sparkle lines above the cup */}
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 80 40"
+                  className="absolute -top-32 md:-top-36 left-1/2 -translate-x-1/2 w-16 md:w-20 h-8 md:h-10 text-cream pointer-events-none"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                >
+                  <line x1="14" y1="30" x2="6" y2="10" />
+                  <line x1="40" y1="28" x2="40" y2="4" />
+                  <line x1="66" y1="30" x2="74" y2="10" />
+                </svg>
+
                 {/* Floating cup image escaping the top */}
                 <img
                   src={p.image}
