@@ -21,24 +21,24 @@ export function ProductsSection() {
           NUESTROS BERRY BESTS
         </h2>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           {products.map((p) => (
-            <div key={p.id} className="relative pt-24 md:pt-28">
+            <div key={p.id} className="relative pt-32 md:pt-40">
               {/* Card */}
-              <div className="relative rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur-sm pt-20 md:pt-24 pb-5 px-4 shadow-xl">
+              <div className="relative rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur-sm pt-28 md:pt-36 pb-7 px-5 shadow-xl">
                 {/* Floating cup image escaping the top */}
                 <img
                   src={p.image}
                   alt={p.name}
-                  className="absolute -top-20 md:-top-24 left-1/2 -translate-x-1/2 h-44 md:h-56 w-auto object-contain drop-shadow-2xl pointer-events-none"
+                  className="absolute -top-32 md:-top-40 left-1/2 -translate-x-1/2 h-60 md:h-72 lg:h-80 w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg]"
                 />
 
                 {/* Bottom info panel (cream) */}
-                <div className="rounded-xl bg-cream text-chocolate px-3 py-3 text-center">
-                  <p className="font-display font-bold text-xs md:text-sm uppercase leading-tight tracking-wide">
+                <div className="rounded-xl bg-cream text-chocolate px-4 py-4 text-center">
+                  <p className="font-display font-bold text-sm md:text-base uppercase leading-tight tracking-wide">
                     {p.name}
                   </p>
-                  <p className="mt-2 font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)]">
+                  <p className="mt-2 font-bold text-base md:text-lg text-[oklch(0.55_0.15_145)]">
                     {p.price}
                   </p>
                 </div>
