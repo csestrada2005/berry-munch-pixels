@@ -42,7 +42,7 @@ export function LoyaltyFooter() {
 
   return (
     <footer
-      id="loyalty"
+      id="pedir"
       className="relative bg-berry-deep text-cream scroll-mt-24"
       style={{
         backgroundImage:
