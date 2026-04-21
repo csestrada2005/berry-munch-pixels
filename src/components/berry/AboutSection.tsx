@@ -15,50 +15,53 @@ export function AboutSection() {
         className="block w-full h-auto -mt-px select-none pointer-events-none"
       />
 
-      <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-40 md:-mt-56 relative z-10">
-        <h2 className="text-center font-display text-4xl md:text-6xl font-bold text-berry mb-4 ml-0 md:ml-24 lg:ml-40">
-          ¿Quiénes Somos?
-        </h2>
-        <p className="text-center max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-12">
-          En Berry Munch seleccionamos las fresas más frescas y las bañamos en chocolate belga
-          premium. Cada bocado es una experiencia única, hecha con amor y los mejores ingredientes.
-        </p>
-
-        <div className="grid md:grid-cols-3 gap-8 items-center">
-          {/* Receipt + strawberry-fork combined image */}
-          <div className="flex justify-center">
+      <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-32 md:-mt-48 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-8 md:gap-6 items-start">
+          {/* Left: receipt-fork combined image */}
+          <div className="order-2 md:order-1 flex justify-center md:justify-start md:pt-8">
             <img
               src={receiptFork}
               alt="Fresa con chocolate sobre recibo Berry Munch — The Berry Best"
-              className="w-52 md:w-60 -rotate-3 drop-shadow-xl"
+              className="w-56 md:w-64 -rotate-3 drop-shadow-xl"
             />
           </div>
 
-          {/* Center: berries cup with handwritten callouts */}
-          <div className="relative mx-auto w-full max-w-md">
-            <img
-              src={callouts}
-              alt=""
-              aria-hidden="true"
-              className="absolute inset-0 w-full h-full object-contain pointer-events-none"
-            />
-            <img
-              src={berriesCup}
-              alt="Vaso de fresas frescas — Berries before Worries"
-              className="relative w-full h-auto"
-            />
+          {/* Center: heading + paragraph + cup with callouts */}
+          <div className="order-1 md:order-2 flex flex-col items-center">
+            <h2 className="self-start font-display text-4xl md:text-5xl lg:text-6xl font-bold text-berry mb-4 text-left">
+              ¿Quiénes Somos?
+            </h2>
+            <p className="self-start text-left text-base md:text-lg leading-relaxed mb-8 max-w-md">
+              En Berry Munch seleccionamos las fresas más frescas y las bañamos en chocolate belga
+              premium. Cada bocado es una experiencia única, hecha con amor y los mejores
+              ingredientes.
+            </p>
+
+            <div className="relative mx-auto w-full max-w-sm">
+              <img
+                src={callouts}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+              />
+              <img
+                src={berriesCup}
+                alt="Vaso de fresas frescas — Berries before Worries"
+                className="relative w-full h-auto"
+              />
+            </div>
           </div>
 
-          {/* Polaroids stack */}
-          <div className="flex flex-col gap-6 items-center">
-            <div className="bg-cream-soft p-3 pb-8 shadow-xl rotate-3 w-52 md:w-56">
+          {/* Right: polaroids stack */}
+          <div className="order-3 flex flex-col items-center md:pt-4">
+            <div className="bg-cream-soft p-3 pb-8 shadow-xl rotate-3 w-48 md:w-52">
               <img
                 src={marketDisplay}
                 alt="Mostrador con vasos de fresas y uvas"
                 className="aspect-square w-full object-cover"
               />
             </div>
-            <div className="bg-cream-soft p-3 pb-8 shadow-xl -rotate-3 w-52 md:w-56">
+            <div className="bg-cream-soft p-3 pb-8 shadow-xl -rotate-2 w-48 md:w-52 -mt-8">
               <img
                 src={customers}
                 alt="Clientes felices disfrutando Berry Munch"
