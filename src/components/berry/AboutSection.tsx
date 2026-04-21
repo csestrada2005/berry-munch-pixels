@@ -5,6 +5,7 @@ import berriesCup from "@/assets/berries-cup.png";
 import callouts from "@/assets/callouts.png";
 import customers from "@/assets/customers.jpg";
 import marketDisplay from "@/assets/market-display.jpg";
+import postBerry from "@/assets/post-berry.png";
 
 export function AboutSection() {
   return (
