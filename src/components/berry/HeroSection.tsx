@@ -6,7 +6,7 @@ import { AccountButton } from "./AccountButton";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[480px] md:min-h-[540px] lg:min-h-[600px] overflow-hidden bg-white">
+    <section className="relative h-screen min-h-[600px] overflow-hidden bg-white">
       {/* Background video */}
       <video
         src={heroVideo}
