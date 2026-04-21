@@ -17,7 +17,7 @@ export function AboutSection() {
       />
 
       <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-40 md:-mt-56 relative z-10">
-        <h2 className="text-center font-display text-4xl md:text-6xl font-bold text-berry mb-4">
+        <h2 className="text-center font-display text-4xl md:text-6xl font-bold text-berry mb-4 ml-0 md:ml-24 lg:ml-40">
           ¿Quiénes Somos?
         </h2>
         <p className="text-center max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-12">
@@ -26,13 +26,20 @@ export function AboutSection() {
         </p>
 
         <div className="grid md:grid-cols-3 gap-8 items-center">
-          {/* Receipt */}
+          {/* Receipt with strawberry-fork on top */}
           <div className="flex justify-center">
-            <img
-              src={receipt}
-              alt="Recibo Berry Munch — The Berry Best"
-              className="w-60 md:w-64 -rotate-3 drop-shadow-xl"
-            />
+            <div className="relative w-60 md:w-64 -rotate-3 drop-shadow-xl">
+              <img
+                src={strawberryFork}
+                alt="Fresa con chocolate sobre tenedor"
+                className="absolute left-1/2 -translate-x-1/2 -top-32 md:-top-40 w-44 md:w-52 h-auto pointer-events-none select-none z-10"
+              />
+              <img
+                src={receipt}
+                alt="Recibo Berry Munch — The Berry Best"
+                className="relative w-full h-auto"
+              />
+            </div>
           </div>
 
           {/* Center: berries cup with handwritten callouts */}
