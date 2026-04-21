@@ -16,7 +16,7 @@ export function HeroSection() {
       />
 
       {/* Wordmark — left aligned */}
-      <div className="relative z-40 mx-auto max-w-7xl px-6 md:px-10 -mt-16 md:-mt-12">
+      <div className="relative z-40 mx-auto max-w-7xl px-6 md:px-10 -mt-40 md:-mt-36">
         <div className="flex flex-col items-start">
           <img
             src={berryMunchLogo}
