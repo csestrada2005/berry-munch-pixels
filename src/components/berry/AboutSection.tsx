@@ -26,7 +26,10 @@ export function AboutSection() {
               alt="Fresa con chocolate sobre recibo Berry Munch — The Berry Best"
               className="w-64 md:w-80 lg:w-96 -rotate-3 drop-shadow-xl"
             />
-            <div className="bg-cream-soft p-3 pb-8 shadow-xl -rotate-3 w-48 md:w-56 lg:w-64 -mt-4 md:-mt-6 md:ml-6 lg:ml-8">
+            <div
+              className="bg-cream-soft p-3 pb-8 shadow-xl w-48 md:w-56 lg:w-64 -mt-4 md:-mt-6 md:ml-6 lg:ml-8 animate-wiggle"
+              style={{ ["--wiggle-base" as string]: "-3deg" }}
+            >
               <img
                 src={strawberryCupPour}
                 alt="Vaso de fresas con chocolate derretido cayendo — Berry Munch"
