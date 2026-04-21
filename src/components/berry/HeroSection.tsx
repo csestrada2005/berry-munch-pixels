@@ -16,7 +16,7 @@ const flavors = [
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen md:min-h-[900px] overflow-hidden bg-berry text-cream pt-28 pb-20">
+    <section className="relative min-h-[620px] md:min-h-[680px] lg:min-h-[720px] overflow-hidden bg-berry text-cream pt-24 pb-12">
       {/* Floating strawberries background */}
       <img
         src={strawberriesFloating}
