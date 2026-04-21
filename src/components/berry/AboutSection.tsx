@@ -65,7 +65,7 @@ export function AboutSection() {
           </div>
 
           {/* Right: polaroids stack */}
-          <div className="order-3 flex flex-col items-center md:items-end md:pt-16 lg:pt-24 md:-mr-2 lg:-mr-6">
+          <div className="order-3 flex flex-col items-center md:items-end md:pt-28 lg:pt-40 md:-mr-2 lg:-mr-6">
             <div
               className="bg-white p-3 pb-10 shadow-2xl w-56 md:w-64 lg:w-72 animate-wiggle md:-mr-4 lg:-mr-8"
               style={{ ["--wiggle-base" as string]: "4deg" }}
