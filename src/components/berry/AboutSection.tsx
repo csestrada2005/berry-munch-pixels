@@ -1,5 +1,6 @@
 import chocolateDrip from "@/assets/chocolate-drip.png";
 import receiptFork from "@/assets/receipt-fork.png";
+import strawberryCupPour from "@/assets/strawberry-cup-pour.jpg";
 import berriesCup from "@/assets/berries-cup.png";
 import callouts from "@/assets/callouts.png";
 import customers from "@/assets/customers.jpg";
