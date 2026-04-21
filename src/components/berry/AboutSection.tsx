@@ -4,6 +4,7 @@ import berriesCup from "@/assets/berries-cup.png";
 import callouts from "@/assets/callouts.png";
 import customers from "@/assets/customers.jpg";
 import marketDisplay from "@/assets/market-display.jpg";
+import strawberryFork from "@/assets/strawberry-fork.png";
 
 export function AboutSection() {
   return (
