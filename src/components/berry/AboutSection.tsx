@@ -65,9 +65,9 @@ export function AboutSection() {
           </div>
 
           {/* Right: polaroids stack */}
-          <div className="order-3 flex flex-col items-center md:pt-4">
+          <div className="order-3 flex flex-col items-center md:pt-16 lg:pt-24">
             <div
-              className="bg-cream-soft p-3 pb-8 shadow-xl w-48 md:w-52 animate-wiggle"
+              className="bg-chocolate p-3 pb-10 shadow-xl w-56 md:w-64 lg:w-72 animate-wiggle"
               style={{ ["--wiggle-base" as string]: "3deg" }}
             >
               <img
@@ -77,7 +77,7 @@ export function AboutSection() {
               />
             </div>
             <div
-              className="bg-cream-soft p-3 pb-8 shadow-xl w-48 md:w-52 -mt-8 animate-wiggle"
+              className="bg-chocolate p-3 pb-10 shadow-xl w-56 md:w-64 lg:w-72 -mt-8 animate-wiggle"
               style={{ ["--wiggle-base" as string]: "-2deg", animationDelay: "0.4s" }}
             >
               <img
@@ -86,12 +86,6 @@ export function AboutSection() {
                 className="aspect-square w-full object-cover"
               />
             </div>
-            <img
-              src={postBerry}
-              alt="Berry Munch — post promocional"
-              className="mt-6 w-48 md:w-52 h-auto animate-wiggle"
-              style={{ ["--wiggle-base" as string]: "0deg", animationDelay: "0.2s" }}
-            />
           </div>
         </div>
       </div>
