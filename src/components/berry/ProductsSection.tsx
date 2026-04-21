@@ -2,13 +2,13 @@ import { Marquee } from "./Marquee";
 import cup1 from "@/assets/cup1.png";
 import cup2 from "@/assets/cup2.png";
 import cup3 from "@/assets/cup3.png";
-import cup4 from "@/assets/cup4.png";
+import cup6 from "@/assets/cup6.png";
 
 const products = [
   { id: 1, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup1 },
   { id: 2, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup2 },
   { id: 3, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup3 },
-  { id: 4, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup4 },
+  { id: 4, name: "Berry Marshmallow", price: "$ 140.0", image: cup6 },
 ];
 
 export function ProductsSection() {
