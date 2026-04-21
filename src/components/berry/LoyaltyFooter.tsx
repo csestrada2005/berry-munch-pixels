@@ -61,7 +61,7 @@ export function LoyaltyFooter() {
           <img
             src={berryLogo}
             alt="Berry Munch"
-            className="absolute -top-20 left-1/2 -translate-x-1/2 w-32 md:w-40 h-auto drop-shadow-xl pointer-events-none z-10"
+            className="absolute -top-72 md:-top-80 left-1/2 -translate-x-1/2 w-96 md:w-[30rem] h-auto drop-shadow-xl pointer-events-none z-10"
           />
 
           <div
