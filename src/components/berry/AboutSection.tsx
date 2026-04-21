@@ -27,13 +27,13 @@ export function AboutSection() {
               className="w-64 md:w-80 lg:w-96 -rotate-3 drop-shadow-xl"
             />
             <div
-              className="bg-cream-soft p-3 pb-8 shadow-xl w-48 md:w-56 lg:w-64 -mt-4 md:-mt-6 md:ml-6 lg:ml-8 animate-wiggle"
+              className="bg-white p-3 pb-10 shadow-2xl w-56 md:w-64 lg:w-72 -mt-4 md:-mt-6 md:ml-6 lg:ml-8 animate-wiggle"
               style={{ ["--wiggle-base" as string]: "-3deg" }}
             >
               <img
                 src={strawberryCupPour}
                 alt="Vaso de fresas con chocolate derretido cayendo — Berry Munch"
-                className="aspect-[4/5] w-full object-cover"
+                className="aspect-[4/3] w-full object-cover"
               />
             </div>
           </div>
