@@ -5,10 +5,10 @@ import cup3 from "@/assets/cup3.png";
 import cup6 from "@/assets/cup6.png";
 
 const products = [
-  { id: 1, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup1 },
-  { id: 2, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup2 },
-  { id: 3, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup3 },
-  { id: 4, name: "Berry Marshmallow", price: "$ 140.0", image: cup6 },
+  { id: 1, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup1, imgClass: "h-44 md:h-52 lg:h-56" },
+  { id: 2, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup2, imgClass: "h-44 md:h-52 lg:h-56" },
+  { id: 3, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup3, imgClass: "h-44 md:h-52 lg:h-56" },
+  { id: 4, name: "Berry Marshmallow", price: "$ 140.0", image: cup6, imgClass: "h-32 md:h-36 lg:h-40" },
 ];
 
 export function ProductsSection() {
