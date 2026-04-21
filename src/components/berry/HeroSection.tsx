@@ -34,12 +34,12 @@ export function HeroSection() {
 
       {/* Producto destacado — Dubai Pistachio Strawberry */}
       <div className="absolute right-4 md:right-10 bottom-6 md:bottom-10 z-30 w-44 md:w-52">
-        <div className="relative rounded-2xl bg-berry shadow-2xl pt-24 md:pt-32">
+        <div className="relative rounded-2xl bg-berry shadow-2xl pt-32 md:pt-40">
           {/* Imagen flotante que sobresale por arriba */}
           <img
             src={dubaiPistachio}
             alt="Dubai Pistachio Strawberry"
-            className="absolute -top-16 md:-top-20 left-1/2 -translate-x-1/2 h-48 md:h-56 w-auto object-contain drop-shadow-xl pointer-events-none"
+            className="absolute -top-24 md:-top-28 left-1/2 -translate-x-1/2 h-64 md:h-72 w-auto object-contain drop-shadow-xl pointer-events-none"
           />
           {/* Panel blanco inferior */}
           <div className="rounded-2xl bg-cream px-4 py-4 md:px-5 md:py-5">
