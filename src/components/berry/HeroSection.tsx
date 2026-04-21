@@ -53,20 +53,20 @@ export function HeroSection() {
 
       {/* Pistachio product card — upper right */}
       <div className="relative md:absolute md:top-[42%] md:right-6 lg:right-12 z-40 mx-auto md:mx-0 mt-6 md:mt-0 max-w-[170px] px-6 md:px-0">
-        <div className="rounded-2xl bg-cream text-chocolate p-4 shadow-2xl">
+        <div className="rounded-2xl bg-cream text-chocolate p-3 shadow-2xl">
           <img
             src={pistachioCup}
             alt="Dubai Pistachio Strawberry"
-            className="aspect-square w-full object-contain mb-3"
+            className="aspect-square w-full object-contain mb-2"
           />
-          <p className="font-display font-semibold text-sm">Dubai Pistachio Strawberry</p>
-          <div className="mt-2 flex items-center justify-between">
-            <span className="font-bold text-berry">$140.0</span>
+          <p className="font-display font-semibold text-xs leading-tight">Dubai Pistachio Strawberry</p>
+          <div className="mt-1.5 flex items-center justify-between">
+            <span className="font-bold text-berry text-sm">$140.0</span>
             <button
               aria-label="Añadir"
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-berry text-cream transition-transform hover:scale-110"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-berry text-cream transition-transform hover:scale-110"
             >
-              <Plus size={16} />
+              <Plus size={14} />
             </button>
           </div>
         </div>
