@@ -48,7 +48,7 @@ export function HeroSection() {
         src={chocolatePourCup}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 right-0 w-[70%] md:w-[55%] lg:w-[50%] z-30 -translate-y-4"
+        className="pointer-events-none absolute top-0 right-0 w-[55%] md:w-[42%] lg:w-[38%] z-30 -translate-y-2"
       />
 
       {/* Pistachio product card — upper right */}
