@@ -58,7 +58,7 @@ export function Nav() {
                 <a
                   href={l.href}
                   onClick={(e) => handleNavClick(e, l.href)}
-                  className="font-display text-sm lg:text-base font-bold text-black tracking-[0.2em] transition-colors hover:text-berry"
+                  className="nav-link font-display text-sm lg:text-base font-bold text-black tracking-[0.2em] transition-all duration-200 hover:text-berry hover:scale-110 inline-block"
                 >
                   {l.label}
                 </a>
@@ -68,7 +68,7 @@ export function Nav() {
 
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden text-black"
+            className="md:hidden text-black transition-transform active:scale-90"
             aria-label="Menu"
           >
             {open ? <X size={22} /> : <Menu size={22} />}
@@ -78,7 +78,7 @@ export function Nav() {
       </div>
 
       {open && (
-        <div className="md:hidden mt-2 rounded-lg bg-cream p-4 shadow-lg border-2 border-chocolate/20">
+        <div className="md:hidden mt-2 rounded-lg bg-cream p-4 shadow-lg border-2 border-chocolate/20 animate-unroll">
           <ul className="flex flex-col gap-3">
             {links.map((l) => (
               <li key={l.href}>

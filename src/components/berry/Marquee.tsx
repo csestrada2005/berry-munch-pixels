@@ -12,7 +12,13 @@ export function Marquee() {
                 key={j}
                 className="font-display italic text-2xl md:text-3xl text-chocolate"
               >
-                {text} <span className="text-berry mx-3">★</span>
+                {text}{" "}
+                <span
+                  className="text-berry mx-3 animate-star"
+                  style={{ animationDelay: `${(j * 0.3).toFixed(2)}s` }}
+                >
+                  ★
+                </span>
               </span>
             ))}
           </div>
