@@ -72,7 +72,7 @@ export function AccountButton() {
       toast.error(error.message);
       return;
     }
-    toast.success("¡Cuenta creada! Revisa tu email para confirmar.");
+    toast.success("¡Cuenta creada con éxito!");
     setOpen(false);
     setSignupEmail("");
     setSignupPassword("");
