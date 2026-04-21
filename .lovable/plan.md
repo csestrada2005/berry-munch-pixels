@@ -1,48 +1,44 @@
 
+## Plan: Eliminar tinte rojo del video en Hero Section
 
-# Hero Section — Match Figma Reference
+### Problema identificado
+El video en la hero section sigue viéndose con tinte rojizo a pesar de haber cambiado el fondo a blanco. Tras revisar `src/components/berry/HeroSection.tsx`, identifiqué dos causas:
 
-Restructure `HeroSection.tsx` to mirror the screenshot exactly. Currently the layout is centered with the wordmark on top and the cup hanging below the outlined "THE BERRY SWEET" text. The reference shows a left-aligned wordmark with a chocolate splash arcing across the top-right, and the cup positioned BEHIND the outlined text, with the pistachio card on the upper-right (not bottom-right).
+1. **Clase `text-cream`** aplicada al `<section>`: aunque es para texto, no afecta el color del video, pero indica intención de tinte cálido en el contenedor.
+2. **Causa principal — overlay residual**: existe un `<div className="absolute inset-0 bg-white/0 z-10">` que aunque tiene opacidad 0, ocupa espacio en el árbol. No es el culpable real.
+3. **Causa real más probable**: el video MP4 fue generado con tonos cálidos/rojizos intrínsecos (fresas + chocolate). El "tinte" no proviene de CSS sino del contenido propio del video. Adicionalmente, navegadores pueden aplicar perfiles de color que acentúan los rojos saturados.
 
-## Layout changes
+### Solución
+Aplicar un filtro CSS al elemento `<video>` que neutralice la dominante roja sin desaturar completamente la imagen:
 
-```text
-┌──────────────────────────────────────────────────┐
-│         [ Nav pill: Productos · Pedir · Sucursal ]│
-│                                                   │
-│  Berry🍓                  ╲╱chocolate splash╱╲    │
-│  Munch                    ╱  arc top→right    ╲   │
-│                              ┌──────────────┐    │
-│  ┌─────────┐                 │ pistachio    │    │
-│  │ MI      │                 │  cup card    │    │
-│  │ CUENTA  │                 │ Dubai Pist.. │    │
-│  └─────────┘                 │ $140.0    ⊕  │    │
-│                              └──────────────┘    │
-│        Lotus      strawberry                      │
-│   Pistache    🍓                                  │
-│ Bombones    🍓     🍓                             │
-│  THE  BE[ 🥤cup ]RY  SWEET   ← outline behind cup │
-│   Pretzels  🍓 Mazapán  Nuez                      │
-│                                            [ IG ]│
-└──────────────────────────────────────────────────┘
+- Usar `filter: saturate(0.85) hue-rotate(-5deg)` para reducir ligeramente la saturación de los rojos y desplazar el matiz hacia tonos neutros.
+- Eliminar el overlay `bg-white/0` innecesario.
+- Quitar la clase `text-cream` del `<section>` (no aporta nada al no haber texto).
+
+### Cambios
+
+**Archivo: `src/components/berry/HeroSection.tsx`**
+
+```tsx
+<section className="relative min-h-[480px] md:min-h-[540px] lg:min-h-[600px] overflow-hidden bg-white pt-20 pb-12">
+  <video
+    src={heroVideo}
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="absolute inset-0 h-full w-full object-cover z-0"
+    style={{ filter: "saturate(0.85) hue-rotate(-8deg)" }}
+  />
+  {/* Overlay eliminado */}
+  <div className="relative z-40 mx-auto max-w-7xl px-6 md:px-10">
+    <div className="flex flex-col items-start">
+      <img src={berryMunchLogo} alt="Berry Munch" className="w-88 md:w-[28rem] lg:w-[32rem] h-auto" />
+    </div>
+  </div>
+</section>
 ```
 
-### Specific edits to `src/components/berry/HeroSection.tsx`
-
-1. **Wordmark** — left-aligned, two stacked lines "Berry" / "Munch" in serif italic, with a small strawberry icon next to "Berry". Add a "MI CUENTA" outlined pill button below the wordmark on the left.
-2. **Chocolate splash** (`chocolate-pour-cup.png`) — position absolute, top-right area, large (~60% width on desktop), arcing from top-center toward the right edge. The cup at the bottom of that PNG will overlap the central area.
-3. **Pistachio card** — move from bottom-right to upper-right, sitting under the splash's right tail. Keep the card design (cream bg, "Dubai Pistachio Strawberry", $140.0, + button).
-4. **"THE BERRY SWEET" outlined text** — large, full-width, positioned in the lower third. The central strawberry cup (`berries-cup.png`) sits in front of/centered on the "BE...RY" gap.
-5. **Strawberry cup** — replace the current `chocolatePourCup` center placement with `berries-cup.png` (strawberries cup), centered behind the outlined text.
-6. **Floating strawberries** (`strawberries-floating.png`) — keep as full-section background overlay, but tone down opacity so individual strawberries read clearly around the cup.
-7. **Flavor labels** — keep all 6 (Lotus, Pistache, Bombones, Pretzels, Mazapan, Nuez) but reposition tighter around the central cup area (mid-to-bottom of section), rotate angles per reference. "Pistache" in gold/accent color italic per reference.
-8. **Instagram icon** — keep bottom-right (already correct).
-9. **Background** — keep deep berry red.
-
-## Technical notes
-
-- Use absolute positioning within a `relative` hero container with explicit min-height (`min-h-screen` or `min-h-[900px]`).
-- Z-index layering: bg strawberries (z-0) → outlined text (z-10) → center cup (z-20) → splash (z-30) → wordmark/card/labels (z-40) → IG icon (z-50).
-- Keep responsive: on mobile, stack wordmark → splash+cup → product card → labels become decorative only (hide most).
-- No new files needed; only `HeroSection.tsx` is rewritten. Asset imports adjust to use `berries-cup.png` and keep `chocolate-pour-cup.png`, `strawberries-floating.png`, `pistachio-cup.png`.
-
+### Notas técnicas
+- Si tras aplicar el filtro persiste el tinte, significa que el video en sí tiene rojos muy dominantes (es contenido de fresas) y se requeriría un ajuste mayor (`saturate(0.7)`) o reemplazar el video. Empezamos con un ajuste sutil para no perder el aspecto natural del producto.
+- No se modifican otros archivos.
