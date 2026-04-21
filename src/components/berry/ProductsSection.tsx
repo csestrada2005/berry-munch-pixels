@@ -25,7 +25,7 @@ export function ProductsSection() {
           {products.map((p) => (
             <div key={p.id} className="relative pt-28 md:pt-32">
               {/* Card */}
-              <div className="relative rounded-2xl bg-white/5 ring-2 ring-white pt-20 md:pt-24 shadow-xl overflow-hidden">
+              <div className="relative rounded-2xl bg-white/5 ring-2 ring-white pt-20 md:pt-24 shadow-xl">
                 {/* Sparkle lines above the cup */}
                 <svg
                   aria-hidden="true"
