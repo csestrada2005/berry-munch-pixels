@@ -26,20 +26,20 @@ export function HeroSection() {
             alt="Berry Munch"
             className="w-88 md:w-[28rem] lg:w-[32rem] h-auto -mt-32 md:-mt-40"
           />
-          <div className="-mt-24 md:-mt-28 ml-8 md:ml-16">
+          <div className="-mt-24 md:-mt-28 ml-16 md:ml-32">
             <AccountButton />
           </div>
         </div>
       </div>
 
       {/* Producto destacado — Dubai Pistachio Strawberry */}
-      <div className="absolute right-4 md:right-10 bottom-6 md:bottom-10 z-30 w-56 md:w-64">
-        <div className="relative rounded-2xl bg-berry shadow-2xl pt-20 md:pt-24">
+      <div className="absolute right-4 md:right-10 bottom-6 md:bottom-10 z-30 w-44 md:w-52">
+        <div className="relative rounded-2xl bg-berry shadow-2xl pt-24 md:pt-32">
           {/* Imagen flotante que sobresale por arriba */}
           <img
             src={dubaiPistachio}
             alt="Dubai Pistachio Strawberry"
-            className="absolute -top-12 md:-top-16 left-1/2 -translate-x-1/2 h-40 md:h-48 w-auto object-contain drop-shadow-xl pointer-events-none"
+            className="absolute -top-16 md:-top-20 left-1/2 -translate-x-1/2 h-48 md:h-56 w-auto object-contain drop-shadow-xl pointer-events-none"
           />
           {/* Panel blanco inferior */}
           <div className="rounded-2xl bg-cream px-4 py-4 md:px-5 md:py-5">
