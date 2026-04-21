@@ -20,7 +20,7 @@ export function AboutSection() {
       <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-32 md:-mt-48 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-8 md:gap-6 items-start">
           {/* Left: receipt-fork combined image — pegado al chocolate drip */}
-          <div className="order-2 md:order-1 flex flex-col items-center md:items-start md:-mt-12 lg:-mt-20 md:ml-2 lg:ml-4">
+          <div className="order-2 md:order-1 flex flex-col items-center md:items-start md:-mt-12 lg:-mt-20 md:-ml-6 lg:-ml-12">
             <img
               src={receiptFork}
               alt="Fresa con chocolate sobre recibo Berry Munch — The Berry Best"
@@ -40,10 +40,10 @@ export function AboutSection() {
 
           {/* Center: heading + paragraph + cup with callouts */}
           <div className="order-1 md:order-2 flex flex-col items-center md:-ml-6 lg:-ml-10">
-            <h2 className="self-start font-display text-4xl md:text-5xl lg:text-6xl font-bold text-berry mb-4 text-left whitespace-nowrap">
+            <h2 className="self-start font-display text-3xl md:text-4xl lg:text-5xl font-bold text-berry mb-4 text-left whitespace-nowrap">
               ¿Quiénes Somos?
             </h2>
-            <p className="self-start text-left text-base md:text-lg leading-relaxed mb-8 max-w-md">
+            <p className="self-start text-left font-display text-base md:text-lg leading-relaxed mb-8 max-w-md">
               En Berry Munch seleccionamos las fresas más frescas y las bañamos en chocolate belga
               premium. Cada bocado es una experiencia única, hecha con amor y los mejores
               ingredientes.
