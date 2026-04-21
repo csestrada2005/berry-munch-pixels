@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
+import { MapPin } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import strawberryBg from "@/assets/strawberry-bg.png";
+import berryLogo from "@/assets/berry-logo.png";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Nombre requerido").max(100),
@@ -51,14 +53,24 @@ export function LoyaltyFooter() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div id="cuenta" className="mx-auto max-w-6xl px-6 py-24 flex items-center justify-center">
-        <div
-          className="w-full max-w-md rounded-3xl bg-cream/90 text-chocolate px-8 py-10 shadow-2xl backdrop-blur-sm"
-          style={{
-            outline: "2px dashed oklch(0.25 0.05 40 / 0.5)",
-            outlineOffset: "-12px",
-          }}
-        >
+      <div id="cuenta" className="mx-auto max-w-6xl px-6 py-24 grid md:grid-cols-[1fr_auto_1fr] gap-10 items-center">
+        <div className="hidden md:block" />
+
+        <div className="relative w-full max-w-md mx-auto">
+          {/* Logo on top of the card */}
+          <img
+            src={berryLogo}
+            alt="Berry Munch"
+            className="absolute -top-20 left-1/2 -translate-x-1/2 w-32 md:w-40 h-auto drop-shadow-xl pointer-events-none z-10"
+          />
+
+          <div
+            className="rounded-3xl bg-cream/90 text-chocolate px-8 pt-16 pb-10 shadow-2xl backdrop-blur-sm"
+            style={{
+              outline: "2px dashed oklch(0.25 0.05 40 / 0.5)",
+              outlineOffset: "-12px",
+            }}
+          >
           <h2 className="text-center font-display text-3xl md:text-4xl font-bold tracking-wide mb-8">
             LOYALTY PROGRAM
           </h2>
