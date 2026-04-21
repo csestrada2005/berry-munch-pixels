@@ -40,16 +40,17 @@ export function AboutSection() {
 
           {/* Center: heading + paragraph + cup with callouts */}
           <div className="order-1 md:order-2 flex flex-col items-center md:-ml-6 lg:-ml-10 md:pl-[70px]">
-            <h2 className="self-start font-display text-3xl md:text-4xl lg:text-5xl font-bold text-berry mb-4 text-left whitespace-nowrap">
+            <h2 className="self-start font-display text-4xl md:text-5xl lg:text-6xl font-bold text-berry mb-4 text-left whitespace-nowrap uppercase tracking-tight">
               ¿Quiénes Somos?
             </h2>
             <p
-              className="self-start text-left text-base md:text-lg leading-relaxed mb-8 max-w-md"
+              className="text-center text-base md:text-lg leading-relaxed mb-8 max-w-md mx-auto"
               style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
             >
-              En Berry Munch seleccionamos las fresas más frescas y las bañamos en chocolate belga
-              premium. Cada bocado es una experiencia única, hecha con amor y los mejores
-              ingredientes.
+              En Berrymunch, diseñamos momentos de pausa. Creemos en la elegancia de los pocos
+              ingredientes cuando estos son excepcionales. Nuestra obsesión es el equilibrio: entre
+              lo amargo y lo dulce, entre la textura y la suavidad, entre la naturaleza y la
+              técnica.
             </p>
 
             <div className="relative mx-auto w-full max-w-sm">
