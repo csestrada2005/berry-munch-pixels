@@ -52,7 +52,7 @@ export function HeroSection() {
       />
 
       {/* Pistachio product card — upper right */}
-      <div className="relative md:absolute md:top-[44%] md:right-8 lg:right-16 z-40 mx-auto md:mx-0 mt-8 md:mt-0 max-w-[220px] px-6 md:px-0">
+      <div className="relative md:absolute md:top-[42%] md:right-6 lg:right-12 z-40 mx-auto md:mx-0 mt-6 md:mt-0 max-w-[170px] px-6 md:px-0">
         <div className="rounded-2xl bg-cream text-chocolate p-4 shadow-2xl">
           <img
             src={pistachioCup}
