@@ -5,6 +5,7 @@ import berriesCup from "@/assets/berries-cup.png";
 import callouts from "@/assets/callouts.png";
 import customers from "@/assets/customers.jpg";
 import marketDisplay from "@/assets/market-display.jpg";
+import berryCupMatcha from "@/assets/berry-cup-matcha.jpg";
 
 
 export function AboutSection() {
@@ -87,6 +88,16 @@ export function AboutSection() {
               <img
                 src={customers}
                 alt="Clientes felices disfrutando Berry Munch"
+                className="aspect-[4/3] w-full object-cover"
+              />
+            </div>
+            <div
+              className="bg-white p-3 pb-10 shadow-2xl w-56 md:w-64 lg:w-72 -mt-10 md:-mr-4 lg:-mr-8 animate-wiggle"
+              style={{ ["--wiggle-base" as string]: "4deg", animationDelay: "0.8s" }}
+            >
+              <img
+                src={berryCupMatcha}
+                alt="Vaso Berry Munch con chocolate, fresas y matcha"
                 className="aspect-[4/3] w-full object-cover"
               />
             </div>
