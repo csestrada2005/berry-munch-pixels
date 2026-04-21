@@ -65,25 +65,25 @@ export function AboutSection() {
           </div>
 
           {/* Right: polaroids stack */}
-          <div className="order-3 flex flex-col items-center md:pt-16 lg:pt-24">
+          <div className="order-3 flex flex-col items-center md:items-end md:pt-16 lg:pt-24 md:-mr-2 lg:-mr-6">
             <div
-              className="bg-chocolate p-3 pb-10 shadow-xl w-56 md:w-64 lg:w-72 animate-wiggle"
-              style={{ ["--wiggle-base" as string]: "3deg" }}
+              className="bg-white p-3 pb-10 shadow-2xl w-56 md:w-64 lg:w-72 animate-wiggle md:-mr-4 lg:-mr-8"
+              style={{ ["--wiggle-base" as string]: "4deg" }}
             >
               <img
                 src={marketDisplay}
                 alt="Mostrador con vasos de fresas y uvas"
-                className="aspect-square w-full object-cover"
+                className="aspect-[4/3] w-full object-cover"
               />
             </div>
             <div
-              className="bg-chocolate p-3 pb-10 shadow-xl w-56 md:w-64 lg:w-72 -mt-8 animate-wiggle"
-              style={{ ["--wiggle-base" as string]: "-2deg", animationDelay: "0.4s" }}
+              className="bg-white p-3 pb-10 shadow-2xl w-56 md:w-64 lg:w-72 -mt-10 md:mr-6 lg:mr-10 animate-wiggle"
+              style={{ ["--wiggle-base" as string]: "-5deg", animationDelay: "0.4s" }}
             >
               <img
                 src={customers}
                 alt="Clientes felices disfrutando Berry Munch"
-                className="aspect-square w-full object-cover"
+                className="aspect-[4/3] w-full object-cover"
               />
             </div>
           </div>
