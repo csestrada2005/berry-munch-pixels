@@ -73,8 +73,8 @@ export function HeroSection() {
       </div>
 
       {/* Outlined "THE BERRY SWEET" with cup centered behind */}
-      <div className="absolute bottom-24 md:bottom-20 left-0 right-0 z-10 px-4">
-        <p className="font-display font-black text-stroke text-cream/60 text-5xl md:text-8xl lg:text-9xl tracking-wider select-none leading-none text-center whitespace-nowrap">
+      <div className="absolute bottom-16 md:bottom-14 left-0 right-0 z-10 px-4">
+        <p className="font-display font-black text-stroke text-cream/60 text-4xl md:text-6xl lg:text-7xl tracking-wider select-none leading-none text-center whitespace-nowrap">
           THE BERRY SWEET
         </p>
       </div>
@@ -83,7 +83,7 @@ export function HeroSection() {
       <img
         src={berriesCup}
         alt="Vaso de fresas Berry Munch"
-        className="absolute bottom-8 md:bottom-4 left-1/2 -translate-x-1/2 w-56 md:w-72 lg:w-80 z-20 drop-shadow-2xl"
+        className="absolute bottom-4 md:bottom-2 left-1/2 -translate-x-1/2 w-40 md:w-52 lg:w-60 z-20 drop-shadow-2xl"
       />
 
       {/* Flavor labels */}
