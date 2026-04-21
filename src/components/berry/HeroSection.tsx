@@ -17,12 +17,12 @@ const flavors = [
 export function HeroSection() {
   return (
     <section className="relative min-h-[620px] md:min-h-[680px] lg:min-h-[720px] overflow-hidden bg-berry text-cream pt-24 pb-12">
-      {/* Floating strawberries background */}
+      {/* Floating strawberries surrounding the cup */}
       <img
         src={strawberriesFloating}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-25 mix-blend-screen z-0"
+        className="pointer-events-none absolute left-1/2 bottom-0 w-[40rem] md:w-[52rem] lg:w-[62rem] -translate-x-1/2 z-10 select-none"
       />
 
       {/* Wordmark — left aligned */}
