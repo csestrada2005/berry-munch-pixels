@@ -31,12 +31,12 @@ export function HeroSection() {
           <img
             src={berryMunchLogo}
             alt="Berry Munch"
-            className="w-64 md:w-80 lg:w-96 h-auto"
+            className="w-44 md:w-56 lg:w-64 h-auto"
           />
 
           <a
             href="#cuenta"
-            className="mt-6 inline-flex items-center rounded-full border-2 border-cream px-6 py-2 text-sm font-medium uppercase tracking-wider text-cream transition-colors hover:bg-cream hover:text-berry"
+            className="mt-4 inline-flex items-center rounded-full border-2 border-cream px-5 py-1.5 text-xs font-medium uppercase tracking-wider text-cream transition-colors hover:bg-cream hover:text-berry"
           >
             Mi Cuenta
           </a>
