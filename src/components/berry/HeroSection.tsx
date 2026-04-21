@@ -1,5 +1,6 @@
 import heroVideo from "@/assets/hero-video.mp4";
 import berryMunchLogo from "@/assets/berry-munch-logo.png";
+import { AccountButton } from "./AccountButton";
 
 export function HeroSection() {
   return (
@@ -23,6 +24,9 @@ export function HeroSection() {
             alt="Berry Munch"
             className="w-88 md:w-[28rem] lg:w-[32rem] h-auto -mt-32 md:-mt-40"
           />
+          <div className="-mt-28 md:-mt-36">
+            <AccountButton />
+          </div>
         </div>
       </div>
     </section>
