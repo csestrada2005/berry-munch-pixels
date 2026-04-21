@@ -1,10 +1,12 @@
 import { Plus } from "lucide-react";
 import { Marquee } from "./Marquee";
+import pistachioCup from "@/assets/pistachio-cup.png";
 
 const products = Array.from({ length: 4 }).map((_, i) => ({
   id: i,
   name: "Dubai Pistachio Strawberry",
   price: "$140.0",
+  image: pistachioCup,
 }));
 
 export function ProductsSection() {
@@ -23,9 +25,12 @@ export function ProductsSection() {
               key={p.id}
               className="rounded-2xl bg-cream text-chocolate p-4 shadow-xl transition-transform hover:-translate-y-1"
             >
-              <div className="aspect-square rounded-xl bg-berry/10 flex items-center justify-center text-5xl mb-3">
-                🥤
-              </div>
+              <img
+                src={p.image}
+                alt={p.name}
+                className="aspect-square w-full object-contain mb-3"
+              />
+
               <p className="font-display font-semibold text-sm">{p.name}</p>
               <div className="mt-2 flex items-center justify-between">
                 <span className="font-bold text-berry">{p.price}</span>
