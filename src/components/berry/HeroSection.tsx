@@ -83,8 +83,8 @@ export function HeroSection() {
       <img
         src={berriesCup}
         alt="Vaso de fresas con chocolate Berry Munch"
-        className="absolute bottom-4 md:bottom-2 left-1/2 w-80 md:w-[26rem] lg:w-[30rem] z-20 drop-shadow-2xl"
-        style={{ transform: "translateX(-50%) rotate(-8deg)" }}
+        className="absolute bottom-[calc(1rem+30px)] md:bottom-[calc(0.5rem+30px)] left-1/2 w-80 md:w-[26rem] lg:w-[30rem] z-20 drop-shadow-2xl"
+        style={{ transform: "translateX(-50%) rotate(-12deg)" }}
       />
 
       {/* Flavor labels */}
