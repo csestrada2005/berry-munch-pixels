@@ -1,6 +1,6 @@
 import { Instagram, Plus } from "lucide-react";
 import chocolatePourCup from "@/assets/chocolate-pour-cup.png";
-import berriesCup from "@/assets/berries-cup.png";
+import berriesCup from "@/assets/chocolate-berry-cup.png";
 import strawberriesFloating from "@/assets/strawberries-floating.png";
 import pistachioCup from "@/assets/pistachio-cup.png";
 import berryMunchLogo from "@/assets/berry-munch-logo.png";
