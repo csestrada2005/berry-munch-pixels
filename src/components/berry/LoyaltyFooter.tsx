@@ -59,7 +59,7 @@ export function LoyaltyFooter() {
         src={strawberrySplash}
         alt=""
         aria-hidden="true"
-        className="absolute -top-24 md:-top-40 -left-24 md:-left-48 w-80 md:w-[36rem] h-auto rotate-180 pointer-events-none select-none z-20 drop-shadow-2xl"
+        className="absolute -top-24 md:-top-40 -left-24 md:-left-48 w-80 md:w-[36rem] h-auto pointer-events-none select-none z-20 drop-shadow-2xl animate-sway"
       />
 
       <div id="cuenta" className="mx-auto max-w-6xl px-6 py-24 grid md:grid-cols-[1fr_auto_1fr] gap-10 items-center">
@@ -70,7 +70,7 @@ export function LoyaltyFooter() {
           <img
             src={berryLogo}
             alt="Berry Munch"
-            className="absolute -top-72 md:-top-80 left-1/2 -translate-x-1/2 w-96 md:w-[30rem] h-auto drop-shadow-xl pointer-events-none z-10"
+            className="absolute -top-72 md:-top-80 left-1/2 -translate-x-1/2 w-96 md:w-[30rem] h-auto drop-shadow-xl pointer-events-none z-10 animate-float"
           />
 
           <div
@@ -127,7 +127,7 @@ export function LoyaltyFooter() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-full bg-berry px-6 py-3 font-display font-bold tracking-wider text-cream transition-transform hover:scale-[1.02] disabled:opacity-60"
+              className="btn-fill w-full rounded-full bg-berry px-6 py-3 font-display font-bold tracking-wider text-cream transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-60"
             >
               {loading ? "ENVIANDO..." : "UNIRME!"}
             </button>
@@ -140,7 +140,7 @@ export function LoyaltyFooter() {
             UBICACIÓN
           </h3>
           <p className="flex items-start gap-3 text-cream/90 text-base leading-relaxed">
-            <MapPin size={22} className="mt-1 shrink-0" />
+            <MapPin size={22} className="mt-1 shrink-0 animate-bounce-soft" />
             Luxury Hall, Plaza Dorada, Parque Puebla
           </p>
         </div>
