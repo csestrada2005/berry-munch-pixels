@@ -25,20 +25,13 @@ export function AboutSection() {
         </p>
 
         <div className="grid md:grid-cols-3 gap-8 items-center">
-          {/* Receipt with strawberry-fork on top */}
+          {/* Receipt + strawberry-fork combined image */}
           <div className="flex justify-center">
-            <div className="relative w-60 md:w-64 -rotate-3 drop-shadow-xl">
-              <img
-                src={strawberryFork}
-                alt="Fresa con chocolate sobre tenedor"
-                className="absolute left-1/2 -translate-x-1/2 -top-32 md:-top-40 w-44 md:w-52 h-auto pointer-events-none select-none z-10"
-              />
-              <img
-                src={receipt}
-                alt="Recibo Berry Munch — The Berry Best"
-                className="relative w-full h-auto"
-              />
-            </div>
+            <img
+              src={receiptFork}
+              alt="Fresa con chocolate sobre recibo Berry Munch — The Berry Best"
+              className="w-52 md:w-60 -rotate-3 drop-shadow-xl"
+            />
           </div>
 
           {/* Center: berries cup with handwritten callouts */}
