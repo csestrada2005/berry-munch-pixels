@@ -3,6 +3,7 @@ import chocolatePourCup from "@/assets/chocolate-pour-cup.png";
 import berriesCup from "@/assets/berries-cup.png";
 import strawberriesFloating from "@/assets/strawberries-floating.png";
 import pistachioCup from "@/assets/pistachio-cup.png";
+import berryMunchLogo from "@/assets/berry-munch-logo.png";
 
 const flavors = [
   { label: "Lotus", rotate: -14, top: "58%", left: "8%", className: "" },
