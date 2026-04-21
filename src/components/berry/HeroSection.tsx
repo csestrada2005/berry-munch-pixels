@@ -83,7 +83,7 @@ export function HeroSection() {
       <img
         src={berriesCup}
         alt="Vaso de fresas con chocolate Berry Munch"
-        className="absolute bottom-[200px] md:bottom-[240px] left-1/2 w-[40rem] md:w-[52rem] lg:w-[60rem] z-20 drop-shadow-2xl"
+        className="absolute bottom-[80px] md:bottom-[110px] left-1/2 w-[28rem] md:w-[36rem] lg:w-[42rem] z-20 drop-shadow-2xl"
         style={{ transform: "translateX(-50%) rotate(-12deg)" }}
       />
 
