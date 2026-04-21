@@ -26,33 +26,33 @@ export function HeroSection() {
             alt="Berry Munch"
             className="w-88 md:w-[28rem] lg:w-[32rem] h-auto -mt-32 md:-mt-40"
           />
-          <div className="-mt-40 md:-mt-44 ml-8 md:ml-16">
+          <div className="-mt-24 md:-mt-28 ml-8 md:ml-16">
             <AccountButton />
           </div>
         </div>
       </div>
 
       {/* Producto destacado — Dubai Pistachio Strawberry */}
-      <div className="absolute right-4 md:right-10 bottom-6 md:bottom-10 z-30 w-56 md:w-72">
-        <div className="rounded-2xl bg-cream/95 backdrop-blur-sm shadow-2xl overflow-hidden">
-          <div className="bg-berry p-3 flex items-center justify-center">
-            <img
-              src={dubaiPistachio}
-              alt="Dubai Pistachio Strawberry"
-              className="h-32 md:h-40 w-auto object-contain"
-            />
-          </div>
-          <div className="p-3 md:p-4">
-            <p className="font-display font-bold text-sm md:text-base text-chocolate leading-tight">
+      <div className="absolute right-4 md:right-10 bottom-6 md:bottom-10 z-30 w-56 md:w-64">
+        <div className="relative rounded-2xl bg-berry shadow-2xl pt-20 md:pt-24">
+          {/* Imagen flotante que sobresale por arriba */}
+          <img
+            src={dubaiPistachio}
+            alt="Dubai Pistachio Strawberry"
+            className="absolute -top-12 md:-top-16 left-1/2 -translate-x-1/2 h-40 md:h-48 w-auto object-contain drop-shadow-xl pointer-events-none"
+          />
+          {/* Panel blanco inferior */}
+          <div className="rounded-2xl bg-cream px-4 py-4 md:px-5 md:py-5">
+            <p className="font-display font-bold text-base md:text-lg text-chocolate leading-tight">
               DUBAI PISTACHIO<br />STRAWBERRY
             </p>
-            <div className="mt-2 flex items-center justify-between">
-              <span className="font-bold text-base md:text-lg text-gold">$ 140.0</span>
+            <div className="mt-2 flex items-end justify-between">
+              <span className="font-bold text-lg md:text-xl text-[oklch(0.55_0.15_145)]">$ 140.0</span>
               <button
                 aria-label="Añadir Dubai Pistachio Strawberry"
-                className="flex h-9 w-9 items-center justify-center rounded-md bg-gold text-cream transition-transform hover:scale-110"
+                className="flex h-10 w-10 items-center justify-center rounded-md bg-[oklch(0.55_0.15_145)] text-cream transition-transform hover:scale-110 -mb-1 -mr-1"
               >
-                <Plus size={18} />
+                <Plus size={20} strokeWidth={3} />
               </button>
             </div>
           </div>
