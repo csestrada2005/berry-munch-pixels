@@ -1,61 +1,48 @@
 
 
-# Berry Munch Landing Page
+# Hero Section — Match Figma Reference
 
-A single-scrolling landing page matching the Figma design, with three main sections plus a functional loyalty form.
+Restructure `HeroSection.tsx` to mirror the screenshot exactly. Currently the layout is centered with the wordmark on top and the cup hanging below the outlined "THE BERRY SWEET" text. The reference shows a left-aligned wordmark with a chocolate splash arcing across the top-right, and the cup positioned BEHIND the outlined text, with the pistachio card on the upper-right (not bottom-right).
 
-## What you'll get
+## Layout changes
 
-**Section 1 — Hero (deep red)**
-- Top nav: Productos · Pedir · Sucursal (smooth-scroll anchors) on a cream pill bar
-- Big serif "Berry Munch" wordmark with strawberry logo
-- "Mi Cuenta" rounded outline button
-- Floating chocolate splash + strawberries + featured product card ("Dubai Pistachio Strawberry $140.0" with + button)
-- Decorative rotated flavor labels (Lotus, Pistache, Bombones, Pretzels, Mazapan, Nuez)
-- Outlined display text "THE BERRY SWEET" behind the central cup
-- Instagram icon bottom-right
+```text
+┌──────────────────────────────────────────────────┐
+│         [ Nav pill: Productos · Pedir · Sucursal ]│
+│                                                   │
+│  Berry🍓                  ╲╱chocolate splash╱╲    │
+│  Munch                    ╱  arc top→right    ╲   │
+│                              ┌──────────────┐    │
+│  ┌─────────┐                 │ pistachio    │    │
+│  │ MI      │                 │  cup card    │    │
+│  │ CUENTA  │                 │ Dubai Pist.. │    │
+│  └─────────┘                 │ $140.0    ⊕  │    │
+│                              └──────────────┘    │
+│        Lotus      strawberry                      │
+│   Pistache    🍓                                  │
+│ Bombones    🍓     🍓                             │
+│  THE  BE[ 🥤cup ]RY  SWEET   ← outline behind cup │
+│   Pretzels  🍓 Mazapán  Nuez                      │
+│                                            [ IG ]│
+└──────────────────────────────────────────────────┘
+```
 
-**Section 2 — ¿Quiénes Somos? (cream)**
-- Chocolate-drip border at top
-- Receipt graphic with "The Berry Best!" stamp
-- Strawberry cup with annotation callouts (Deep red, 100% disinfected, Flawless, Fresh)
-- Two polaroid photos (market display + happy customers)
-- Spanish brand description copy
+### Specific edits to `src/components/berry/HeroSection.tsx`
 
-**Section 3 — Marquee strip + Products (deep red)**
-- Scrolling/static marquee: "picked STRAWBERRIES & BELGIUM CHOCOLATE for those WHO taste WITH their IDEA"
-- "NUESTROS BERRY BESTS" heading
-- 4 product cards (all "Dubai Pistachio Strawberry $140.0" placeholder, swap later)
-- "se me antojan" CTA button
+1. **Wordmark** — left-aligned, two stacked lines "Berry" / "Munch" in serif italic, with a small strawberry icon next to "Berry". Add a "MI CUENTA" outlined pill button below the wordmark on the left.
+2. **Chocolate splash** (`chocolate-pour-cup.png`) — position absolute, top-right area, large (~60% width on desktop), arcing from top-center toward the right edge. The cup at the bottom of that PNG will overlap the central area.
+3. **Pistachio card** — move from bottom-right to upper-right, sitting under the splash's right tail. Keep the card design (cream bg, "Dubai Pistachio Strawberry", $140.0, + button).
+4. **"THE BERRY SWEET" outlined text** — large, full-width, positioned in the lower third. The central strawberry cup (`berries-cup.png`) sits in front of/centered on the "BE...RY" gap.
+5. **Strawberry cup** — replace the current `chocolatePourCup` center placement with `berries-cup.png` (strawberries cup), centered behind the outlined text.
+6. **Floating strawberries** (`strawberries-floating.png`) — keep as full-section background overlay, but tone down opacity so individual strawberries read clearly around the cup.
+7. **Flavor labels** — keep all 6 (Lotus, Pistache, Bombones, Pretzels, Mazapan, Nuez) but reposition tighter around the central cup area (mid-to-bottom of section), rotate angles per reference. "Pistache" in gold/accent color italic per reference.
+8. **Instagram icon** — keep bottom-right (already correct).
+9. **Background** — keep deep berry red.
 
-**Section 4 — Footer (strawberry photo bg)**
-- "Berry Munch" script wordmark
-- **Functional Loyalty Program form** (Nombres, Email, Comentarios → stored in Lovable Cloud) with toast confirmation
-- Ubicación + Contáctanos + social icons
-- Copyright 2026
+## Technical notes
 
-## Technical approach
-
-- **Stack**: TanStack Start, single route `src/routes/index.tsx`, smooth-scroll via `scroll-mt` + `#anchor`
-- **Design tokens** (`src/styles.css`): deep berry red `#7a1818`, cream `#f5ead4`, chocolate `#3d1f10`, gold accent `#c9a24a`. Fonts: serif display (Playfair Display) + script (Great Vibes for "Berry Munch" footer wordmark) + sans body (Inter), loaded via Google Fonts in `__root.tsx`
-- **Components** (`src/components/berry/`): `Nav`, `HeroSection`, `AboutSection`, `ProductsSection`, `LoyaltyFooter`, `ProductCard`, `Marquee`, `ChocolateDrip` (SVG)
-- **Loyalty form**: Lovable Cloud enabled → `loyalty_signups` table (id, name, email, comments, created_at) with public INSERT RLS policy; submit via Supabase client with toast feedback
-- **Images**: I'll wait for your uploads before generating — once you send them I'll copy into `src/assets/` and wire them in. In the meantime I'll build the layout with neutral placeholders so structure is correct
-- **Responsive**: Mobile stacks vertically; product grid 1→2→4 cols; nav collapses to hamburger under `md`
-- **SEO**: `head()` on index with title "Berry Munch — The Berry Sweet", Spanish description, og tags
-
-## What I still need from you
-
-Please upload these images (drag into chat):
-1. Chocolate splash PNG (hero)
-2. Strawberry cup with chocolate (hero center)
-3. Featured product card image (pistachio cup with hand)
-4. Receipt graphic (about section)
-5. Strawberry cup "Berries before Worries" (about section)
-6. Two polaroid photos (about section)
-7. 4 product cup cutouts (products section)
-8. Strawberry/chocolate background photo (footer)
-9. Berry Munch logo with strawberry (if you have a vector/PNG)
-
-I'll start building the layout and styles immediately, then drop your images in once they arrive.
+- Use absolute positioning within a `relative` hero container with explicit min-height (`min-h-screen` or `min-h-[900px]`).
+- Z-index layering: bg strawberries (z-0) → outlined text (z-10) → center cup (z-20) → splash (z-30) → wordmark/card/labels (z-40) → IG icon (z-50).
+- Keep responsive: on mobile, stack wordmark → splash+cup → product card → labels become decorative only (hide most).
+- No new files needed; only `HeroSection.tsx` is rewritten. Asset imports adjust to use `berries-cup.png` and keep `chocolate-pour-cup.png`, `strawberries-floating.png`, `pistachio-cup.png`.
 
