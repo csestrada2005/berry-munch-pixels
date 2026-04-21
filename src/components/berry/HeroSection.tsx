@@ -1,6 +1,6 @@
 import { Instagram, Plus } from "lucide-react";
 import chocolatePourCup from "@/assets/chocolate-pour-cup.png";
-import berriesCup from "@/assets/berries-cup.png";
+import berriesCup from "@/assets/chocolate-berry-cup.png";
 import strawberriesFloating from "@/assets/strawberries-floating.png";
 import pistachioCup from "@/assets/pistachio-cup.png";
 import berryMunchLogo from "@/assets/berry-munch-logo.png";
@@ -82,8 +82,9 @@ export function HeroSection() {
       {/* Center berry cup — in front of outlined text */}
       <img
         src={berriesCup}
-        alt="Vaso de fresas Berry Munch"
-        className="absolute bottom-4 md:bottom-2 left-1/2 -translate-x-1/2 w-40 md:w-52 lg:w-60 z-20 drop-shadow-2xl"
+        alt="Vaso de fresas con chocolate Berry Munch"
+        className="absolute bottom-4 md:bottom-2 left-1/2 w-80 md:w-[26rem] lg:w-[30rem] z-20 drop-shadow-2xl"
+        style={{ transform: "translateX(-50%) rotate(-8deg)" }}
       />
 
       {/* Flavor labels */}
