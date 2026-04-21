@@ -90,7 +90,7 @@ export function HeroSection() {
       {flavors.map((f) => (
         <span
           key={f.label}
-          className={`hidden md:block absolute font-display italic text-cream/85 text-2xl select-none z-40 ${f.className}`}
+          className={`hidden md:block absolute font-display italic text-cream/85 text-lg select-none z-40 ${f.className}`}
           style={{
             top: f.top,
             left: f.left,
