@@ -1,15 +1,17 @@
 import { Plus } from "lucide-react";
 import { Marquee } from "./Marquee";
+import dubaiPistachio from "@/assets/dubai-pistachio-strawberry.png";
 import cup1 from "@/assets/cup1.png";
 import cup2 from "@/assets/cup2.png";
 import cup3 from "@/assets/cup3.png";
 import cup4 from "@/assets/cup4.png";
 
 const products = [
-  { id: 1, name: "Dubai Pistachio Strawberry", price: "$140.0", image: cup1 },
-  { id: 2, name: "Berry Bite", price: "$140.0", image: cup2 },
-  { id: 3, name: "Berry Munch Classic", price: "$140.0", image: cup3 },
-  { id: 4, name: "Self Love Dosis", price: "$140.0", image: cup4 },
+  { id: 0, name: "Dubai Pistachio Strawberry", price: "$140.0", image: dubaiPistachio },
+  { id: 1, name: "Berry Bite", price: "$140.0", image: cup1 },
+  { id: 2, name: "Berry Munch Classic", price: "$140.0", image: cup2 },
+  { id: 3, name: "Self Love Dosis", price: "$140.0", image: cup3 },
+  { id: 4, name: "Berry Special", price: "$140.0", image: cup4 },
 ];
 
 export function ProductsSection() {
