@@ -19,12 +19,19 @@ export function AboutSection() {
       <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-32 md:-mt-48 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-8 md:gap-6 items-start">
           {/* Left: receipt-fork combined image — pegado al chocolate drip */}
-          <div className="order-2 md:order-1 flex justify-center md:justify-start md:-mt-12 lg:-mt-20 md:ml-2 lg:ml-4">
+          <div className="order-2 md:order-1 flex flex-col items-center md:items-start md:-mt-12 lg:-mt-20 md:ml-2 lg:ml-4">
             <img
               src={receiptFork}
               alt="Fresa con chocolate sobre recibo Berry Munch — The Berry Best"
               className="w-64 md:w-80 lg:w-96 -rotate-3 drop-shadow-xl"
             />
+            <div className="bg-cream-soft p-3 pb-8 shadow-xl -rotate-3 w-48 md:w-56 lg:w-64 -mt-4 md:-mt-6 md:ml-6 lg:ml-8">
+              <img
+                src={strawberryCupPour}
+                alt="Vaso de fresas con chocolate derretido cayendo — Berry Munch"
+                className="aspect-[4/5] w-full object-cover"
+              />
+            </div>
           </div>
 
           {/* Center: heading + paragraph + cup with callouts */}
