@@ -15,7 +15,7 @@ export function AboutSection() {
         className="block w-full h-auto -mt-px select-none pointer-events-none"
       />
 
-      <div className="mx-auto max-w-5xl px-6 py-12">
+      <div className="mx-auto max-w-5xl px-6 pt-2 pb-12 -mt-16 md:-mt-24 relative z-10">
         <h2 className="text-center font-display text-3xl md:text-5xl font-bold text-berry mb-3">
           ¿Quiénes Somos?
         </h2>
