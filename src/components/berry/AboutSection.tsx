@@ -1,19 +1,13 @@
 import chocolateDrip from "@/assets/chocolate-drip.png";
 import receipt from "@/assets/receipt.png";
-import pistachioCup from "@/assets/pistachio-cup.png";
-import hand from "@/assets/hand.png";
-
-const callouts = [
-  { label: "Deep red", side: "left" as const, top: "18%" },
-  { label: "100% disinfected", side: "right" as const, top: "32%" },
-  { label: "Flawless", side: "left" as const, top: "55%" },
-  { label: "Fresh", side: "right" as const, top: "70%" },
-];
+import berriesCup from "@/assets/berries-cup.png";
+import callouts from "@/assets/callouts.png";
+import customers from "@/assets/customers.jpg";
+import marketDisplay from "@/assets/market-display.jpg";
 
 export function AboutSection() {
   return (
     <section id="sucursal" className="relative bg-cream text-chocolate scroll-mt-24">
-      {/* Chocolate drip border */}
       <img
         src={chocolateDrip}
         alt=""
@@ -40,36 +34,37 @@ export function AboutSection() {
             />
           </div>
 
-          {/* Center cup with callouts */}
-          <div className="relative mx-auto w-72 h-96">
+          {/* Center: berries cup with handwritten callouts */}
+          <div className="relative mx-auto w-full max-w-sm">
             <img
-              src={pistachioCup}
-              alt="Dubai Pistachio Strawberry cup"
-              className="absolute inset-0 w-full h-full object-contain"
+              src={callouts}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-contain pointer-events-none"
             />
-            {callouts.map((c) => (
-              <div
-                key={c.label}
-                className="absolute hidden lg:flex items-center gap-2"
-                style={{
-                  top: c.top,
-                  [c.side === "left" ? "right" : "left"]: "100%",
-                }}
-              >
-                {c.side === "right" && <span className="w-10 h-px bg-chocolate" />}
-                <span className="whitespace-nowrap font-display italic text-sm">{c.label}</span>
-                {c.side === "left" && <span className="w-10 h-px bg-chocolate" />}
-              </div>
-            ))}
+            <img
+              src={berriesCup}
+              alt="Vaso de fresas frescas — Berries before Worries"
+              className="relative w-full h-auto"
+            />
           </div>
 
-          {/* Hand reaching */}
-          <div className="flex justify-center">
-            <img
-              src={hand}
-              alt="Mano alcanzando producto"
-              className="w-48 rotate-6 drop-shadow-xl"
-            />
+          {/* Polaroids stack */}
+          <div className="flex flex-col gap-6 items-center">
+            <div className="bg-cream-soft p-3 pb-8 shadow-xl rotate-3 w-48">
+              <img
+                src={marketDisplay}
+                alt="Mostrador con vasos de fresas y uvas"
+                className="aspect-square w-full object-cover"
+              />
+            </div>
+            <div className="bg-cream-soft p-3 pb-8 shadow-xl -rotate-3 w-48">
+              <img
+                src={customers}
+                alt="Clientes felices disfrutando Berry Munch"
+                className="aspect-square w-full object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>

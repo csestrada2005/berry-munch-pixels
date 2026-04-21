@@ -1,13 +1,16 @@
 import { Plus } from "lucide-react";
 import { Marquee } from "./Marquee";
-import pistachioCup from "@/assets/pistachio-cup.png";
+import cup1 from "@/assets/cup1.png";
+import cup2 from "@/assets/cup2.png";
+import cup3 from "@/assets/cup3.png";
+import cup4 from "@/assets/cup4.png";
 
-const products = Array.from({ length: 4 }).map((_, i) => ({
-  id: i,
-  name: "Dubai Pistachio Strawberry",
-  price: "$140.0",
-  image: pistachioCup,
-}));
+const products = [
+  { id: 1, name: "Dubai Pistachio Strawberry", price: "$140.0", image: cup1 },
+  { id: 2, name: "Berry Bite", price: "$140.0", image: cup2 },
+  { id: 3, name: "Berry Munch Classic", price: "$140.0", image: cup3 },
+  { id: 4, name: "Self Love Dosis", price: "$140.0", image: cup4 },
+];
 
 export function ProductsSection() {
   return (
@@ -30,7 +33,6 @@ export function ProductsSection() {
                 alt={p.name}
                 className="aspect-square w-full object-contain mb-3"
               />
-
               <p className="font-display font-semibold text-sm">{p.name}</p>
               <div className="mt-2 flex items-center justify-between">
                 <span className="font-bold text-berry">{p.price}</span>

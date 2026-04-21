@@ -1,6 +1,6 @@
 import { Instagram, Plus } from "lucide-react";
-import strawberryFork from "@/assets/strawberry-fork.png";
-import strawberriesSplash from "@/assets/strawberries-splash.png";
+import chocolatePourCup from "@/assets/chocolate-pour-cup.png";
+import strawberriesFloating from "@/assets/strawberries-floating.png";
 import pistachioCup from "@/assets/pistachio-cup.png";
 
 const flavors = [
@@ -15,12 +15,12 @@ const flavors = [
 export function HeroSection() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-berry text-cream pt-28 pb-20">
-      {/* Background strawberry splash */}
+      {/* Floating strawberries background */}
       <img
-        src={strawberriesSplash}
+        src={strawberriesFloating}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 m-auto w-[90%] max-w-3xl opacity-30 mix-blend-screen"
+        className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-screen"
       />
 
       {flavors.map((f) => (
@@ -43,16 +43,16 @@ export function HeroSection() {
           Berry Munch
         </h1>
 
-        <div className="mt-12 relative">
+        <div className="mt-8 relative">
           <p className="font-display font-black text-stroke text-cream/50 text-5xl md:text-7xl lg:text-8xl tracking-wider select-none leading-none">
             THE BERRY SWEET
           </p>
 
-          <div className="relative mx-auto mt-[-3rem] flex justify-center">
+          <div className="relative mx-auto mt-[-4rem] flex justify-center">
             <img
-              src={strawberryFork}
-              alt="Fresa con chocolate sobre tenedor"
-              className="w-56 md:w-72 lg:w-80 drop-shadow-2xl"
+              src={chocolatePourCup}
+              alt="Chocolate vertiéndose en un vaso Berry Munch"
+              className="w-64 md:w-80 lg:w-96 drop-shadow-2xl"
             />
           </div>
         </div>
