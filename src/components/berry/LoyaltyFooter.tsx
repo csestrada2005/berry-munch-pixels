@@ -46,7 +46,7 @@ export function LoyaltyFooter() {
   return (
     <footer
       id="pedir"
-      className="relative bg-berry-deep text-cream scroll-mt-24"
+      className="relative bg-berry-deep text-cream scroll-mt-24 overflow-visible"
       style={{
         backgroundImage: `linear-gradient(rgba(20,5,5,0.65), rgba(20,5,5,0.75)), url(${strawberryBg})`,
         backgroundSize: "cover",
@@ -54,6 +54,14 @@ export function LoyaltyFooter() {
         backgroundRepeat: "no-repeat",
       }}
     >
+      {/* Strawberry + chocolate splash peeking from the previous section */}
+      <img
+        src={strawberrySplash}
+        alt=""
+        aria-hidden="true"
+        className="absolute -top-24 md:-top-40 -left-10 md:-left-20 w-64 md:w-[28rem] h-auto pointer-events-none select-none z-20 drop-shadow-2xl"
+      />
+
       <div id="cuenta" className="mx-auto max-w-6xl px-6 py-24 grid md:grid-cols-[1fr_auto_1fr] gap-10 items-center">
         <div className="hidden md:block" />
 
