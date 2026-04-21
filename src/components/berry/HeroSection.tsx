@@ -13,7 +13,7 @@ export function HeroSection() {
         playsInline
         className="absolute inset-0 h-full w-full object-cover z-0"
       />
-      <div className="absolute inset-0 bg-berry/30 z-10" aria-hidden="true" />
+      <div className="absolute inset-0 bg-white/0 z-10" aria-hidden="true" />
 
       {/* Wordmark — left aligned */}
       <div className="relative z-40 mx-auto max-w-7xl px-6 md:px-10">
