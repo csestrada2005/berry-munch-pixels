@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Instagram, Facebook, MapPin, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import strawberryBg from "@/assets/strawberry-bg.png";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Nombre requerido").max(100),
@@ -45,35 +45,40 @@ export function LoyaltyFooter() {
       id="pedir"
       className="relative bg-berry-deep text-cream scroll-mt-24"
       style={{
-        backgroundImage:
-          "linear-gradient(rgba(60,15,15,0.85), rgba(60,15,15,0.95)), radial-gradient(circle at 20% 30%, oklch(0.45 0.18 25) 0%, transparent 50%), radial-gradient(circle at 80% 70%, oklch(0.3 0.1 30) 0%, transparent 50%)",
+        backgroundImage: `linear-gradient(rgba(20,5,5,0.65), rgba(20,5,5,0.75)), url(${strawberryBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <h2 className="text-center font-script text-7xl md:text-8xl text-cream mb-4">
-          Berry Munch
-        </h2>
-        <p className="text-center font-display italic text-lg mb-12 text-cream/80">
-          Únete a nuestro Programa de Lealtad
-        </p>
+      <div id="cuenta" className="mx-auto max-w-6xl px-6 py-24 flex items-center justify-center">
+        <div
+          className="w-full max-w-md rounded-3xl bg-cream/90 text-chocolate px-8 py-10 shadow-2xl backdrop-blur-sm"
+          style={{
+            outline: "2px dashed oklch(0.25 0.05 40 / 0.5)",
+            outlineOffset: "-12px",
+          }}
+        >
+          <h2 className="text-center font-display text-3xl md:text-4xl font-bold tracking-wide mb-8">
+            LOYALTY PROGRAM
+          </h2>
 
-        <div id="cuenta" className="grid md:grid-cols-2 gap-12 items-start">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="ln" className="block text-sm font-medium mb-1">
+              <label htmlFor="ln" className="block text-base font-bold mb-2">
                 Nombres
               </label>
               <Input
                 id="ln"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="bg-cream/10 border-cream/30 text-cream placeholder:text-cream/50"
-                placeholder="Tu nombre"
+                className="bg-cream-soft border-0 rounded-full h-11 px-4 text-chocolate placeholder:text-chocolate/40 shadow-inner"
+                placeholder="Enter your name"
                 maxLength={100}
               />
             </div>
             <div>
-              <label htmlFor="le" className="block text-sm font-medium mb-1">
+              <label htmlFor="le" className="block text-base font-bold mb-2">
                 Email
               </label>
               <Input
@@ -81,74 +86,37 @@ export function LoyaltyFooter() {
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="bg-cream/10 border-cream/30 text-cream placeholder:text-cream/50"
-                placeholder="tu@email.com"
+                className="bg-cream-soft border-0 rounded-full h-11 px-4 text-chocolate placeholder:text-chocolate/40 shadow-inner"
+                placeholder="Enter your email"
                 maxLength={255}
               />
             </div>
             <div>
-              <label htmlFor="lc" className="block text-sm font-medium mb-1">
+              <label htmlFor="lc" className="block text-base font-bold mb-2">
                 Comentarios
               </label>
               <Textarea
                 id="lc"
                 value={form.comments}
                 onChange={(e) => setForm({ ...form, comments: e.target.value })}
-                className="bg-cream/10 border-cream/30 text-cream placeholder:text-cream/50 min-h-24"
-                placeholder="Cuéntanos qué te gustaría ver..."
+                className="bg-cream-soft border-0 rounded-2xl min-h-20 px-4 py-2 text-chocolate placeholder:text-chocolate/40 shadow-inner resize-none"
                 maxLength={1000}
               />
             </div>
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-full bg-cream px-6 py-3 font-display font-semibold text-berry transition-transform hover:scale-[1.02] disabled:opacity-60"
+              className="w-full rounded-full bg-berry px-6 py-3 font-display font-bold tracking-wider text-cream transition-transform hover:scale-[1.02] disabled:opacity-60"
             >
-              {loading ? "Enviando..." : "Unirme al Berry Club"}
+              {loading ? "ENVIANDO..." : "UNIRME!"}
             </button>
           </form>
-
-          <div className="space-y-8">
-            <div>
-              <h3 className="font-display text-2xl font-bold mb-3">Ubicación</h3>
-              <p className="flex items-start gap-2 text-cream/90">
-                <MapPin size={18} className="mt-1 shrink-0" />
-                Av. Principal #123, Centro Comercial Berry, Local 4
-              </p>
-            </div>
-            <div>
-              <h3 className="font-display text-2xl font-bold mb-3">Contáctanos</h3>
-              <p className="flex items-center gap-2 text-cream/90">
-                <Phone size={18} /> +52 555 123 4567
-              </p>
-              <div className="mt-4 flex gap-3">
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-cream text-berry transition-transform hover:scale-110"
-                >
-                  <Instagram size={18} />
-                </a>
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Facebook"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-cream text-berry transition-transform hover:scale-110"
-                >
-                  <Facebook size={18} />
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <p className="mt-16 text-center text-sm text-cream/60">
-          © 2026 Berry Munch. Todos los derechos reservados.
-        </p>
       </div>
+
+      <p className="pb-6 text-center text-sm text-cream/70">
+        © 2026 Berry Munch. Todos los derechos reservados.
+      </p>
     </footer>
   );
 }
