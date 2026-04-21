@@ -15,27 +15,27 @@ export function AboutSection() {
         className="block w-full h-auto -mt-px select-none pointer-events-none"
       />
 
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <h2 className="text-center font-display text-4xl md:text-6xl font-bold text-berry mb-4">
+      <div className="mx-auto max-w-5xl px-6 py-12">
+        <h2 className="text-center font-display text-3xl md:text-5xl font-bold text-berry mb-3">
           ¿Quiénes Somos?
         </h2>
-        <p className="text-center max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-16">
+        <p className="text-center max-w-xl mx-auto text-sm md:text-base leading-relaxed mb-10">
           En Berry Munch seleccionamos las fresas más frescas y las bañamos en chocolate belga
           premium. Cada bocado es una experiencia única, hecha con amor y los mejores ingredientes.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-8 items-center">
+        <div className="grid md:grid-cols-3 gap-6 items-center">
           {/* Receipt */}
           <div className="flex justify-center">
             <img
               src={receipt}
               alt="Recibo Berry Munch — The Berry Best"
-              className="w-56 -rotate-3 drop-shadow-xl"
+              className="w-44 -rotate-3 drop-shadow-xl"
             />
           </div>
 
           {/* Center: berries cup with handwritten callouts */}
-          <div className="relative mx-auto w-full max-w-sm">
+          <div className="relative mx-auto w-full max-w-xs">
             <img
               src={callouts}
               alt=""
@@ -50,15 +50,15 @@ export function AboutSection() {
           </div>
 
           {/* Polaroids stack */}
-          <div className="flex flex-col gap-6 items-center">
-            <div className="bg-cream-soft p-3 pb-8 shadow-xl rotate-3 w-48">
+          <div className="flex flex-col gap-4 items-center">
+            <div className="bg-cream-soft p-2 pb-6 shadow-xl rotate-3 w-36">
               <img
                 src={marketDisplay}
                 alt="Mostrador con vasos de fresas y uvas"
                 className="aspect-square w-full object-cover"
               />
             </div>
-            <div className="bg-cream-soft p-3 pb-8 shadow-xl -rotate-3 w-48">
+            <div className="bg-cream-soft p-2 pb-6 shadow-xl -rotate-3 w-36">
               <img
                 src={customers}
                 alt="Clientes felices disfrutando Berry Munch"
