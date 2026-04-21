@@ -5,6 +5,7 @@ import berriesCup from "@/assets/berries-cup.png";
 import callouts from "@/assets/callouts.png";
 import customers from "@/assets/customers.jpg";
 import marketDisplay from "@/assets/market-display.jpg";
+import postBerry from "@/assets/post-berry.png";
 
 export function AboutSection() {
   return (
@@ -25,7 +26,10 @@ export function AboutSection() {
               alt="Fresa con chocolate sobre recibo Berry Munch — The Berry Best"
               className="w-64 md:w-80 lg:w-96 -rotate-3 drop-shadow-xl"
             />
-            <div className="bg-cream-soft p-3 pb-8 shadow-xl -rotate-3 w-48 md:w-56 lg:w-64 -mt-4 md:-mt-6 md:ml-6 lg:ml-8">
+            <div
+              className="bg-cream-soft p-3 pb-8 shadow-xl w-48 md:w-56 lg:w-64 -mt-4 md:-mt-6 md:ml-6 lg:ml-8 animate-wiggle"
+              style={{ ["--wiggle-base" as string]: "-3deg" }}
+            >
               <img
                 src={strawberryCupPour}
                 alt="Vaso de fresas con chocolate derretido cayendo — Berry Munch"
@@ -62,20 +66,32 @@ export function AboutSection() {
 
           {/* Right: polaroids stack */}
           <div className="order-3 flex flex-col items-center md:pt-4">
-            <div className="bg-cream-soft p-3 pb-8 shadow-xl rotate-3 w-48 md:w-52">
+            <div
+              className="bg-cream-soft p-3 pb-8 shadow-xl w-48 md:w-52 animate-wiggle"
+              style={{ ["--wiggle-base" as string]: "3deg" }}
+            >
               <img
                 src={marketDisplay}
                 alt="Mostrador con vasos de fresas y uvas"
                 className="aspect-square w-full object-cover"
               />
             </div>
-            <div className="bg-cream-soft p-3 pb-8 shadow-xl -rotate-2 w-48 md:w-52 -mt-8">
+            <div
+              className="bg-cream-soft p-3 pb-8 shadow-xl w-48 md:w-52 -mt-8 animate-wiggle"
+              style={{ ["--wiggle-base" as string]: "-2deg", animationDelay: "0.4s" }}
+            >
               <img
                 src={customers}
                 alt="Clientes felices disfrutando Berry Munch"
                 className="aspect-square w-full object-cover"
               />
             </div>
+            <img
+              src={postBerry}
+              alt="Berry Munch — post promocional"
+              className="mt-6 w-48 md:w-52 h-auto animate-wiggle"
+              style={{ ["--wiggle-base" as string]: "0deg", animationDelay: "0.2s" }}
+            />
           </div>
         </div>
       </div>
