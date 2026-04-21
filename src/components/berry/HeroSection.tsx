@@ -1,32 +1,98 @@
 import { Instagram, Plus } from "lucide-react";
 import chocolatePourCup from "@/assets/chocolate-pour-cup.png";
+import berriesCup from "@/assets/berries-cup.png";
 import strawberriesFloating from "@/assets/strawberries-floating.png";
 import pistachioCup from "@/assets/pistachio-cup.png";
 
 const flavors = [
-  { label: "Lotus", rotate: -18, top: "28%", left: "6%" },
-  { label: "Pistache", rotate: 12, top: "20%", right: "8%" },
-  { label: "Bombones", rotate: -8, top: "55%", left: "4%" },
-  { label: "Pretzels", rotate: 15, top: "60%", right: "6%" },
-  { label: "Mazapan", rotate: -22, top: "78%", left: "12%" },
-  { label: "Nuez", rotate: 18, top: "82%", right: "14%" },
+  { label: "Lotus", rotate: -14, top: "58%", left: "8%", className: "" },
+  { label: "Pistache", rotate: -8, top: "62%", left: "26%", className: "text-gold font-script not-italic text-4xl" },
+  { label: "Bombones", rotate: -6, top: "72%", left: "12%", className: "" },
+  { label: "Pretzels", rotate: 10, top: "60%", right: "22%", className: "" },
+  { label: "Mazapán", rotate: 14, top: "70%", right: "8%", className: "" },
+  { label: "Nuez", rotate: -10, top: "82%", right: "16%", className: "" },
 ];
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-berry text-cream pt-28 pb-20">
+    <section className="relative min-h-screen md:min-h-[900px] overflow-hidden bg-berry text-cream pt-28 pb-20">
       {/* Floating strawberries background */}
       <img
         src={strawberriesFloating}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-screen"
+        className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-25 mix-blend-screen z-0"
       />
 
+      {/* Wordmark — left aligned */}
+      <div className="relative z-40 mx-auto max-w-7xl px-6 md:px-10">
+        <div className="flex flex-col items-start">
+          <h1 className="font-display italic font-bold leading-[0.9] text-6xl md:text-8xl lg:text-9xl">
+            <span className="inline-flex items-baseline gap-3">
+              Berry
+              <span aria-hidden="true" className="text-5xl md:text-7xl">🍓</span>
+            </span>
+            <br />
+            Munch
+          </h1>
+
+          <a
+            href="#cuenta"
+            className="mt-6 inline-flex items-center rounded-full border-2 border-cream px-6 py-2 text-sm font-medium uppercase tracking-wider text-cream transition-colors hover:bg-cream hover:text-berry"
+          >
+            Mi Cuenta
+          </a>
+        </div>
+      </div>
+
+      {/* Chocolate splash — top right arcing */}
+      <img
+        src={chocolatePourCup}
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 right-0 w-[70%] md:w-[55%] lg:w-[50%] z-30 -translate-y-4"
+      />
+
+      {/* Pistachio product card — upper right */}
+      <div className="relative md:absolute md:top-[44%] md:right-8 lg:right-16 z-40 mx-auto md:mx-0 mt-8 md:mt-0 max-w-[220px] px-6 md:px-0">
+        <div className="rounded-2xl bg-cream text-chocolate p-4 shadow-2xl">
+          <img
+            src={pistachioCup}
+            alt="Dubai Pistachio Strawberry"
+            className="aspect-square w-full object-contain mb-3"
+          />
+          <p className="font-display font-semibold text-sm">Dubai Pistachio Strawberry</p>
+          <div className="mt-2 flex items-center justify-between">
+            <span className="font-bold text-berry">$140.0</span>
+            <button
+              aria-label="Añadir"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-berry text-cream transition-transform hover:scale-110"
+            >
+              <Plus size={16} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Outlined "THE BERRY SWEET" with cup centered behind */}
+      <div className="absolute bottom-24 md:bottom-20 left-0 right-0 z-10 px-4">
+        <p className="font-display font-black text-stroke text-cream/60 text-5xl md:text-8xl lg:text-9xl tracking-wider select-none leading-none text-center whitespace-nowrap">
+          THE BERRY SWEET
+        </p>
+      </div>
+
+      {/* Center berry cup — in front of outlined text */}
+      <img
+        src={berriesCup}
+        alt="Vaso de fresas Berry Munch"
+        className="absolute bottom-8 md:bottom-4 left-1/2 -translate-x-1/2 w-56 md:w-72 lg:w-80 z-20 drop-shadow-2xl"
+      />
+
+      {/* Flavor labels */}
       {flavors.map((f) => (
         <span
           key={f.label}
-          className="hidden md:block absolute font-display italic text-cream/80 text-2xl select-none z-10"
+          className={`hidden md:block absolute font-display italic text-cream/85 text-2xl select-none z-40 ${f.className}`}
           style={{
             top: f.top,
             left: f.left,
@@ -38,53 +104,12 @@ export function HeroSection() {
         </span>
       ))}
 
-      <div className="relative mx-auto max-w-6xl px-6 text-center z-10">
-        <h1 className="font-display text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight">
-          Berry Munch
-        </h1>
-
-        <div className="mt-8 relative">
-          <p className="font-display font-black text-stroke text-cream/50 text-5xl md:text-7xl lg:text-8xl tracking-wider select-none leading-none">
-            THE BERRY SWEET
-          </p>
-
-          <div className="relative mx-auto mt-[-4rem] flex justify-center">
-            <img
-              src={chocolatePourCup}
-              alt="Chocolate vertiéndose en un vaso Berry Munch"
-              className="w-64 md:w-80 lg:w-96 drop-shadow-2xl"
-            />
-          </div>
-        </div>
-
-        {/* Featured product card */}
-        <div className="mt-10 md:mt-0 md:absolute md:right-4 md:bottom-0 mx-auto md:mx-0 max-w-xs">
-          <div className="rounded-2xl bg-cream text-chocolate p-4 shadow-2xl">
-            <img
-              src={pistachioCup}
-              alt="Dubai Pistachio Strawberry"
-              className="aspect-square w-full object-contain mb-3"
-            />
-            <p className="font-display font-semibold text-sm">Dubai Pistachio Strawberry</p>
-            <div className="mt-2 flex items-center justify-between">
-              <span className="font-bold text-berry">$140.0</span>
-              <button
-                aria-label="Añadir"
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-berry text-cream transition-transform hover:scale-110"
-              >
-                <Plus size={16} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <a
         href="https://instagram.com"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Instagram"
-        className="absolute bottom-6 right-6 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-cream text-berry transition-transform hover:scale-110"
+        className="absolute bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-cream text-berry transition-transform hover:scale-110"
       >
         <Instagram size={22} />
       </a>
