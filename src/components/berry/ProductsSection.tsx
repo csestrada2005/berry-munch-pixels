@@ -45,7 +45,7 @@ export function ProductsSection() {
                 <img
                   src={p.image}
                   alt={p.name}
-                  className="absolute -top-24 md:-top-28 left-1/2 -translate-x-1/2 h-44 md:h-52 lg:h-56 w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg]"
+                  className={`absolute -top-24 md:-top-28 left-1/2 -translate-x-1/2 ${p.imgClass} w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg]`}
                 />
 
                 {/* Bottom info panel (cream) */}
