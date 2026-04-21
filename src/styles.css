@@ -106,4 +106,15 @@
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
+
+  .animate-wiggle {
+    animation: wiggle 2.8s ease-in-out infinite;
+    transform-origin: center top;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(var(--wiggle-base, 0deg)); }
+    25% { transform: rotate(calc(var(--wiggle-base, 0deg) + 2deg)); }
+    75% { transform: rotate(calc(var(--wiggle-base, 0deg) - 2deg)); }
+  }
 }
