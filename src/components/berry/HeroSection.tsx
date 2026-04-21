@@ -28,14 +28,11 @@ export function HeroSection() {
       {/* Wordmark — left aligned */}
       <div className="relative z-40 mx-auto max-w-7xl px-6 md:px-10">
         <div className="flex flex-col items-start">
-          <h1 className="font-display italic font-bold leading-[0.9] text-6xl md:text-8xl lg:text-9xl">
-            <span className="inline-flex items-baseline gap-3">
-              Berry
-              <span aria-hidden="true" className="text-5xl md:text-7xl">🍓</span>
-            </span>
-            <br />
-            Munch
-          </h1>
+          <img
+            src={berryMunchLogo}
+            alt="Berry Munch"
+            className="w-64 md:w-80 lg:w-96 h-auto"
+          />
 
           <a
             href="#cuenta"
