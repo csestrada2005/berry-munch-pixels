@@ -3,7 +3,7 @@ import berryMunchLogo from "@/assets/berry-munch-logo.png";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[480px] md:min-h-[540px] lg:min-h-[600px] overflow-hidden bg-berry text-cream pt-20 pb-12">
+    <section className="relative min-h-[480px] md:min-h-[540px] lg:min-h-[600px] overflow-hidden bg-white text-cream pt-20 pb-12">
       {/* Background video */}
       <video
         src={heroVideo}
@@ -13,7 +13,7 @@ export function HeroSection() {
         playsInline
         className="absolute inset-0 h-full w-full object-cover z-0"
       />
-      <div className="absolute inset-0 bg-berry/30 z-10" aria-hidden="true" />
+      <div className="absolute inset-0 bg-white/0 z-10" aria-hidden="true" />
 
       {/* Wordmark — left aligned */}
       <div className="relative z-40 mx-auto max-w-7xl px-6 md:px-10">
