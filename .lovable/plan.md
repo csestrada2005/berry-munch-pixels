@@ -1,88 +1,84 @@
 
 
-# Playful UI Effects — Berry Munch
+# 5 Sweet Interactions — Feasibility & Plan
 
-Goal: turn the site into a fun, tactile experience that feels like a candy shop. Effects below are grouped by section, each is lightweight (CSS/Framer Motion) and on-brand (berry red, cream, chocolate, gold).
-
----
-
-## 1. Global / Cross-section
-
-- **Custom cursor**: small chocolate drip or strawberry follows the cursor on desktop; scales up on hover over interactive elements.
-- **Scroll-triggered reveals**: fade-up + slight rotate on section entry using Intersection Observer (no heavy library needed).
-- **Sprinkle confetti burst**: tiny strawberry + chocolate chip particles emit from any "+" / CTA button on click.
-- **Page transition**: a chocolate drip wipe (already have `ChocolateDrip`) between route/section transitions.
-- **Smooth-scroll easing**: replace native smooth-scroll with eased Lenis-style scroll for buttery feel.
-
-## 2. Hero Section
-
-- **Parallax cup**: the "Dubai Pistachio Strawberry" floats and tilts subtly with mouse movement (mousemove → translate/rotate).
-- **Wiggle on idle**: cup wiggles every ~4s (reuse existing `animate-wiggle`).
-- **Logo entrance**: Berry Munch wordmark drops in with a bounce + slight squash-and-stretch.
-- **Hover on cup card**: card lifts, shadow deepens, "+" button pulses with a heartbeat.
-- **Video tint pulse**: very subtle saturate breathing animation on the background video.
-
-## 3. Navigation (Ribbon)
-
-- **Hover**: each link grows slightly, an underline made of tiny dots (•••) draws in left-to-right.
-- **Active link**: small strawberry icon hops above the active section link as you scroll.
-- **Mobile menu**: opens with a "ribbon unrolling" effect (scaleY from top).
-
-## 4. Marquee
-
-- **Hover-pause**: marquee slows to 25% speed on hover.
-- **Star bounce**: every ★ in the marquee gently bounces and rotates on its own offset.
-- **Click a word**: triggers a tiny sparkle burst at cursor.
-
-## 5. Products Section ("Berry Bests")
-
-- **Card tilt**: 3D tilt on mouse move (max 8°), cup rotates opposite direction for depth.
-- **Hover lift**: card rises, sparkle lines above the cup animate (twinkle: opacity + scale loop).
-- **Cup spin on hover**: cup rotates from +6° to -6° playfully.
-- **"+" button**: on click, button squashes, a small "+1" floats up and fades, then a strawberry confetti burst.
-- **Price flip**: price flips like a flip-clock when hovered.
-- **Section heading**: "NUESTROS BERRY BESTS" letters drop in one by one with a bounce on scroll into view.
-- **CTA "se me antojan →"**: arrow wiggles continuously; on hover the whole pill jiggles and a strawberry rolls in from the left.
-
-## 6. Loyalty Footer
-
-- **Strawberry splash**: gentle sway animation (rotate ±3°) so it feels alive.
-- **Form field focus**: input border becomes a dashed chocolate stroke that "draws" around it; placeholder slides up like a floating label.
-- **Submit button**: on click, button fills left-to-right with chocolate, then bursts confetti on success; toast slides in with a strawberry icon.
-- **Logo above card**: subtle floating animation (translateY loop, 4s).
-- **Map pin**: bounces softly on a 3s loop; on hover, a tiny "📍" pulses.
-
-## 7. Micro-interactions Library
-
-A small reusable set added under `src/components/berry/fx/`:
-- `<Tilt />` — 3D mouse tilt wrapper.
-- `<Sparkle />` — twinkle SVG used on cards and buttons.
-- `<ConfettiBurst />` — emits strawberry/chocolate/sprinkle particles from a point.
-- `<Reveal />` — IntersectionObserver-based fade/slide-up.
-- `<MagneticButton />` — buttons subtly attract the cursor.
-- `useCursor()` — hook powering the custom cursor.
+All 5 are implementable. Below: feasibility check + the exact approach I'll use, with adjustments where the original spec needs tweaking.
 
 ---
 
-## Technical notes
+## 1. Willy Wonka Scroll Drip ✅ (with adjustment)
 
-- **Library**: add `framer-motion` for orchestrated animations and `@react-three/...`-free tilt (custom hook with rAF). No heavy 3D deps.
-- **Performance**: gate cursor + parallax + tilt behind `matchMedia('(pointer: fine)')` and `prefers-reduced-motion`.
-- **Accessibility**: every animation respects `@media (prefers-reduced-motion: reduce)`.
-- **Keyframes**: extend `src/styles.css` with `twinkle`, `float`, `bounce-soft`, `jiggle`, `draw-underline`, `unfurl`.
-- **Confetti**: hand-rolled with absolutely-positioned divs + framer-motion (no canvas-confetti dependency needed for the volume we need).
+**Feasibility**: Works, but `chocolate-drip.png` does not exist in assets — only `ChocolateDrip.tsx` (an inline SVG). I'll use the existing SVG and stretch it via `scaleY` on scroll.
+
+**How**:
+- In `ChocolateDrip.tsx`, accept an optional `scrollContainer` ref/sentinel.
+- Use `useScroll({ target, offset: ["start end", "end start"] })` + `useTransform` to map progress → `scaleY` from `1` → `2.2` and add a slight `y` offset.
+- Apply via `motion.svg` with `transformOrigin: "top"` so it stretches downward.
+- Use `useSpring` to smooth the value (settles when scroll stops).
+- Mount inside `AboutSection.tsx` at the top edge so it visually drips into the section.
+
+## 2. Squish & Pop Hover Physics ✅
+
+**Feasibility**: Direct fit. Current `Tilt.tsx` uses raw DOM transforms which conflict with framer-motion. I'll convert it to a `motion.div` so spring + tilt coexist.
+
+**How**:
+- Refactor `Tilt.tsx` to use `motion.div` with `useMotionValue` for `rotateX/rotateY` (mouse tilt) and add `whileHover={{ scale: 0.97 }}` / `whileTap={{ scale: 0.92 }}` with `transition={{ type: "spring", stiffness: 400, damping: 10 }}`.
+- Keeps existing API (`children`, `className`, `max`) so `ProductsSection.tsx` needs no change for this part.
+
+## 3. Sweet Victory Cart Explosion ✅
+
+**Feasibility**: Direct fit.
+
+**How**:
+- Extend `ConfettiBurst.tsx` props: `colors?: string[]`, `count?: number`.
+- New default palette: `["#4A2511", "#7B3F00", "#E23D28", "#FF6B6B"]`.
+- Increase particle variety (mix of round dots + small rounded rects for "chocolate chunks").
+- `ProductsSection.tsx` already calls `ConfettiBurst` per card — confirm trigger remains on `+ Añadir`. Reposition burst origin to emit from the button itself (absolute container around button) instead of card-center.
+
+## 4. Floating Parallax Ingredients ⚠️ (asset missing — fallback)
+
+**Feasibility**: `strawberries-floating.png` does not exist in `src/assets/`. Two options:
+- **(A) Use existing** `strawberry-splash.png` + `dubai-pistachio-strawberry.png` as floating layers (no new asset needed).
+- **(B)** Generate/add a new transparent PNG.
+
+**Plan**: Go with **(A)** — place 2–3 existing strawberry PNGs absolutely positioned in the hero background at low opacity, each moving via `useScroll` + `useTransform` at different speeds (15%, 30%, 45%) for depth. The hero video stays as the base layer; floating fruit sits between video and content with `pointer-events-none`.
+
+If you prefer a single dedicated `strawberries-floating.png`, say so and I'll generate one instead.
+
+## 5. "Bite" Cursor ⚠️ (adjusted approach)
+
+**Feasibility**: Pure CSS `cursor: url(...)` works for static SVGs but **cannot animate on `:active`** (browsers don't re-render cursor images on state change reliably, and emoji-as-cursor has poor cross-browser support).
+
+**Plan**: Build a `CustomCursor.tsx` component:
+- Hide native cursor (`cursor: none`) only on `(pointer: fine)` devices.
+- Render a fixed-position 🍓 element that follows mouse via `useMotionValue` + `useSpring` (smooth trailing).
+- Detects hover over `button, a, [role="button"]` via `mouseover`/`mouseout` delegation → scales up + swaps to 🥄.
+- On `mousedown` → tilts/scales down (the "bite") via `whileTap`-style state.
+- Respects `prefers-reduced-motion` and touch devices (renders nothing).
+- Mounted in `src/routes/__root.tsx`.
 
 ---
 
-## Suggested rollout order
+## Files touched
 
-1. Foundation: `framer-motion`, `<Reveal />`, reduced-motion guard, new keyframes.
-2. Hero: parallax cup, logo bounce, "+" pulse + confetti.
-3. Products: tilt + hover lift + sparkle twinkle + "+1" float + heading letter drop.
-4. Nav: dot underline, active strawberry hop, mobile unfurl.
-5. Marquee: hover-pause, star bounce.
-6. Loyalty: floating logo, swaying splash, draw-on focus, fill-up submit.
-7. Polish: custom cursor, magnetic buttons, page-level chocolate drip transition.
+| File | Change |
+|---|---|
+| `src/components/berry/ChocolateDrip.tsx` | Convert to motion.svg, add scroll-driven scaleY |
+| `src/components/berry/AboutSection.tsx` | Mount drip with scroll target ref |
+| `src/components/berry/fx/Tilt.tsx` | Rewrite with motion.div + spring squish |
+| `src/components/berry/fx/ConfettiBurst.tsx` | Add `colors` prop, new defaults, chunk shapes |
+| `src/components/berry/ProductsSection.tsx` | Move burst origin to button |
+| `src/components/berry/HeroSection.tsx` | Add parallax strawberry layers |
+| `src/components/berry/CustomCursor.tsx` | NEW — global cursor |
+| `src/routes/__root.tsx` | Mount `<CustomCursor />` |
+| `src/styles.css` | `cursor: none` on fine pointers, hide on touch |
 
-Ask: want all 7 phases, or start with phases 1–3 (highest impact: hero + products) and iterate?
+No new dependencies needed — `framer-motion` is already installed.
+
+## Performance & a11y
+
+- All scroll/mouse handlers use `useMotionValue` (no React re-renders).
+- `useSpring` damping keeps everything 60fps.
+- Cursor + parallax + tilt gated behind `matchMedia('(pointer: fine)')` and `prefers-reduced-motion: reduce`.
+- Confetti capped at 16 particles, auto-cleaned after 800ms.
 
