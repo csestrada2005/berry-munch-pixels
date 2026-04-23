@@ -67,11 +67,11 @@ export function HeroCursor({ containerRef }: Props) {
       transition={{ duration: 0.2 }}
       className="pointer-events-none fixed left-0 top-0 z-[9999]"
     >
-      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-chocolate shadow-2xl ring-2 ring-cream/30">
+      <div className="flex h-28 w-28 items-center justify-center rounded-full bg-chocolate shadow-2xl ring-2 ring-cream/30">
         <img
           src={berryMunchLogo}
           alt=""
-          className="h-14 w-14 object-contain"
+          className="h-24 w-24 object-contain"
           draggable={false}
         />
       </div>
