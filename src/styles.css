@@ -302,6 +302,15 @@
     transform: translateX(0);
   }
 
+  /* Custom cursor — hide native cursor on fine pointers when active */
+  @media (pointer: fine) {
+    html.custom-cursor-active,
+    html.custom-cursor-active body,
+    html.custom-cursor-active * {
+      cursor: none !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-twinkle,
     .animate-float,
