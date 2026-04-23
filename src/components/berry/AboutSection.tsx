@@ -9,11 +9,14 @@ import marketDisplay from "@/assets/market-display.jpg";
 import berryCupMatcha from "@/assets/berry-cup-matcha.jpg";
 import { ChocolateDrip } from "./ChocolateDrip";
 
-
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
   return (
-    <section id="sucursal" ref={sectionRef} className="relative bg-cream text-chocolate scroll-mt-24">
+    <section
+      id="sucursal"
+      ref={sectionRef}
+      className="relative bg-cream text-chocolate scroll-mt-24"
+    >
       <img
         src={chocolateDrip}
         alt=""
@@ -27,7 +30,7 @@ export function AboutSection() {
 
       <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-32 md:-mt-48 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-8 md:gap-6 items-start">
-          {/* Left: receipt-fork combined image — pegado al chocolate drip */}
+          {/* Left: receipt-fork combined image */}
           <div className="order-2 md:order-1 flex flex-col items-center md:items-start md:-mt-12 lg:-mt-20 md:-ml-6 lg:-ml-12">
             <img
               src={receiptFork}
@@ -46,7 +49,7 @@ export function AboutSection() {
             </div>
           </div>
 
-          {/* Center: heading + paragraph + cup with callouts */}
+          {/* Center */}
           <div className="order-1 md:order-2 flex flex-col items-center md:-ml-6 lg:-ml-10 md:pl-[70px]">
             <h2 className="self-start font-display text-4xl md:text-5xl lg:text-6xl font-bold text-berry mb-4 text-left whitespace-nowrap uppercase tracking-tight">
               ¿Quiénes Somos?
