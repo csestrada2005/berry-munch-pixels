@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Marquee } from "./Marquee";
 import { Tilt } from "./fx/Tilt";
 import { ConfettiBurst } from "./fx/ConfettiBurst";
@@ -14,30 +15,34 @@ const products = [
   { id: 4, name: "Berry Marshmallow", price: "$ 140.0", image: cup6, imgClass: "h-32 md:h-36 lg:h-40", topClass: "-top-2 md:-top-1", sparkleClass: "-top-12 md:-top-14" },
 ];
 
-const heading = "NUESTROS BERRY BESTS";
-
 export function ProductsSection() {
   const [bursts, setBursts] = useState<Record<number, boolean>>({});
   const [floats, setFloats] = useState<Array<{ id: number; pid: number }>>([]);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const [headingVisible, setHeadingVisible] = useState(false);
   const floatId = useRef(0);
 
-  useEffect(() => {
-    const el = headingRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setHeadingVisible(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.4 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  // Outer wrapper drives scroll progress for the expanding background.
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: wrapperRef,
+    offset: ["start end", "end start"],
+  });
+
+  // 0 → 0.25 : background expands from small square to full screen
+  // 0.25 → 0.35 : title fades in
+  // 0.30 → 0.45 : cards 1 & 2 slide in
+  // 0.45 → 0.60 : cards 3 & 4 slide in
+  const bgScale = useTransform(scrollYProgress, [0, 0.25], [0.35, 1]);
+  const bgRadius = useTransform(scrollYProgress, [0, 0.25], [48, 0]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.05], [0, 1]);
+
+  const titleOpacity = useTransform(scrollYProgress, [0.22, 0.32], [0, 1]);
+  const titleY = useTransform(scrollYProgress, [0.22, 0.32], [30, 0]);
+
+  const firstPairOpacity = useTransform(scrollYProgress, [0.30, 0.42], [0, 1]);
+  const firstPairY = useTransform(scrollYProgress, [0.30, 0.42], [80, 0]);
+
+  const secondPairOpacity = useTransform(scrollYProgress, [0.45, 0.60], [0, 1]);
+  const secondPairY = useTransform(scrollYProgress, [0.45, 0.60], [80, 0]);
 
   function handleAdd(pid: number) {
     setBursts((b) => ({ ...b, [pid]: true }));
@@ -53,90 +58,110 @@ export function ProductsSection() {
     <section id="productos" className="bg-berry text-cream scroll-mt-24">
       <Marquee />
 
-      <div id="pedir" className="mx-auto max-w-6xl px-6 py-20 scroll-mt-24">
-        <h2
-          ref={headingRef}
-          className={`text-center font-display text-4xl md:text-6xl font-bold mb-20 tracking-wide ${headingVisible ? "animate-letter-drop" : ""}`}
-          aria-label={heading}
-        >
-          {headingVisible
-            ? heading.split("").map((c, i) => (
-                <span key={i} style={{ animationDelay: `${i * 35}ms` }}>
-                  {c === " " ? "\u00A0" : c}
-                </span>
-              ))
-            : <span style={{ opacity: 0 }}>{heading}</span>}
-        </h2>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
-          {products.map((p) => (
-            <Tilt key={p.id} className="relative pt-28 md:pt-32 group">
-              <div className="relative rounded-2xl bg-white/5 ring-2 ring-white pt-20 md:pt-24 shadow-xl transition-shadow duration-300 group-hover:shadow-2xl">
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 80 40"
-                  className={`absolute ${p.sparkleClass} left-1/2 -translate-x-1/2 w-16 md:w-20 h-8 md:h-10 text-cream pointer-events-none animate-twinkle`}
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                >
-                  <line x1="14" y1="30" x2="6" y2="10" />
-                  <line x1="40" y1="28" x2="40" y2="4" />
-                  <line x1="66" y1="30" x2="74" y2="10" />
-                </svg>
-
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className={`absolute ${p.topClass} left-1/2 -translate-x-1/2 ${p.imgClass} w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg] z-10 transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110`}
-                />
-
-                <div className="h-20 md:h-24" />
-
-                <div className="rounded-b-2xl bg-cream text-chocolate px-4 py-5 text-center relative">
-                  <p className="font-display font-bold text-sm md:text-base uppercase leading-tight tracking-wide">
-                    {p.name}
-                  </p>
-                  <p className="mt-2 font-bold text-base md:text-lg text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
-                    {p.price}
-                  </p>
-                  {floats
-                    .filter((f) => f.pid === p.id)
-                    .map((f) => (
-                      <span
-                        key={f.id}
-                        className="pointer-events-none absolute left-1/2 top-2 -translate-x-1/2 font-bold text-berry text-lg"
-                        style={{
-                          animation: "float-up 0.8s ease-out forwards",
-                        }}
-                      >
-                        +1
-                      </span>
-                    ))}
-                  <div className="relative inline-block mt-3">
-                    <ConfettiBurst show={!!bursts[p.id]} />
-                    <button
-                      onClick={() => handleAdd(p.id)}
-                      aria-label={`Añadir ${p.name}`}
-                      className="inline-flex items-center justify-center rounded-full bg-berry px-4 py-1.5 text-cream text-sm font-bold transition-transform hover:scale-110 active:scale-90"
-                    >
-                      + Añadir
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </Tilt>
-          ))}
+      {/* Scroll-driven expanding background wrapper */}
+      <div ref={wrapperRef} className="relative">
+        {/* Sticky stage holds the expanding cream square */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none">
+          <motion.div
+            style={{
+              scale: bgScale,
+              opacity: bgOpacity,
+              borderRadius: bgRadius,
+            }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-screen w-screen bg-cream origin-center"
+          />
         </div>
 
-        <div className="mt-16 text-center">
-          <a
-            href="#loyalty"
-            className="hover-jiggle inline-flex items-center rounded-full bg-cream px-8 py-3 font-display italic text-lg text-berry transition-transform"
-          >
-            se me antojan <span className="ml-2 animate-arrow">→</span>
-          </a>
+        {/* Content sits above the sticky background */}
+        <div className="relative -mt-screen" style={{ marginTop: "-100vh" }}>
+          <div id="pedir" className="relative mx-auto max-w-6xl px-6 pt-[40vh] pb-32 scroll-mt-24">
+            <motion.h2
+              style={{ opacity: titleOpacity, y: titleY }}
+              className="text-center font-display text-4xl md:text-6xl font-bold mb-20 tracking-wide text-berry"
+            >
+              NUESTROS BERRY BESTS
+            </motion.h2>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+              {products.map((p, i) => {
+                const inFirstPair = i < 2;
+                return (
+                  <motion.div
+                    key={p.id}
+                    style={{
+                      opacity: inFirstPair ? firstPairOpacity : secondPairOpacity,
+                      y: inFirstPair ? firstPairY : secondPairY,
+                    }}
+                  >
+                    <Tilt className="relative pt-28 md:pt-32 group">
+                      <div className="relative rounded-2xl bg-berry/5 ring-2 ring-berry pt-20 md:pt-24 shadow-xl transition-shadow duration-300 group-hover:shadow-2xl">
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 80 40"
+                          className={`absolute ${p.sparkleClass} left-1/2 -translate-x-1/2 w-16 md:w-20 h-8 md:h-10 text-berry pointer-events-none animate-twinkle`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                        >
+                          <line x1="14" y1="30" x2="6" y2="10" />
+                          <line x1="40" y1="28" x2="40" y2="4" />
+                          <line x1="66" y1="30" x2="74" y2="10" />
+                        </svg>
+
+                        <img
+                          src={p.image}
+                          alt={p.name}
+                          className={`absolute ${p.topClass} left-1/2 -translate-x-1/2 ${p.imgClass} w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg] z-10 transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110`}
+                        />
+
+                        <div className="h-20 md:h-24" />
+
+                        <div className="rounded-b-2xl bg-cream-soft text-chocolate px-4 py-5 text-center relative">
+                          <p className="font-display font-bold text-sm md:text-base uppercase leading-tight tracking-wide">
+                            {p.name}
+                          </p>
+                          <p className="mt-2 font-bold text-base md:text-lg text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
+                            {p.price}
+                          </p>
+                          {floats
+                            .filter((f) => f.pid === p.id)
+                            .map((f) => (
+                              <span
+                                key={f.id}
+                                className="pointer-events-none absolute left-1/2 top-2 -translate-x-1/2 font-bold text-berry text-lg"
+                                style={{ animation: "float-up 0.8s ease-out forwards" }}
+                              >
+                                +1
+                              </span>
+                            ))}
+                          <div className="relative inline-block mt-3">
+                            <ConfettiBurst show={!!bursts[p.id]} />
+                            <button
+                              onClick={() => handleAdd(p.id)}
+                              aria-label={`Añadir ${p.name}`}
+                              className="inline-flex items-center justify-center rounded-full bg-berry px-4 py-1.5 text-cream text-sm font-bold transition-transform hover:scale-110 active:scale-90"
+                            >
+                              + Añadir
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </Tilt>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="mt-16 text-center">
+              <a
+                href="#loyalty"
+                className="hover-jiggle inline-flex items-center rounded-full bg-berry px-8 py-3 font-display italic text-lg text-cream transition-transform"
+              >
+                se me antojan <span className="ml-2 animate-arrow">→</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
