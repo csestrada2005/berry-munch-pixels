@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import chocolateDrip from "@/assets/chocolate-drip.png";
 import receiptFork from "@/assets/receipt-fork.png";
 import strawberryCupPour from "@/assets/strawberry-cup-pour.jpg";
@@ -6,17 +7,25 @@ import callouts from "@/assets/callouts.png";
 import customers from "@/assets/customers.jpg";
 import marketDisplay from "@/assets/market-display.jpg";
 import berryCupMatcha from "@/assets/berry-cup-matcha.jpg";
+import { ChocolateDrip } from "./ChocolateDrip";
 
 
 export function AboutSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   return (
-    <section id="sucursal" className="relative bg-cream text-chocolate scroll-mt-24">
+    <section id="sucursal" ref={sectionRef} className="relative bg-cream text-chocolate scroll-mt-24">
       <img
         src={chocolateDrip}
         alt=""
         aria-hidden="true"
         className="block w-full h-auto -mt-px select-none pointer-events-none"
       />
+      <ChocolateDrip
+        targetRef={sectionRef}
+        className="absolute left-0 right-0 -top-1 w-full h-12 md:h-16 text-chocolate pointer-events-none z-20"
+      />
+
+      <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-32 md:-mt-48 relative z-10">
 
       <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-32 md:-mt-48 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-8 md:gap-6 items-start">
