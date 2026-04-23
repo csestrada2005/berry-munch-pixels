@@ -9,6 +9,7 @@ export function HeroSection() {
   return (
     <section
       ref={sectionRef}
+      data-no-sprinkles
       className="relative h-screen min-h-[640px] w-full overflow-hidden bg-berry flex items-center justify-center px-2 md:px-4 py-3 md:py-4"
     >
       {/* Video container — torn-paper rectangle, gentle wobble */}
