@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import heroVideo from "@/assets/hero-video.mp4";
 import berryMunchLogo from "@/assets/berry-munch-logo.png";
 import dubaiPistachio from "@/assets/dubai-pistachio-strawberry.png";
+import strawberrySplash from "@/assets/strawberry-splash.png";
+import strawberryFork from "@/assets/strawberry-fork.png";
 import { Plus } from "lucide-react";
 import { AccountButton } from "./AccountButton";
 import { ConfettiBurst } from "./fx/ConfettiBurst";

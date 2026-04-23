@@ -26,8 +26,6 @@ export function AboutSection() {
       />
 
       <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-32 md:-mt-48 relative z-10">
-
-      <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-32 md:-mt-48 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr] gap-8 md:gap-6 items-start">
           {/* Left: receipt-fork combined image — pegado al chocolate drip */}
           <div className="order-2 md:order-1 flex flex-col items-center md:items-start md:-mt-12 lg:-mt-20 md:-ml-6 lg:-ml-12">
