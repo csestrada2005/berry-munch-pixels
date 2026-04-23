@@ -28,7 +28,7 @@ export function Nav() {
       <div
         className="flex items-center justify-between rounded-full px-4 py-2 md:px-6 md:py-3 backdrop-blur-md bg-cream/20 border border-cream/30 shadow-[0_8px_32px_rgba(0,0,0,0.15)]"
       >
-        <span className="font-display text-sm md:text-base font-bold text-cream tracking-wider md:hidden pl-2">
+        <span className="font-display text-sm md:text-base font-bold text-chocolate tracking-wider md:hidden pl-2">
           BERRY MUNCH
         </span>
 
