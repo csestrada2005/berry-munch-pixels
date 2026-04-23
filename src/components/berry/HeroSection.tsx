@@ -13,7 +13,9 @@ export function HeroSection() {
     >
       {/* Video container — large rectangle, nav floats inside it */}
       <div className="relative h-full w-full max-w-[1800px]">
-        <div className="scalloped relative h-full w-full overflow-hidden shadow-2xl">
+        {/* Soft glassy halo behind the morphing blob */}
+        <div aria-hidden className="morph-blob morph-glow absolute inset-0 -z-0 pointer-events-none" />
+        <div className="morph-blob relative h-full w-full overflow-hidden shadow-2xl">
           <video
             src={heroVideo}
             autoPlay
