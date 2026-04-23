@@ -332,3 +332,15 @@
     }
   }
 }
+
+/* Playful scalloped edges for hero video */
+.scalloped {
+  --s: 22px; /* scallop size */
+  --r: calc(var(--s) / 2);
+  -webkit-mask:
+    radial-gradient(var(--r) at var(--r) var(--r), #000 98%, #0000) calc(-1 * var(--r)) calc(-1 * var(--r)) / var(--s) var(--s),
+    linear-gradient(#000 0 0) center / calc(100% - var(--s)) calc(100% - var(--s)) no-repeat;
+  mask:
+    radial-gradient(var(--r) at var(--r) var(--r), #000 98%, #0000) calc(-1 * var(--r)) calc(-1 * var(--r)) / var(--s) var(--s),
+    linear-gradient(#000 0 0) center / calc(100% - var(--s)) calc(100% - var(--s)) no-repeat;
+}
