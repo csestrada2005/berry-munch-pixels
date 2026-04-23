@@ -9,10 +9,10 @@ export function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[80vh] min-h-[520px] max-h-[720px] overflow-hidden bg-berry flex items-center justify-center px-4 pt-24 pb-8"
+      className="relative h-screen min-h-[640px] w-full overflow-hidden bg-berry flex items-center justify-center px-4 pt-28 pb-10"
     >
       {/* Video container — wide rectangle, centered */}
-      <div className="relative h-full w-full max-w-6xl">
+      <div className="relative h-full w-full max-w-[1600px]">
         <div className="relative h-full w-full overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl ring-1 ring-black/10">
           <video
             src={heroVideo}
