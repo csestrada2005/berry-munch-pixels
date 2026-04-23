@@ -2,6 +2,7 @@ import { useRef } from "react";
 import heroVideo from "@/assets/hero-video.mp4";
 import berryMunchLogo from "@/assets/berry-munch-logo.png";
 import { HeroCursor } from "./HeroCursor";
+import { Nav } from "./Nav";
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -24,6 +25,7 @@ export function HeroSection() {
             playsInline
             className="h-full w-full object-cover animate-breathe"
           />
+          <Nav />
         </div>
 
         {/* Logo hovering above the video, overlapping its top edge */}
