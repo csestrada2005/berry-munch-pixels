@@ -4,6 +4,7 @@ import { AboutSection } from "@/components/berry/AboutSection";
 import { ProductsSection } from "@/components/berry/ProductsSection";
 import { LoyaltyFooter } from "@/components/berry/LoyaltyFooter";
 import { Marquee } from "@/components/berry/Marquee";
+import { Nav } from "@/components/berry/Nav";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -27,6 +28,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main className="min-h-screen">
+      <Nav />
       <HeroSection />
       <ProductsSection />
       <Marquee />
