@@ -53,7 +53,7 @@ export function Nav() {
                 )}
                 <span
                   className={`relative z-10 transition-colors duration-200 ${
-                    hovered === l.href ? "text-cream" : "text-cream/95"
+                    hovered === l.href ? "text-cream" : "text-chocolate"
                   }`}
                 >
                   {l.label}
