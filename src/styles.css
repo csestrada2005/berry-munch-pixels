@@ -333,14 +333,36 @@
   }
 }
 
-/* Playful scalloped edges for hero video */
-.scalloped {
-  --s: 22px; /* scallop size */
-  --r: calc(var(--s) / 2);
-  -webkit-mask:
-    radial-gradient(var(--r) at var(--r) var(--r), #000 98%, #0000) calc(-1 * var(--r)) calc(-1 * var(--r)) / var(--s) var(--s),
-    linear-gradient(#000 0 0) center / calc(100% - var(--s)) calc(100% - var(--s)) no-repeat;
-  mask:
-    radial-gradient(var(--r) at var(--r) var(--r), #000 98%, #0000) calc(-1 * var(--r)) calc(-1 * var(--r)) / var(--s) var(--s),
-    linear-gradient(#000 0 0) center / calc(100% - var(--s)) calc(100% - var(--s)) no-repeat;
+/* Liquid blob morphism for hero video */
+.morph-blob {
+  border-radius: 42% 58% 38% 62% / 45% 40% 60% 55%;
+  animation: morph 14s ease-in-out infinite;
+  will-change: border-radius;
+}
+
+@keyframes morph {
+  0%, 100% {
+    border-radius: 42% 58% 38% 62% / 45% 40% 60% 55%;
+  }
+  25% {
+    border-radius: 58% 42% 55% 45% / 38% 62% 40% 60%;
+  }
+  50% {
+    border-radius: 50% 50% 62% 38% / 55% 45% 50% 50%;
+  }
+  75% {
+    border-radius: 38% 62% 45% 55% / 60% 50% 40% 50%;
+  }
+}
+
+.morph-glow {
+  background: color-mix(in oklab, var(--berry-deep) 55%, transparent);
+  filter: blur(40px);
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morph-blob {
+    animation: none !important;
+  }
 }
