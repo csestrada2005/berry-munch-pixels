@@ -11,7 +11,18 @@ import { ConfettiBurst } from "./fx/ConfettiBurst";
 
 export function HeroSection() {
   const cupRef = useRef<HTMLImageElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [burst, setBurst] = useState(false);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Different speeds for depth — 15%, 30%, 45%
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 160]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 240]);
 
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
@@ -32,7 +43,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative h-screen min-h-[600px] overflow-hidden bg-white">
+    <section ref={sectionRef} className="relative h-screen min-h-[600px] overflow-hidden bg-white">
       <video
         src={heroVideo}
         autoPlay
@@ -40,6 +51,29 @@ export function HeroSection() {
         muted
         playsInline
         className="absolute inset-0 h-full w-full object-cover z-0 scale-110 animate-breathe"
+      />
+
+      {/* Floating parallax ingredients */}
+      <motion.img
+        src={strawberrySplash}
+        alt=""
+        aria-hidden="true"
+        style={{ y: y1 }}
+        className="pointer-events-none absolute -left-10 top-10 z-10 w-40 md:w-56 opacity-40 mix-blend-multiply animate-float"
+      />
+      <motion.img
+        src={strawberryFork}
+        alt=""
+        aria-hidden="true"
+        style={{ y: y2 }}
+        className="pointer-events-none absolute right-1/4 top-1/3 z-10 w-32 md:w-44 opacity-30 mix-blend-multiply animate-sway"
+      />
+      <motion.img
+        src={strawberrySplash}
+        alt=""
+        aria-hidden="true"
+        style={{ y: y3 }}
+        className="pointer-events-none absolute left-1/3 bottom-10 z-10 w-24 md:w-32 opacity-25 mix-blend-multiply rotate-180"
       />
 
       <div className="absolute left-0 right-0 top-20 z-40 mx-auto max-w-7xl px-6 md:px-10">
