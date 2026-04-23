@@ -1,6 +1,6 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
-import { CustomCursor } from "@/components/berry/CustomCursor";
+import { SprinklesCursor } from "@/components/berry/SprinklesCursor";
 
 import appCss from "../styles.css?url";
 
@@ -69,7 +69,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
-        <CustomCursor />
+        <SprinklesCursor />
         <Toaster />
         <Scripts />
       </body>
