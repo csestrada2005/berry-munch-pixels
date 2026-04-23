@@ -333,40 +333,21 @@
   }
 }
 
-/* Liquid blob morphism for hero video — subtle, mostly rectangular */
-.morph-blob {
-  border-radius: 8% 12% 10% 14% / 18% 14% 20% 16%;
-  animation: morph 8s ease-in-out infinite;
-  will-change: border-radius, transform;
+/* Torn-paper edge mask for hero video — static, hand-cut rectangle feel */
+.torn-edge {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800' preserveAspectRatio='none'><path fill='black' d='M14,10 C60,4 110,16 160,8 C210,2 260,14 310,7 C360,2 410,15 460,9 C510,3 560,16 610,8 C660,2 710,14 760,9 C810,4 860,15 910,8 C960,2 1010,14 1060,7 C1110,2 1160,12 1188,10 C1192,60 1184,110 1190,160 C1196,210 1186,260 1192,310 C1198,360 1186,410 1191,460 C1196,510 1186,560 1192,610 C1198,660 1186,710 1190,760 C1192,790 1188,792 1186,790 C1140,796 1090,786 1040,792 C990,798 940,786 890,793 C840,798 790,786 740,792 C690,798 640,785 590,792 C540,798 490,786 440,793 C390,798 340,786 290,792 C240,798 190,786 140,792 C90,797 40,788 12,790 C8,740 16,690 9,640 C2,590 14,540 8,490 C2,440 15,390 8,340 C2,290 14,240 8,190 C2,140 15,90 9,40 C7,20 10,14 14,10 Z'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800' preserveAspectRatio='none'><path fill='black' d='M14,10 C60,4 110,16 160,8 C210,2 260,14 310,7 C360,2 410,15 460,9 C510,3 560,16 610,8 C660,2 710,14 760,9 C810,4 860,15 910,8 C960,2 1010,14 1060,7 C1110,2 1160,12 1188,10 C1192,60 1184,110 1190,160 C1196,210 1186,260 1192,310 C1198,360 1186,410 1191,460 C1196,510 1186,560 1192,610 C1198,660 1186,710 1190,760 C1192,790 1188,792 1186,790 C1140,796 1090,786 1040,792 C990,798 940,786 890,793 C840,798 790,786 740,792 C690,798 640,785 590,792 C540,798 490,786 440,793 C390,798 340,786 290,792 C240,798 190,786 140,792 C90,797 40,788 12,790 C8,740 16,690 9,640 C2,590 14,540 8,490 C2,440 15,390 8,340 C2,290 14,240 8,190 C2,140 15,90 9,40 C7,20 10,14 14,10 Z'/></svg>");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  filter: drop-shadow(0 20px 40px color-mix(in oklab, var(--berry-deep) 45%, transparent));
 }
 
-@keyframes morph {
-  0%, 100% {
-    border-radius: 8% 12% 10% 14% / 18% 14% 20% 16%;
-    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-  }
-  25% {
-    border-radius: 14% 8% 16% 10% / 14% 20% 16% 18%;
-    transform: translate3d(-10px, 6px, 0) scale(1.015) rotate(-0.6deg);
-  }
-  50% {
-    border-radius: 10% 16% 8% 12% / 20% 16% 18% 14%;
-    transform: translate3d(0, -8px, 0) scale(1.025) rotate(0deg);
-  }
-  75% {
-    border-radius: 12% 10% 14% 8% / 16% 18% 14% 20%;
-    transform: translate3d(10px, 6px, 0) scale(1.015) rotate(0.6deg);
-  }
-}
-
-.morph-glow {
-  background: color-mix(in oklab, var(--berry-deep) 55%, transparent);
-  filter: blur(40px);
-  transform: scale(1.04);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .morph-blob {
-    animation: none !important;
-  }
+/* Paper grain overlay — subtle noise, multiply blend */
+.paper-grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.15  0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 300px 300px;
+  mix-blend-mode: multiply;
+  opacity: 0.18;
 }
