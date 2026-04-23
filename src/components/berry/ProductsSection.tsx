@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Marquee } from "./Marquee";
+
 import { Tilt } from "./fx/Tilt";
 import { ConfettiBurst } from "./fx/ConfettiBurst";
 import cup1 from "@/assets/cup1.png";
@@ -56,8 +56,6 @@ export function ProductsSection() {
 
   return (
     <section id="productos" className="bg-berry text-cream scroll-mt-24">
-      <Marquee />
-
       {/* Scroll-driven expanding background wrapper */}
       <div ref={wrapperRef} className="relative">
         {/* Sticky stage holds the expanding cream square */}

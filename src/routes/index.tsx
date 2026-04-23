@@ -3,6 +3,7 @@ import { HeroSection } from "@/components/berry/HeroSection";
 import { AboutSection } from "@/components/berry/AboutSection";
 import { ProductsSection } from "@/components/berry/ProductsSection";
 import { LoyaltyFooter } from "@/components/berry/LoyaltyFooter";
+import { Marquee } from "@/components/berry/Marquee";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -28,6 +29,7 @@ function Index() {
     <main className="min-h-screen">
       <HeroSection />
       <ProductsSection />
+      <Marquee />
       <AboutSection />
       <LoyaltyFooter />
     </main>
