@@ -13,7 +13,7 @@ export function HeroSection() {
     >
       {/* Video container — large rectangle, nav floats inside it */}
       <div className="relative h-full w-full max-w-[1800px]">
-        <div className="relative h-full w-full overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl ring-1 ring-black/10">
+        <div className="scalloped relative h-full w-full overflow-hidden shadow-2xl">
           <video
             src={heroVideo}
             autoPlay
