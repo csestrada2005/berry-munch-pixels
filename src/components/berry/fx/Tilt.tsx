@@ -1,4 +1,5 @@
 import { useRef, type ReactNode } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 interface TiltProps {
   children: ReactNode;
@@ -9,30 +10,47 @@ interface TiltProps {
 export function Tilt({ children, className = "", max = 8 }: TiltProps) {
   const ref = useRef<HTMLDivElement>(null);
 
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const sx = useSpring(x, { stiffness: 250, damping: 20, mass: 0.4 });
+  const sy = useSpring(y, { stiffness: 250, damping: 20, mass: 0.4 });
+
+  const rotateY = useTransform(sx, [-0.5, 0.5], [-max, max]);
+  const rotateX = useTransform(sy, [-0.5, 0.5], [max, -max]);
+
   function handleMove(e: React.MouseEvent<HTMLDivElement>) {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(pointer: coarse)").matches) return;
+    if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return;
     const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.transform = `perspective(900px) rotateY(${x * max}deg) rotateX(${-y * max}deg) translateY(-6px)`;
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
   }
 
   function handleLeave() {
-    const el = ref.current;
-    if (!el) return;
-    el.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg) translateY(0)";
+    x.set(0);
+    y.set(0);
   }
 
   return (
-    <div
+    <motion.div
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      className={`transition-transform duration-300 ease-out will-change-transform ${className}`}
+      whileHover={{ scale: 0.97 }}
+      whileTap={{ scale: 0.92 }}
+      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+      style={{
+        rotateX,
+        rotateY,
+        transformPerspective: 900,
+        transformStyle: "preserve-3d",
+        willChange: "transform",
+      }}
+      className={className}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }
