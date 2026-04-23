@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 
 const links = [
   { href: "#productos", label: "PRODUCTOS" },
@@ -9,6 +10,7 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const [hovered, setHovered] = useState<string | null>(null);
 
   function handleNavClick(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
     e.preventDefault();
@@ -21,71 +23,64 @@ export function Nav() {
     }
   }
 
-  // Decorative ribbon end (SVG) — scalloped / banner tail
-  const RibbonEnd = ({ flip = false }: { flip?: boolean }) => (
-    <svg
-      viewBox="0 0 40 56"
-      className={`h-full w-8 md:w-10 shrink-0 ${flip ? "-scale-x-100" : ""}`}
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      {/* Back shadow layer */}
-      <path
-        d="M0 6 L28 6 L40 28 L28 50 L0 50 Z"
-        fill="oklch(0.88 0.04 85)"
-      />
-      {/* Front ribbon layer with notch */}
-      <path
-        d="M0 0 L32 0 L20 28 L32 56 L0 56 Z"
-        fill="var(--cream)"
-      />
-    </svg>
-  );
-
   return (
-    <nav className="absolute left-1/2 top-6 z-30 -translate-x-1/2 px-4 w-full max-w-3xl">
-      {/* Banner row */}
-      <div className="flex items-stretch h-12 md:h-14 drop-shadow-xl">
-        <RibbonEnd />
-        <div className="flex-1 flex items-center justify-between bg-cream border-y-2 border-chocolate/20 px-6 md:px-10">
-          <span className="font-display text-base md:text-lg font-bold text-black tracking-wider md:hidden">
-            BERRY MUNCH
-          </span>
+    <nav className="fixed left-1/2 top-6 md:top-10 z-40 -translate-x-1/2 px-4 w-full max-w-2xl">
+      <div
+        className="flex items-center justify-between rounded-full px-4 py-2 md:px-6 md:py-3 backdrop-blur-md bg-cream/20 border border-cream/30 shadow-[0_8px_32px_rgba(0,0,0,0.15)]"
+      >
+        <span className="font-display text-sm md:text-base font-bold text-cream tracking-wider md:hidden pl-2">
+          BERRY MUNCH
+        </span>
 
-          <ul className="hidden md:flex items-center justify-around w-full">
-            {links.map((l) => (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  onClick={(e) => handleNavClick(e, l.href)}
-                  className="nav-link font-display text-sm lg:text-base font-bold text-black tracking-[0.2em] transition-all duration-200 hover:text-berry hover:scale-110 inline-block"
+        <ul
+          className="hidden md:flex items-center justify-around w-full gap-1"
+          onMouseLeave={() => setHovered(null)}
+        >
+          {links.map((l) => (
+            <li key={l.href} className="relative">
+              <a
+                href={l.href}
+                onClick={(e) => handleNavClick(e, l.href)}
+                onMouseEnter={() => setHovered(l.href)}
+                className="relative block px-5 py-2 font-display text-sm lg:text-base font-bold tracking-[0.18em] transition-colors duration-200"
+              >
+                {hovered === l.href && (
+                  <motion.span
+                    layoutId="nav-highlight"
+                    className="absolute inset-0 -z-0 rounded-md bg-berry-deep"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span
+                  className={`relative z-10 transition-colors duration-200 ${
+                    hovered === l.href ? "text-cream" : "text-cream/95"
+                  }`}
                 >
                   {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
 
-          <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden text-black transition-transform active:scale-90"
-            aria-label="Menu"
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-        <RibbonEnd flip />
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden text-cream transition-transform active:scale-90 pr-2"
+          aria-label="Menu"
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
 
       {open && (
-        <div className="md:hidden mt-2 rounded-lg bg-cream p-4 shadow-lg border-2 border-chocolate/20 animate-unroll">
+        <div className="md:hidden mt-2 rounded-2xl backdrop-blur-md bg-cream/20 border border-cream/30 p-4 shadow-lg animate-unroll">
           <ul className="flex flex-col gap-3">
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
                   onClick={(e) => handleNavClick(e, l.href)}
-                  className="block font-display text-sm font-bold text-black tracking-[0.2em]"
+                  className="block font-display text-sm font-bold text-cream tracking-[0.2em] px-2 py-1 rounded-md hover:bg-berry-deep transition-colors"
                 >
                   {l.label}
                 </a>
