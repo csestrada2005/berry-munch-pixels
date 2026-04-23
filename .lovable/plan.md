@@ -1,39 +1,63 @@
 
-# Replace Scalloped Edges with Liquid/Blob Morphism
+# Vertical Left-Side Navigation Inside Hero Video
 
-## What you want (my read)
+## What you want
 
-Right now the video rectangle uses `.scalloped` — a hard, repeating wavy mask that looks like a stamp/cookie edge. You want something more **organic and "morphing"** — soft, blob-like curves that feel alive, similar to liquid glass / metaball morphism. Think: rounded asymmetric corners that gently breathe and shift over time, rather than a fixed zig-zag pattern.
+Move the floating nav from the top-center of the hero into the **left edge of the video container**, oriented **vertically**. Since labels like "PRODUCTOS" / "SUCURSAL" are long and would look awkward stacked letter-by-letter or rotated badly, I'll use a clean rotated-text pill approach that stays legible and on-brand.
 
 ## Approach
 
-Drop the `mask-image` scallop and use **animated `border-radius` morphism** (the "blob" technique) on the video container. Each corner gets its own large, asymmetric radius value that smoothly cycles between several keyframe shapes — producing a continuous liquid-morph effect.
+Replace the horizontal pill nav with a **vertical glass rail** docked to the inside-left of the hero video, vertically centered. Each link is **rotated -90°** (reads bottom-to-top, like a book spine) so the full word stays readable without truncation. The Berry Munch wordmark sits at the top of the rail (also rotated) as the "brand spine."
 
-Optionally layer a subtle **glassmorphism frame** around it (blurred berry-tinted halo + soft inner highlight) so the edge feels like it's made of glossy jelly rather than just a clipped rectangle.
+```text
+┌─────────────────────────────────────┐
+│  ┌──┐                               │
+│  │B │   ← rail (glass pill,         │
+│  │E │     vertical, rotated text)   │
+│  │R │                               │
+│  │R │   • PRODUCTOS                 │
+│  │Y │   • PEDIR                     │
+│  │  │   • SUCURSAL                  │
+│  └──┘                               │
+└─────────────────────────────────────┘
+```
 
-## Changes
+### Why rotated text (not stacked letters)
+- Stacked letters ("P / R / O / D / U / C / T / O / S") get tall fast and look like a ransom note for 9-letter words.
+- A 90° rotated pill keeps each label as one continuous word, takes minimal horizontal space (~40px wide), and matches the playful editorial style of the site.
 
-**`src/styles.css`**
-- Remove (or keep unused) `.scalloped`.
-- Add `.morph-blob` utility: large asymmetric `border-radius` (e.g. `42% 58% 38% 62% / 45% 40% 60% 55%`) plus a `@keyframes morph` animation that cycles between 3–4 radius shapes over ~14s ease-in-out infinite.
-- Add `prefers-reduced-motion` guard to freeze it on the first shape.
-- Optional `.morph-glow`: an absolutely-positioned blurred sibling using the same radius + `bg-berry-deep/40 blur-2xl` for a soft halo.
+### Hover behavior (kept + adapted)
+- Same `layoutId="nav-highlight"` framer-motion sliding highlight, but it slides **vertically** between items now.
+- Highlight pill matches each rotated link's bounding box.
+- Text color flip (`text-chocolate` → `text-cream`) on hover stays.
+
+### Mobile (<md)
+- Vertical rail would crowd a phone screen. On mobile, **revert to a small floating hamburger button** docked top-left of the hero (also inside the video). Tapping opens a vertical glass panel sliding in from the left with the same links — readable upright (not rotated) since it's a temporary overlay.
+
+## Technical changes
+
+**`src/components/berry/Nav.tsx`** (full rewrite of the desktop layout)
+- Container: change from `fixed left-1/2 top-6 -translate-x-1/2` (top-center horizontal) to `absolute left-4 md:left-6 top-1/2 -translate-y-1/2` (left-center vertical), positioned **inside** the hero video area.
+- Because it now lives inside the hero, change positioning from `fixed` → `absolute`, and **render `<Nav />` inside `<HeroSection />`** rather than as a sibling in `routes/index.tsx`.
+- Desktop rail: `flex flex-col` glass pill, ~`w-12` wide, items stacked vertically with `gap-6`.
+- Each link wraps text in a span with `[writing-mode:vertical-rl] rotate-180` (or `-rotate-90` with origin tweak) — both work; I'll use `-rotate-90` on a fixed-height container for cleaner hover-box alignment with framer-motion.
+- Brand spine: small "BERRY MUNCH" rotated label at the top of the rail.
+- Highlight: motion span keeps `layoutId="nav-highlight"`, sized to match each rotated link box.
+- Mobile: hamburger button absolutely positioned top-left inside hero; opens a vertical slide-in panel (upright text).
+
+**`src/routes/index.tsx`**
+- Remove `<Nav />` from the top of `<main>` (it's now rendered inside `<HeroSection />`).
 
 **`src/components/berry/HeroSection.tsx`**
-- Swap `className="scalloped ..."` on the video wrapper for `className="morph-blob ..."`.
-- Add a soft glow div behind it (`absolute inset-0 -z-10 morph-blob morph-glow`) for the glass halo.
-- Keep `overflow-hidden` and `shadow-2xl`.
-
-## Why this works
-
-- `border-radius` animates cheaply on the GPU → stays 60fps.
-- Asymmetric percent-based radii produce true blob shapes (not just rounded rectangles).
-- No SVG, no mask perf cost, fully responsive — the shape scales with the container at any viewport.
-- Logo overlap and floating nav positioning stay untouched.
+- Import and render `<Nav />` inside the morph-blob video container (above the video, below the logo z-index) so the nav is clipped to the video's morphing shape and feels embedded in it.
+- Ensure `z-index` order: video (z-0) → nav rail (z-10) → logo (z-20) → cursor (z-30).
 
 ## Files touched
 
 | File | Change |
 |---|---|
-| `src/styles.css` | Add `.morph-blob` + `@keyframes morph` + reduced-motion guard |
-| `src/components/berry/HeroSection.tsx` | Replace `scalloped` class, add optional glow layer |
+| `src/components/berry/Nav.tsx` | Rewrite layout: vertical left-docked rail with rotated text + mobile slide-in panel |
+| `src/components/berry/HeroSection.tsx` | Render `<Nav />` inside the video container |
+| `src/routes/index.tsx` | Remove `<Nav />` from page-level (moved into hero) |
+
+No CSS changes needed — uses existing `text-chocolate`, `text-cream`, `bg-berry-deep`, `bg-cream/20`, `backdrop-blur-md` tokens already in the design system.
