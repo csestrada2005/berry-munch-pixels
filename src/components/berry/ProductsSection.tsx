@@ -101,7 +101,6 @@ export function ProductsSection() {
                   <p className="mt-2 font-bold text-base md:text-lg text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
                     {p.price}
                   </p>
-                  <ConfettiBurst show={!!bursts[p.id]} />
                   {floats
                     .filter((f) => f.pid === p.id)
                     .map((f) => (
@@ -115,13 +114,16 @@ export function ProductsSection() {
                         +1
                       </span>
                     ))}
-                  <button
-                    onClick={() => handleAdd(p.id)}
-                    aria-label={`Añadir ${p.name}`}
-                    className="mt-3 inline-flex items-center justify-center rounded-full bg-berry px-4 py-1.5 text-cream text-sm font-bold transition-transform hover:scale-110 active:scale-90"
-                  >
-                    + Añadir
-                  </button>
+                  <div className="relative inline-block mt-3">
+                    <ConfettiBurst show={!!bursts[p.id]} />
+                    <button
+                      onClick={() => handleAdd(p.id)}
+                      aria-label={`Añadir ${p.name}`}
+                      className="inline-flex items-center justify-center rounded-full bg-berry px-4 py-1.5 text-cream text-sm font-bold transition-transform hover:scale-110 active:scale-90"
+                    >
+                      + Añadir
+                    </button>
+                  </div>
                 </div>
               </div>
             </Tilt>
