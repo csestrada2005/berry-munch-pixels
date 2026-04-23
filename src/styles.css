@@ -333,25 +333,25 @@
   }
 }
 
-/* Liquid blob morphism for hero video */
+/* Liquid blob morphism for hero video — subtle, mostly rectangular */
 .morph-blob {
-  border-radius: 42% 58% 38% 62% / 45% 40% 60% 55%;
+  border-radius: 6% 8% 7% 9% / 14% 12% 16% 13%;
   animation: morph 14s ease-in-out infinite;
   will-change: border-radius;
 }
 
 @keyframes morph {
   0%, 100% {
-    border-radius: 42% 58% 38% 62% / 45% 40% 60% 55%;
+    border-radius: 6% 8% 7% 9% / 14% 12% 16% 13%;
   }
   25% {
-    border-radius: 58% 42% 55% 45% / 38% 62% 40% 60%;
+    border-radius: 9% 6% 10% 7% / 12% 16% 13% 15%;
   }
   50% {
-    border-radius: 50% 50% 62% 38% / 55% 45% 50% 50%;
+    border-radius: 7% 10% 6% 8% / 16% 13% 14% 12%;
   }
   75% {
-    border-radius: 38% 62% 45% 55% / 60% 50% 40% 50%;
+    border-radius: 8% 7% 9% 6% / 13% 15% 12% 16%;
   }
 }
 
