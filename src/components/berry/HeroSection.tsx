@@ -12,8 +12,8 @@ export function HeroSection() {
       ref={sectionRef}
       className="relative h-screen min-h-[640px] w-full overflow-hidden bg-berry flex items-center justify-center px-2 md:px-4 py-3 md:py-4"
     >
-      {/* Video container — torn-paper rectangle, nav floats inside it */}
-      <div className="relative h-full w-full max-w-[1800px]">
+      {/* Video container — torn-paper rectangle, gentle wobble, nav floats inside it */}
+      <div className="relative h-full w-full max-w-[1800px] animate-paper-wobble">
         <div className="torn-edge relative h-full w-full overflow-hidden">
           <video
             src={heroVideo}
@@ -22,6 +22,15 @@ export function HeroSection() {
             muted
             playsInline
             className="h-full w-full object-cover"
+          />
+          {/* Warm gradient + vignette to focus the eye */}
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, transparent 35%, color-mix(in oklab, var(--berry-deep) 35%, transparent) 75%, color-mix(in oklab, var(--berry-deep) 70%, transparent) 100%), linear-gradient(180deg, color-mix(in oklab, var(--gold) 18%, transparent) 0%, transparent 35%, transparent 65%, color-mix(in oklab, var(--chocolate) 25%, transparent) 100%)",
+            }}
           />
           {/* Paper grain overlay */}
           <div aria-hidden className="paper-grain absolute inset-0 pointer-events-none" />
