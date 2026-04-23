@@ -18,7 +18,6 @@ export function CustomCursor() {
     if (!fine || reduced) return;
 
     setEnabled(true);
-    document.documentElement.classList.add("custom-cursor-active");
 
     function isInteractive(t: EventTarget | null): boolean {
       if (!(t instanceof Element)) return false;
@@ -39,7 +38,6 @@ export function CustomCursor() {
     window.addEventListener("mouseup", onUp);
 
     return () => {
-      document.documentElement.classList.remove("custom-cursor-active");
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
       window.removeEventListener("mousedown", onDown);
@@ -49,27 +47,9 @@ export function CustomCursor() {
 
   if (!enabled) return null;
 
-  return (
-    <motion.div
-      aria-hidden="true"
-      style={{
-        x: sx,
-        y: sy,
-        translateX: "-50%",
-        translateY: "-50%",
-      }}
-      className="pointer-events-none fixed left-0 top-0 z-[9999] select-none"
-    >
-      <motion.div
-        animate={{
-          scale: pressing ? 0.7 : hovering ? 1.6 : 1,
-          rotate: pressing ? 25 : 0,
-        }}
-        transition={{ type: "spring", stiffness: 500, damping: 18 }}
-        className="text-2xl leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]"
-      >
-        {hovering ? "🥄" : "🍓"}
-      </motion.div>
-    </motion.div>
-  );
+  // Returning null disables the global custom cursor — native cursor is restored.
+  // Hero section uses its own scoped HeroCursor component.
+  return null;
 }
+// Suppress unused-var warnings for state still wired up for future re-enable.
+void [hovering, pressing];
