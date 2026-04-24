@@ -123,7 +123,7 @@ export function ProductsSection() {
           </AnimatePresence>
 
           {/* z-50 — Shared product stage with explicit height, centered in viewport */}
-          <div className="absolute inset-x-0 top-0 z-50 flex h-screen items-center justify-center px-6 pt-[120px] pointer-events-none">
+          <div className="absolute inset-x-0 top-0 z-50 flex h-screen items-center justify-center px-6 pt-[200px] pointer-events-none">
             <div className="relative mx-auto h-[360px] w-full max-w-6xl md:h-[420px]">
               <AnimatePresence mode="wait" initial={false}>
                 {activeView === 1 && (
