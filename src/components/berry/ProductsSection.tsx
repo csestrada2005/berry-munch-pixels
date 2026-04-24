@@ -67,20 +67,9 @@ export function ProductsSection() {
   }, []);
 
   return (
-    <section id="productos" className="relative z-20 bg-berry text-cream scroll-mt-24">
+    <section id="productos" className="relative z-20 bg-cream text-chocolate scroll-mt-24">
       <div ref={trackRef} className="relative h-[400vh]">
-        <div className="sticky top-0 isolate h-screen w-full overflow-hidden">
-          {/* z-0 — Cream canvas */}
-          <motion.div
-            aria-hidden="true"
-            style={{
-              opacity: canvasOpacity,
-              borderRadius: canvasRadius,
-              transform: canvasTransform,
-              willChange: "transform",
-            }}
-            className="absolute left-1/2 top-1/2 z-0 h-screen w-screen bg-cream origin-center pointer-events-none"
-          />
+        <div className="sticky top-0 isolate h-screen w-full overflow-hidden bg-cream">
 
           {/* z-10 — Berry red wipe */}
           <motion.span
