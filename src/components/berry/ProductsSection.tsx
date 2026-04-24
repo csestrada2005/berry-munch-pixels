@@ -196,14 +196,16 @@ function renderCard(
   bursts: Record<number, boolean>,
   floats: Array<{ id: number; pid: number }>,
   handleAdd: (pid: number) => void,
+  sparkleColor: "berry" | "cream" = "berry",
 ) {
+  const sparkleClassName = sparkleColor === "cream" ? "text-cream" : "text-berry";
   return (
     <Tilt key={p.id} className="relative pt-24 md:pt-28 group">
       <div className="relative rounded-2xl bg-berry/5 ring-2 ring-berry pt-16 md:pt-20 shadow-xl transition-shadow duration-300 group-hover:shadow-2xl">
         <svg
           aria-hidden="true"
           viewBox="0 0 80 40"
-          className={`absolute ${p.sparkleClass} left-1/2 -translate-x-1/2 w-16 md:w-20 h-8 md:h-10 text-berry pointer-events-none animate-twinkle`}
+          className={`absolute ${p.sparkleClass} left-1/2 -translate-x-1/2 w-16 md:w-20 h-8 md:h-10 ${sparkleClassName} pointer-events-none animate-twinkle`}
           fill="none"
           stroke="currentColor"
           strokeWidth="3"
