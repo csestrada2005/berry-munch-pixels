@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useMotionTemplate, LayoutGroup } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
 
 import { Tilt } from "./fx/Tilt";
 import { ConfettiBurst } from "./fx/ConfettiBurst";
@@ -59,6 +59,9 @@ export function ProductsSection() {
   const view1Opacity = useTransform(scrollYProgress, [0.40, 0.46, 0.50, 0.55], [0, 1, 1, 0]);
   const view2Opacity = useTransform(scrollYProgress, [0.58, 0.64, 0.70, 0.74], [0, 1, 1, 0]);
   const view3Opacity = useTransform(scrollYProgress, [0.76, 0.84], [0, 1]);
+  const view1PointerEvents = useTransform(view1Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
+  const view2PointerEvents = useTransform(view2Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
+  const view3PointerEvents = useTransform(view3Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
 
   // CTA — appears with finale.
   const ctaOpacity = useTransform(scrollYProgress, [0.86, 0.94], [0, 1]);
@@ -126,79 +129,66 @@ export function ProductsSection() {
           </motion.h2>
 
           {/* z-50 — Product views (always above wipes) */}
-          <LayoutGroup>
-            {/* View 1 — first 2 cards (RED phase) */}
-            <motion.div
-              style={{ opacity: view1Opacity, willChange: "opacity" }}
-              className="absolute inset-0 z-50 flex items-center justify-center px-6 pointer-events-auto"
-            >
-              <div className="flex justify-center items-start gap-6 md:gap-10 w-full max-w-4xl mx-auto pt-16">
-                {products.slice(0, 2).map((p) => (
-                  <motion.div
-                    key={p.id}
-                    layoutId={`product-card-${p.id}`}
-                    className="w-1/2 max-w-xs"
-                  >
-                    {renderCard(p, bursts, floats, handleAdd)}
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* View 2 — second 2 cards (CREAM phase) */}
-            <motion.div
-              style={{ opacity: view2Opacity, willChange: "opacity" }}
-              className="absolute inset-0 z-50 flex items-center justify-center px-6 pointer-events-auto"
-            >
-              <div className="flex justify-center items-start gap-6 md:gap-10 w-full max-w-4xl mx-auto pt-16">
-                {products.slice(2, 4).map((p) => (
-                  <motion.div
-                    key={p.id}
-                    layoutId={`product-card-${p.id}`}
-                    className="w-1/2 max-w-xs"
-                  >
-                    {renderCard(p, bursts, floats, handleAdd)}
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* View 3 — finale, all 4 in grid + CTA */}
-            <motion.div
-              id="pedir"
-              style={{ opacity: view3Opacity, willChange: "opacity" }}
-              className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6 pointer-events-auto"
-            >
-              <div className="w-full max-w-6xl mx-auto pt-16">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
-                  {products.map((p) => (
-                    <motion.div
-                      key={p.id}
-                      layoutId={`product-card-${p.id}`}
-                    >
-                      {renderCard(p, bursts, floats, handleAdd)}
-                    </motion.div>
-                  ))}
-                </div>
-
-                <motion.div
-                  style={{
-                    opacity: ctaOpacity,
-                    y: ctaY,
-                    willChange: "transform, opacity",
-                  }}
-                  className="mt-10 text-center"
-                >
-                  <a
-                    href="#loyalty"
-                    className="hover-jiggle inline-flex items-center rounded-full bg-berry px-8 py-3 font-display italic text-lg text-cream transition-transform"
-                  >
-                    Ir a tienda <span className="ml-2 animate-arrow">→</span>
-                  </a>
+          {/* View 1 — first 2 cards (RED phase) */}
+          <motion.div
+            style={{ opacity: view1Opacity, pointerEvents: view1PointerEvents, willChange: "opacity" }}
+            className="absolute inset-0 z-50 flex items-center justify-center px-6"
+          >
+            <div className="flex justify-center items-start gap-6 md:gap-10 w-full max-w-4xl mx-auto pt-16">
+              {products.slice(0, 2).map((p) => (
+                <motion.div key={p.id} className="w-1/2 max-w-xs">
+                  {renderCard(p, bursts, floats, handleAdd)}
                 </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* View 2 — second 2 cards (CREAM phase) */}
+          <motion.div
+            style={{ opacity: view2Opacity, pointerEvents: view2PointerEvents, willChange: "opacity" }}
+            className="absolute inset-0 z-50 flex items-center justify-center px-6"
+          >
+            <div className="flex justify-center items-start gap-6 md:gap-10 w-full max-w-4xl mx-auto pt-16">
+              {products.slice(2, 4).map((p) => (
+                <motion.div key={p.id} className="w-1/2 max-w-xs">
+                  {renderCard(p, bursts, floats, handleAdd)}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* View 3 — finale, all 4 in grid + CTA */}
+          <motion.div
+            id="pedir"
+            style={{ opacity: view3Opacity, pointerEvents: view3PointerEvents, willChange: "opacity" }}
+            className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6"
+          >
+            <div className="w-full max-w-6xl mx-auto pt-16">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
+                {products.map((p) => (
+                  <motion.div key={p.id}>
+                    {renderCard(p, bursts, floats, handleAdd)}
+                  </motion.div>
+                ))}
               </div>
-            </motion.div>
-          </LayoutGroup>
+
+              <motion.div
+                style={{
+                  opacity: ctaOpacity,
+                  y: ctaY,
+                  willChange: "transform, opacity",
+                }}
+                className="mt-10 text-center"
+              >
+                <a
+                  href="#loyalty"
+                  className="hover-jiggle inline-flex items-center rounded-full bg-berry px-8 py-3 font-display italic text-lg text-cream transition-transform"
+                >
+                  Ir a tienda <span className="ml-2 animate-arrow">→</span>
+                </a>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </div>
 
