@@ -9,10 +9,10 @@ import cup3 from "@/assets/cup3.png";
 import cup6 from "@/assets/cup6.png";
 
 const products = [
-  { id: 1, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup1, imgClass: "h-44 md:h-52 lg:h-56", topClass: "-top-16 md:-top-20", sparkleClass: "-top-32 md:-top-36" },
-  { id: 2, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup2, imgClass: "h-44 md:h-52 lg:h-56", topClass: "-top-16 md:-top-20", sparkleClass: "-top-32 md:-top-36" },
-  { id: 3, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup3, imgClass: "h-44 md:h-52 lg:h-56", topClass: "-top-16 md:-top-20", sparkleClass: "-top-32 md:-top-36" },
-  { id: 4, name: "Berry Marshmallow", price: "$ 140.0", image: cup6, imgClass: "h-32 md:h-36 lg:h-40", topClass: "-top-2 md:-top-1", sparkleClass: "-top-12 md:-top-14" },
+  { id: 1, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup1, imgClass: "h-44 md:h-52 lg:h-56", topClass: "-top-16 md:-top-20", sparkleClass: "-top-24 md:-top-28" },
+  { id: 2, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup2, imgClass: "h-44 md:h-52 lg:h-56", topClass: "-top-16 md:-top-20", sparkleClass: "-top-24 md:-top-28" },
+  { id: 3, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup3, imgClass: "h-44 md:h-52 lg:h-56", topClass: "-top-16 md:-top-20", sparkleClass: "-top-24 md:-top-28" },
+  { id: 4, name: "Berry Marshmallow", price: "$ 140.0", image: cup6, imgClass: "h-32 md:h-36 lg:h-40", topClass: "-top-2 md:-top-1", sparkleClass: "-top-8 md:-top-10" },
 ];
 
 export function ProductsSection() {
@@ -123,7 +123,7 @@ export function ProductsSection() {
           </AnimatePresence>
 
           {/* z-50 — Shared product stage with explicit height, centered in viewport */}
-          <div className="absolute inset-x-0 top-0 z-50 flex h-screen items-center justify-center px-6 pt-[70px] pointer-events-none">
+          <div className="absolute inset-x-0 top-0 z-50 flex h-screen items-center justify-center px-6 pt-[120px] pointer-events-none">
             <div className="relative mx-auto h-[360px] w-full max-w-6xl md:h-[420px]">
               <AnimatePresence mode="wait" initial={false}>
                 {activeView === 1 && (
