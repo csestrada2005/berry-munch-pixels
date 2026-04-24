@@ -21,6 +21,14 @@ export function ProductsSection() {
   const [activeView, setActiveView] = useState<0 | 1 | 2 | 3>(0);
   const floatId = useRef(0);
 
+  // Preload all product images on mount so view swaps don't wait on the network
+  useEffect(() => {
+    products.forEach((p) => {
+      const img = new Image();
+      img.src = p.image;
+    });
+  }, []);
+
   const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: trackRef,
