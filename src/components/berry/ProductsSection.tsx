@@ -104,8 +104,26 @@ export function ProductsSection() {
             NUESTROS BERRY BESTS
           </motion.h2>
 
+          {/* z-45 — "Ir a tienda" CTA next to title (only visible in View 3) */}
+          <AnimatePresence>
+            {activeView === 3 && (
+              <motion.a
+                key="cta"
+                id="pedir"
+                href="#pedir"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="hover-jiggle absolute right-6 md:right-10 top-24 md:top-28 z-[45] inline-flex items-center rounded-full bg-cream px-6 py-2.5 font-display italic text-base md:text-lg text-berry shadow-lg transition-transform pointer-events-auto"
+              >
+                Ir a tienda <span className="ml-2 animate-arrow">→</span>
+              </motion.a>
+            )}
+          </AnimatePresence>
+
           {/* z-50 — Shared product stage with explicit height, centered in viewport */}
-          <div className="absolute inset-x-0 top-0 z-50 flex h-screen items-center justify-center px-6 pt-[40px] pointer-events-none">
+          <div className="absolute inset-x-0 top-0 z-50 flex h-screen items-center justify-center px-6 pt-[70px] pointer-events-none">
             <div className="relative mx-auto h-[360px] w-full max-w-6xl md:h-[420px]">
               <AnimatePresence mode="wait" initial={false}>
                 {activeView === 1 && (
@@ -120,7 +138,7 @@ export function ProductsSection() {
                     <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                       {products.slice(0, 2).map((p) => (
                         <div key={p.id} className="w-1/2 max-w-[220px]">
-                          {renderCard(p, bursts, floats, handleAdd)}
+                          {renderCard(p, bursts, floats, handleAdd, "cream")}
                         </div>
                       ))}
                     </div>
@@ -139,7 +157,7 @@ export function ProductsSection() {
                     <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                       {products.slice(2, 4).map((p) => (
                         <div key={p.id} className="w-1/2 max-w-[220px]">
-                          {renderCard(p, bursts, floats, handleAdd)}
+                          {renderCard(p, bursts, floats, handleAdd, "berry")}
                         </div>
                       ))}
                     </div>
@@ -149,41 +167,24 @@ export function ProductsSection() {
                 {activeView === 3 && (
                   <motion.div
                     key="view-3"
-                    id="pedir"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.32, ease: "easeOut" }}
-                    className="absolute inset-0 flex flex-col items-center justify-center pointer-events-auto"
+                    className="absolute inset-0 flex items-center justify-center pointer-events-auto"
                   >
                     <div className="grid w-full grid-cols-2 gap-6 md:gap-10 lg:grid-cols-4">
                       {products.map((p) => (
                         <div key={p.id}>
-                          {renderCard(p, bursts, floats, handleAdd)}
+                          {renderCard(p, bursts, floats, handleAdd, "cream")}
                         </div>
                       ))}
                     </div>
-
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-                      className="mt-8 text-center"
-                    >
-                      <a
-                        href="#pedir"
-                        className="hover-jiggle inline-flex items-center rounded-full bg-berry px-8 py-3 font-display italic text-lg text-cream transition-transform"
-                      >
-                        Ir a tienda <span className="ml-2 animate-arrow">→</span>
-                      </a>
-                    </motion.div>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
           </div>
-        </div>
-      </div>
 
     </section>
   );
