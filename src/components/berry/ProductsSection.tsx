@@ -109,22 +109,22 @@ export function ProductsSection() {
           {/* 4) Slot-machine text */}
           <div
             aria-hidden="true"
-            className="absolute top-[14%] left-1/2 -translate-x-1/2 z-20 overflow-hidden pointer-events-none"
-            style={{ height: "1.2em", lineHeight: 1.2 }}
+            className="absolute top-[10%] left-1/2 -translate-x-1/2 z-20 overflow-hidden pointer-events-none px-4"
+            style={{ height: "1.6em", lineHeight: 1.6 }}
           >
             <motion.div
               style={{ transform: textTransform, willChange: "transform" }}
               className="font-display italic text-center"
             >
               <div
-                className="text-2xl md:text-4xl tracking-wide text-berry"
-                style={{ height: "1.2em", lineHeight: 1.2 }}
+                className="text-2xl md:text-4xl tracking-wide text-berry whitespace-nowrap"
+                style={{ height: "1.6em", lineHeight: 1.6 }}
               >
                 Hechas a mano, una a una.
               </div>
               <div
-                className="text-2xl md:text-4xl tracking-wide text-cream"
-                style={{ height: "1.2em", lineHeight: 1.2 }}
+                className="text-2xl md:text-4xl tracking-wide text-cream whitespace-nowrap"
+                style={{ height: "1.6em", lineHeight: 1.6 }}
               >
                 Recién dipped en chocolate.
               </div>
