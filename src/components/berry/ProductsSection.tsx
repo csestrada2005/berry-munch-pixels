@@ -185,7 +185,8 @@ export function ProductsSection() {
               </AnimatePresence>
             </div>
           </div>
-
+        </div>
+      </div>
     </section>
   );
 }
