@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
+import { AnimatePresence, motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 
 import { Tilt } from "./fx/Tilt";
 import { ConfettiBurst } from "./fx/ConfettiBurst";
@@ -18,6 +18,7 @@ const products = [
 export function ProductsSection() {
   const [bursts, setBursts] = useState<Record<number, boolean>>({});
   const [floats, setFloats] = useState<Array<{ id: number; pid: number }>>([]);
+  const [activeView, setActiveView] = useState<0 | 1 | 2 | 3>(0);
   const floatId = useRef(0);
 
   const trackRef = useRef<HTMLDivElement>(null);
@@ -55,18 +56,16 @@ export function ProductsSection() {
   const panelScale = useTransform(scrollYProgress, [0.48, 0.58], [0, 40]);
   const panelTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${panelScale}, ${panelScale}, 1)`;
 
-  // View opacities — three overlapping views with NO empty gaps.
-  // View1 stays visible until View2 starts taking over, etc.
-  const view1Opacity = useTransform(scrollYProgress, [0.34, 0.40, 0.50, 0.56], [0, 1, 1, 0]);
-  const view2Opacity = useTransform(scrollYProgress, [0.52, 0.58, 0.70, 0.76], [0, 1, 1, 0]);
   const view3Opacity = useTransform(scrollYProgress, [0.70, 0.78], [0, 1]);
-  const view1PointerEvents = useTransform(view1Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
-  const view2PointerEvents = useTransform(view2Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
-  const view3PointerEvents = useTransform(view3Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
 
   // CTA — appears with finale.
   const ctaOpacity = useTransform(scrollYProgress, [0.82, 0.90], [0, 1]);
   const ctaY = useTransform(scrollYProgress, [0.82, 0.90], [40, 0]);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const nextView: 0 | 1 | 2 | 3 = latest < 0.34 ? 0 : latest < 0.54 ? 1 : latest < 0.74 ? 2 : 3;
+    setActiveView((current) => (current === nextView ? current : nextView));
+  });
 
   function handleAdd(pid: number) {
     setBursts((b) => ({ ...b, [pid]: true }));
