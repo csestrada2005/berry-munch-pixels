@@ -119,10 +119,10 @@ export function ProductsSection() {
             className="absolute top-[14%] left-1/2 -translate-x-1/2 z-20 pointer-events-none px-4"
             style={{ opacity: textOpacity }}
           >
-            <div className="overflow-hidden h-[60px] md:h-[88px]">
+            <div className="overflow-hidden h-[60px] md:h-[88px] relative">
               <motion.div
                 style={{ transform: textTransform, willChange: "transform" }}
-                className="font-display italic text-center"
+                className="font-display italic text-center h-[120px] md:h-[176px] flex flex-col"
               >
                 <div className="text-2xl md:text-4xl tracking-wide text-berry whitespace-nowrap h-[60px] md:h-[88px] flex items-center justify-center leading-none">
                   Hechas a mano, una a una.
