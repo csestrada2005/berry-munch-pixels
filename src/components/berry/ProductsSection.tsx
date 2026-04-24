@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 
 import { Tilt } from "./fx/Tilt";
@@ -20,6 +20,14 @@ export function ProductsSection() {
   const [floats, setFloats] = useState<Array<{ id: number; pid: number }>>([]);
   const [activeView, setActiveView] = useState<0 | 1 | 2 | 3>(0);
   const floatId = useRef(0);
+
+  // Preload all product images on mount so view swaps don't wait on the network
+  useEffect(() => {
+    products.forEach((p) => {
+      const img = new Image();
+      img.src = p.image;
+    });
+  }, []);
 
   const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -219,8 +227,10 @@ function renderCard(
         <img
           src={p.image}
           alt={p.name}
-          loading="lazy"
+          loading="eager"
           decoding="async"
+          // @ts-expect-error - fetchpriority is a valid HTML attribute
+          fetchpriority="high"
           className={`absolute ${p.topClass} left-1/2 -translate-x-1/2 ${p.imgClass} w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg] z-10 transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110`}
         />
 
