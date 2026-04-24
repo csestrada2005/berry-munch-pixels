@@ -40,6 +40,13 @@ export function ProductsSection() {
 
   const textShift = useTransform(scrollYProgress, [0.18, 0.32], [0, -50]);
   const textTransform = useMotionTemplate`translate3d(0, ${textShift}%, 0)`;
+  // Show text only while there's a contrasting background (after canvas covers,
+  // before the cream-soft panel wipes back in for the cards).
+  const textOpacity = useTransform(
+    scrollYProgress,
+    [0.14, 0.18, 0.46, 0.50],
+    [0, 1, 1, 0],
+  );
 
   const wipeScale = useTransform(scrollYProgress, [0.32, 0.46], [0, 40]);
   const wipeTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${wipeScale}, ${wipeScale}, 1)`;
@@ -106,30 +113,26 @@ export function ProductsSection() {
             className="absolute left-1/2 top-1/2 w-[120px] h-[120px] rounded-full pointer-events-none"
           />
 
-          {/* 4) Slot-machine text */}
-          <div
+          {/* 4) Slot-machine text — fixed-height mask + sliding inner track */}
+          <motion.div
             aria-hidden="true"
-            className="absolute top-[10%] left-1/2 -translate-x-1/2 z-20 overflow-hidden pointer-events-none px-4"
-            style={{ height: "1.6em", lineHeight: 1.6 }}
+            className="absolute top-[14%] left-1/2 -translate-x-1/2 z-20 pointer-events-none px-4"
+            style={{ opacity: textOpacity }}
           >
-            <motion.div
-              style={{ transform: textTransform, willChange: "transform" }}
-              className="font-display italic text-center"
-            >
-              <div
-                className="text-2xl md:text-4xl tracking-wide text-berry whitespace-nowrap"
-                style={{ height: "1.6em", lineHeight: 1.6 }}
+            <div className="overflow-hidden h-[60px] md:h-[88px] relative">
+              <motion.div
+                style={{ transform: textTransform, willChange: "transform" }}
+                className="font-display italic text-center h-[120px] md:h-[176px] flex flex-col"
               >
-                Hechas a mano, una a una.
-              </div>
-              <div
-                className="text-2xl md:text-4xl tracking-wide text-cream whitespace-nowrap"
-                style={{ height: "1.6em", lineHeight: 1.6 }}
-              >
-                Recién dipped en chocolate.
-              </div>
-            </motion.div>
-          </div>
+                <div className="text-2xl md:text-4xl tracking-wide text-berry whitespace-nowrap h-[60px] md:h-[88px] flex items-center justify-center leading-none">
+                  Hechas a mano, una a una.
+                </div>
+                <div className="text-2xl md:text-4xl tracking-wide text-cream whitespace-nowrap h-[60px] md:h-[88px] flex items-center justify-center leading-none">
+                  Recién dipped en chocolate.
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
 
           {/* 5) Products content — revealed inside the sticky stage after the wipe */}
           <div
