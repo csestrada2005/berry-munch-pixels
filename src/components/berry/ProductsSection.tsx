@@ -117,121 +117,74 @@ export function ProductsSection() {
             className="absolute left-1/2 top-1/2 w-[120px] h-[120px] rounded-full pointer-events-none"
           />
 
-          {/* 4) Slot-machine text — fixed-height mask + sliding inner track */}
-          <motion.div
-            aria-hidden="true"
-            className="absolute top-[14%] left-1/2 -translate-x-1/2 z-20 pointer-events-none px-4"
-            style={{ opacity: textOpacity }}
+          {/* 4) Title — slides in centered, then moves up to top. Always visible (no fade-out). */}
+          <motion.h2
+            style={{
+              transform: titleTransform,
+              opacity: titleOpacity,
+              willChange: "transform, opacity",
+            }}
+            className="absolute left-1/2 top-1/2 z-30 font-display font-bold text-3xl md:text-5xl tracking-wide text-center text-black whitespace-nowrap pointer-events-none"
           >
-            <div className="overflow-hidden h-[60px] md:h-[88px] relative">
-              <motion.div
-                style={{ transform: textTransform, willChange: "transform" }}
-                className="font-display italic text-center h-[120px] md:h-[176px] flex flex-col"
-              >
-                <div className="text-2xl md:text-4xl tracking-wide text-berry whitespace-nowrap h-[60px] md:h-[88px] flex items-center justify-center leading-none">
-                  Hechas a mano, una a una.
-                </div>
-                <div className="text-2xl md:text-4xl tracking-wide text-cream whitespace-nowrap h-[60px] md:h-[88px] flex items-center justify-center leading-none">
-                  Recién dipped en chocolate.
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+            NUESTROS BERRY BESTS
+          </motion.h2>
 
-          {/* 5) Products content — revealed inside the sticky stage after the wipe */}
+          {/* 5) Products content */}
           <div
             id="pedir"
-            className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 scroll-mt-24 pt-28 pb-8"
+            className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center px-6 pb-12 pt-[42vh]"
           >
-            <div className="w-full max-w-6xl mx-auto">
-              <motion.h2
-                style={{ opacity: titleOpacity, y: titleY, willChange: "transform, opacity" }}
-                className="text-center font-display text-2xl md:text-4xl font-bold mb-6 md:mb-10 tracking-wide text-berry"
-              >
-                NUESTROS BERRY BESTS
-              </motion.h2>
-
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
-                {products.map((p, i) => {
-                  const inFirstPair = i < 2;
-                  return (
-                    <motion.div
-                      key={p.id}
-                      style={{
-                        opacity: inFirstPair ? firstPairOpacity : secondPairOpacity,
-                        y: inFirstPair ? firstPairY : secondPairY,
-                        willChange: "transform, opacity",
-                      }}
-                    >
-                      <Tilt className="relative pt-24 md:pt-28 group">
-                        <div className="relative rounded-2xl bg-berry/5 ring-2 ring-berry pt-16 md:pt-20 shadow-xl transition-shadow duration-300 group-hover:shadow-2xl">
-                          <svg
-                            aria-hidden="true"
-                            viewBox="0 0 80 40"
-                            className={`absolute ${p.sparkleClass} left-1/2 -translate-x-1/2 w-16 md:w-20 h-8 md:h-10 text-berry pointer-events-none animate-twinkle`}
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="3"
-                            strokeLinecap="round"
-                          >
-                            <line x1="14" y1="30" x2="6" y2="10" />
-                            <line x1="40" y1="28" x2="40" y2="4" />
-                            <line x1="66" y1="30" x2="74" y2="10" />
-                          </svg>
-
-                          <img
-                            src={p.image}
-                            alt={p.name}
-                            className={`absolute ${p.topClass} left-1/2 -translate-x-1/2 ${p.imgClass} w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg] z-10 transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110`}
-                          />
-
-                          <div className="h-16 md:h-20" />
-
-                          <div className="rounded-b-2xl bg-cream-soft text-chocolate px-4 py-4 text-center relative">
-                            <p className="font-display font-bold text-xs md:text-sm uppercase leading-tight tracking-wide">
-                              {p.name}
-                            </p>
-                            <p className="mt-1 font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
-                              {p.price}
-                            </p>
-                            {floats
-                              .filter((f) => f.pid === p.id)
-                              .map((f) => (
-                                <span
-                                  key={f.id}
-                                  className="pointer-events-none absolute left-1/2 top-2 -translate-x-1/2 font-bold text-berry text-lg"
-                                  style={{ animation: "float-up 0.8s ease-out forwards" }}
-                                >
-                                  +1
-                                </span>
-                              ))}
-                            <div className="relative inline-block mt-2">
-                              <ConfettiBurst show={!!bursts[p.id]} />
-                              <button
-                                onClick={() => handleAdd(p.id)}
-                                aria-label={`Añadir ${p.name}`}
-                                className="inline-flex items-center justify-center rounded-full bg-berry px-4 py-1.5 text-cream text-xs md:text-sm font-bold transition-transform hover:scale-110 active:scale-90"
-                              >
-                                + Añadir
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </Tilt>
-                    </motion.div>
-                  );
-                })}
-              </div>
-
+            <div className="w-full max-w-6xl mx-auto relative">
+              {/* First pair (cards 0,1) — visible before wipe */}
               <motion.div
-                style={{ opacity: secondPairOpacity }}
+                style={{
+                  opacity: firstPairOpacity,
+                  y: firstPairY,
+                  willChange: "transform, opacity",
+                }}
+                className="absolute inset-x-0 top-0 grid grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto"
+              >
+                {products.slice(0, 2).map((p) => renderCard(p, bursts, floats, handleAdd))}
+              </motion.div>
+
+              {/* Second pair (cards 2,3) — visible during berry wipe */}
+              <motion.div
+                style={{
+                  opacity: secondPairOpacity,
+                  y: secondPairY,
+                  willChange: "transform, opacity",
+                }}
+                className="absolute inset-x-0 top-0 grid grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto"
+              >
+                {products.slice(2, 4).map((p) => renderCard(p, bursts, floats, handleAdd))}
+              </motion.div>
+
+              {/* All four — final reveal on cream-soft panel */}
+              <motion.div
+                style={{
+                  opacity: allFourOpacity,
+                  y: allFourY,
+                  willChange: "transform, opacity",
+                }}
+                className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10"
+              >
+                {products.map((p) => renderCard(p, bursts, floats, handleAdd))}
+              </motion.div>
+
+              {/* CTA button */}
+              <motion.div
+                style={{
+                  opacity: ctaOpacity,
+                  y: ctaY,
+                  willChange: "transform, opacity",
+                }}
                 className="mt-10 text-center"
               >
                 <a
                   href="#loyalty"
                   className="hover-jiggle inline-flex items-center rounded-full bg-berry px-8 py-3 font-display italic text-lg text-cream transition-transform"
                 >
-                  se me antojan <span className="ml-2 animate-arrow">→</span>
+                  Ir a tienda <span className="ml-2 animate-arrow">→</span>
                 </a>
               </motion.div>
             </div>
@@ -246,5 +199,70 @@ export function ProductsSection() {
         }
       `}</style>
     </section>
+  );
+}
+
+function renderCard(
+  p: typeof products[number],
+  bursts: Record<number, boolean>,
+  floats: Array<{ id: number; pid: number }>,
+  handleAdd: (pid: number) => void,
+) {
+  return (
+    <Tilt key={p.id} className="relative pt-24 md:pt-28 group">
+      <div className="relative rounded-2xl bg-berry/5 ring-2 ring-berry pt-16 md:pt-20 shadow-xl transition-shadow duration-300 group-hover:shadow-2xl">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 80 40"
+          className={`absolute ${p.sparkleClass} left-1/2 -translate-x-1/2 w-16 md:w-20 h-8 md:h-10 text-berry pointer-events-none animate-twinkle`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+        >
+          <line x1="14" y1="30" x2="6" y2="10" />
+          <line x1="40" y1="28" x2="40" y2="4" />
+          <line x1="66" y1="30" x2="74" y2="10" />
+        </svg>
+
+        <img
+          src={p.image}
+          alt={p.name}
+          className={`absolute ${p.topClass} left-1/2 -translate-x-1/2 ${p.imgClass} w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg] z-10 transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110`}
+        />
+
+        <div className="h-16 md:h-20" />
+
+        <div className="rounded-b-2xl bg-cream-soft text-chocolate px-4 py-4 text-center relative">
+          <p className="font-display font-bold text-xs md:text-sm uppercase leading-tight tracking-wide">
+            {p.name}
+          </p>
+          <p className="mt-1 font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
+            {p.price}
+          </p>
+          {floats
+            .filter((f) => f.pid === p.id)
+            .map((f) => (
+              <span
+                key={f.id}
+                className="pointer-events-none absolute left-1/2 top-2 -translate-x-1/2 font-bold text-berry text-lg"
+                style={{ animation: "float-up 0.8s ease-out forwards" }}
+              >
+                +1
+              </span>
+            ))}
+          <div className="relative inline-block mt-2">
+            <ConfettiBurst show={!!bursts[p.id]} />
+            <button
+              onClick={() => handleAdd(p.id)}
+              aria-label={`Añadir ${p.name}`}
+              className="inline-flex items-center justify-center rounded-full bg-berry px-4 py-1.5 text-cream text-xs md:text-sm font-bold transition-transform hover:scale-110 active:scale-90"
+            >
+              + Añadir
+            </button>
+          </div>
+        </div>
+      </div>
+    </Tilt>
   );
 }
