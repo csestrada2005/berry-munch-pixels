@@ -27,46 +27,46 @@ export function ProductsSection() {
   });
 
   // Choreography:
-  //  0    → 0.18 : Cream canvas scales up
-  //  0.18 → 0.28 : Title slides into vertical center
-  //  0.30 → 0.40 : Title moves up to top
-  //  0.36 → 0.46 : Berry-red wipe expands → screen turns RED
-  //  0.40 → 0.52 : View 1 — first 2 cards on RED
-  //  0.52 → 0.58 : Cream-soft panel wipes back → CREAM
-  //  0.58 → 0.70 : View 2 — second 2 cards on CREAM
-  //  0.76 → 1.00 : View 3 — finale, all 4 cards in grid + CTA
-  const canvasScale = useTransform(scrollYProgress, [0, 0.18], [0.35, 1]);
-  const canvasRadius = useTransform(scrollYProgress, [0, 0.18], [48, 0]);
-  const canvasOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
+  //  0    → 0.14 : Cream canvas scales up
+  //  0.14 → 0.24 : Title slides into vertical center
+  //  0.24 → 0.32 : Title moves up to top
+  //  0.30 → 0.40 : Berry-red wipe expands → screen turns RED
+  //  0.34 → 0.54 : View 1 — first 2 cards on RED
+  //  0.48 → 0.58 : Cream-soft panel wipes back → CREAM
+  //  0.52 → 0.74 : View 2 — second 2 cards on CREAM
+  //  0.70 → 1.00 : View 3 — finale, all 4 cards in grid + CTA
+  const canvasScale = useTransform(scrollYProgress, [0, 0.14], [0.35, 1]);
+  const canvasRadius = useTransform(scrollYProgress, [0, 0.14], [48, 0]);
+  const canvasOpacity = useTransform(scrollYProgress, [0, 0.03], [0, 1]);
   const canvasTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${canvasScale}, ${canvasScale}, 1)`;
 
-  const titleY = useTransform(scrollYProgress, [0.18, 0.28, 0.30, 0.40], [80, 0, 0, -34]);
-  const titleOpacity = useTransform(scrollYProgress, [0.16, 0.22], [0, 1]);
+  const titleY = useTransform(scrollYProgress, [0.14, 0.24, 0.28, 0.38], [80, 0, 0, -30]);
+  const titleOpacity = useTransform(scrollYProgress, [0.12, 0.18], [0, 1]);
   const titleTransform = useMotionTemplate`translate3d(-50%, ${titleY}vh, 0)`;
   const titleColor = useTransform(
     scrollYProgress,
-    [0.40, 0.46, 0.56, 0.62],
+    [0.34, 0.40, 0.50, 0.58],
     ["#000000", "var(--cream)", "var(--cream)", "#000000"],
   );
 
-  const wipeScale = useTransform(scrollYProgress, [0.36, 0.46], [0, 40]);
+  const wipeScale = useTransform(scrollYProgress, [0.30, 0.40], [0, 40]);
   const wipeTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${wipeScale}, ${wipeScale}, 1)`;
 
-  const panelScale = useTransform(scrollYProgress, [0.52, 0.62], [0, 40]);
+  const panelScale = useTransform(scrollYProgress, [0.48, 0.58], [0, 40]);
   const panelTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${panelScale}, ${panelScale}, 1)`;
 
   // View opacities — three overlapping views with NO empty gaps.
   // View1 stays visible until View2 starts taking over, etc.
-  const view1Opacity = useTransform(scrollYProgress, [0.42, 0.48, 0.58, 0.62], [0, 1, 1, 0]);
-  const view2Opacity = useTransform(scrollYProgress, [0.60, 0.66, 0.74, 0.78], [0, 1, 1, 0]);
-  const view3Opacity = useTransform(scrollYProgress, [0.76, 0.84], [0, 1]);
+  const view1Opacity = useTransform(scrollYProgress, [0.34, 0.40, 0.50, 0.56], [0, 1, 1, 0]);
+  const view2Opacity = useTransform(scrollYProgress, [0.52, 0.58, 0.70, 0.76], [0, 1, 1, 0]);
+  const view3Opacity = useTransform(scrollYProgress, [0.70, 0.78], [0, 1]);
   const view1PointerEvents = useTransform(view1Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
   const view2PointerEvents = useTransform(view2Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
   const view3PointerEvents = useTransform(view3Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
 
   // CTA — appears with finale.
-  const ctaOpacity = useTransform(scrollYProgress, [0.86, 0.94], [0, 1]);
-  const ctaY = useTransform(scrollYProgress, [0.86, 0.94], [40, 0]);
+  const ctaOpacity = useTransform(scrollYProgress, [0.82, 0.90], [0, 1]);
+  const ctaY = useTransform(scrollYProgress, [0.82, 0.90], [40, 0]);
 
   function handleAdd(pid: number) {
     setBursts((b) => ({ ...b, [pid]: true }));
@@ -79,9 +79,9 @@ export function ProductsSection() {
   }
 
   return (
-    <section id="productos" className="bg-berry text-cream scroll-mt-24">
+    <section id="productos" className="relative z-20 bg-berry text-cream scroll-mt-24">
       <div ref={trackRef} className="relative h-[400vh]">
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
+        <div className="sticky top-0 isolate h-screen w-full overflow-hidden">
           {/* z-0 — Cream canvas */}
           <motion.div
             aria-hidden="true"
@@ -130,8 +130,8 @@ export function ProductsSection() {
           </motion.h2>
 
           {/* z-50 — Shared product stage with explicit height, centered in viewport */}
-          <div className="absolute inset-x-0 top-0 z-50 h-screen flex items-center justify-center px-6 pt-24 pointer-events-none">
-            <div className="relative w-full max-w-6xl mx-auto h-[420px] md:h-[460px]">
+          <div className="absolute inset-x-0 top-0 z-50 flex h-screen items-center justify-center px-6 pointer-events-none">
+            <div className="relative mx-auto h-[360px] w-full max-w-6xl md:h-[420px]">
               {/* View 1 — first 2 cards (RED phase) */}
               <motion.div
                 style={{ opacity: view1Opacity, pointerEvents: view1PointerEvents, willChange: "opacity" }}
