@@ -129,9 +129,9 @@ export function ProductsSection() {
             NUESTROS BERRY BESTS
           </motion.h2>
 
-          {/* z-50 — Shared product stage centered just below the title */}
-          <div className="absolute inset-x-0 top-1/2 z-50 -translate-y-1/4 px-6 pointer-events-none">
-            <div className="relative w-full max-w-6xl mx-auto">
+          {/* z-50 — Shared product stage with explicit height, centered in viewport */}
+          <div className="absolute inset-x-0 top-0 z-50 h-screen flex items-center justify-center px-6 pt-24 pointer-events-none">
+            <div className="relative w-full max-w-6xl mx-auto h-[420px] md:h-[460px]">
               {/* View 1 — first 2 cards (RED phase) */}
               <motion.div
                 style={{ opacity: view1Opacity, pointerEvents: view1PointerEvents, willChange: "opacity" }}
@@ -164,7 +164,7 @@ export function ProductsSection() {
               <motion.div
                 id="pedir"
                 style={{ opacity: view3Opacity, pointerEvents: view3PointerEvents, willChange: "opacity" }}
-                className="relative flex flex-col items-center justify-center"
+                className="absolute inset-0 flex flex-col items-center justify-center"
               >
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 w-full">
                   {products.map((p) => (
@@ -180,7 +180,7 @@ export function ProductsSection() {
                     y: ctaY,
                     willChange: "transform, opacity",
                   }}
-                  className="mt-10 text-center"
+                  className="mt-8 text-center"
                 >
                   <a
                     href="#loyalty"
