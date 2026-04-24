@@ -139,7 +139,7 @@ export function ProductsSection() {
             <div className="w-full max-w-6xl mx-auto">
               <motion.h2
                 style={{ opacity: titleOpacity, y: titleY, willChange: "transform, opacity" }}
-                className="text-center font-display text-3xl md:text-5xl font-bold mb-10 md:mb-16 tracking-wide text-berry"
+                className="text-center font-display text-2xl md:text-4xl font-bold mb-6 md:mb-10 tracking-wide text-berry"
               >
                 NUESTROS BERRY BESTS
               </motion.h2>
