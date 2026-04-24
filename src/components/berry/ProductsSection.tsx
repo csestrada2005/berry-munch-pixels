@@ -28,44 +28,54 @@ export function ProductsSection() {
   });
 
   // Choreography:
-  //  0    → 0.18 : Canvas (cream box) scales from small square → fullscreen
-  //  0.18 → 0.28 : Title slides in from below to vertical center
-  //  0.30 → 0.40 : Title moves up to top + first 2 cards slide up into view
-  //  0.40 → 0.55 : Berry wipe expands → first 2 cards fade out, second 2 fade in
-  //  0.55 → 0.70 : Cream-soft panel wipes back → all 4 cards visible
-  //  0.70 → 0.85 : "Ir a tienda" button slides in
+  //  0    → 0.18 : Cream canvas scales up
+  //  0.18 → 0.28 : Title slides into vertical center
+  //  0.30 → 0.40 : Title moves up to top
+  //  0.36 → 0.46 : Berry-red wipe expands → screen turns RED
+  //  0.46 → 0.56 : First 2 cards visible on RED background
+  //  0.56 → 0.66 : Cream-soft panel wipes back → screen turns CREAM
+  //                + first 2 fade out, second 2 fade in
+  //  0.66 → 0.76 : Second 2 cards visible on CREAM
+  //  0.76 → 0.94 : All 4 cards + "Ir a tienda" button (finale)
   const canvasScale = useTransform(scrollYProgress, [0, 0.18], [0.35, 1]);
   const canvasRadius = useTransform(scrollYProgress, [0, 0.18], [48, 0]);
   const canvasOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
   const canvasTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${canvasScale}, ${canvasScale}, 1)`;
 
-  // Title: appears in vertical center after canvas covers, then slides up to top.
-  // Uses vh units so it's stable across viewports. 50vh = center, 8vh = near top.
+  // Title slides in centered, then up to top. Color flips for contrast on each bg.
   const titleY = useTransform(scrollYProgress, [0.18, 0.28, 0.30, 0.40], [80, 0, 0, -34]);
   const titleOpacity = useTransform(scrollYProgress, [0.16, 0.22], [0, 1]);
   const titleTransform = useMotionTemplate`translate3d(-50%, ${titleY}vh, 0)`;
+  // Black on cream → cream on berry-red → black again on cream-soft.
+  const titleColor = useTransform(
+    scrollYProgress,
+    [0.40, 0.46, 0.60, 0.66],
+    ["#000000", "var(--cream)", "var(--cream)", "#000000"],
+  );
 
-  const wipeScale = useTransform(scrollYProgress, [0.40, 0.55], [0, 40]);
+  // Berry-red wipe.
+  const wipeScale = useTransform(scrollYProgress, [0.36, 0.46], [0, 40]);
   const wipeTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${wipeScale}, ${wipeScale}, 1)`;
 
-  const panelScale = useTransform(scrollYProgress, [0.55, 0.70], [0, 40]);
+  // Cream-soft panel — wipes the red away.
+  const panelScale = useTransform(scrollYProgress, [0.56, 0.66], [0, 40]);
   const panelTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${panelScale}, ${panelScale}, 1)`;
 
-  // First pair: slide in as title moves up (0.30 → 0.40), fade out during wipe (0.40 → 0.50).
-  const firstPairOpacity = useTransform(scrollYProgress, [0.30, 0.38, 0.42, 0.50], [0, 1, 1, 0]);
-  const firstPairY = useTransform(scrollYProgress, [0.30, 0.40], [80, 0]);
+  // First 2 cards: appear on RED bg, fade out as cream wipes back.
+  const firstPairOpacity = useTransform(scrollYProgress, [0.46, 0.52, 0.58, 0.64], [0, 1, 1, 0]);
+  const firstPairY = useTransform(scrollYProgress, [0.46, 0.52], [60, 0]);
 
-  // Second pair: fade in as wipe covers (0.45 → 0.55), fade out as cream panel wipes back (0.60 → 0.68).
-  const secondPairOpacity = useTransform(scrollYProgress, [0.45, 0.55, 0.60, 0.68], [0, 1, 1, 0]);
-  const secondPairY = useTransform(scrollYProgress, [0.45, 0.55], [80, 0]);
+  // Second 2 cards: appear on CREAM bg, fade out before finale.
+  const secondPairOpacity = useTransform(scrollYProgress, [0.66, 0.72, 0.78, 0.84], [0, 1, 1, 0]);
+  const secondPairY = useTransform(scrollYProgress, [0.66, 0.72], [60, 0]);
 
-  // All four cards: visible after the cream-soft panel wipes back.
-  const allFourOpacity = useTransform(scrollYProgress, [0.68, 0.78], [0, 1]);
-  const allFourY = useTransform(scrollYProgress, [0.68, 0.78], [60, 0]);
+  // Finale: all 4 cards visible.
+  const allFourOpacity = useTransform(scrollYProgress, [0.84, 0.90], [0, 1]);
+  const allFourY = useTransform(scrollYProgress, [0.84, 0.90], [60, 0]);
 
-  // CTA button: slides in last.
-  const ctaOpacity = useTransform(scrollYProgress, [0.80, 0.92], [0, 1]);
-  const ctaY = useTransform(scrollYProgress, [0.80, 0.92], [40, 0]);
+  // CTA button — slides in with the finale.
+  const ctaOpacity = useTransform(scrollYProgress, [0.88, 0.96], [0, 1]);
+  const ctaY = useTransform(scrollYProgress, [0.88, 0.96], [40, 0]);
 
   function handleAdd(pid: number) {
     setBursts((b) => ({ ...b, [pid]: true }));
