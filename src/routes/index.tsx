@@ -27,19 +27,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  if (typeof window !== "undefined") {
-    setTimeout(() => {
-      console.log("[debug] doc scrollHeight:", document.documentElement.scrollHeight, "viewport:", window.innerHeight);
-      const products = document.getElementById("productos");
-      const gallery = document.getElementById("berries-gallery");
-      console.log("[debug] products section height:", products?.getBoundingClientRect().height);
-      console.log("[debug] gallery section height:", gallery?.getBoundingClientRect().height);
-      const ptrack = products?.querySelector(":scope > div");
-      const gtrack = gallery?.querySelector(":scope > div");
-      console.log("[debug] products track height:", (ptrack as HTMLElement)?.getBoundingClientRect().height);
-      console.log("[debug] gallery track height:", (gtrack as HTMLElement)?.getBoundingClientRect().height);
-    }, 1500);
-  }
   return (
     <main className="min-h-screen">
       <Nav />
