@@ -45,6 +45,12 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Berry Munch — The Berry Sweet" },
+      { name: "description", content: "Berry Munch Website is a dynamic, interactive web experience built from a Figma design." },
+      { property: "og:description", content: "Berry Munch Website is a dynamic, interactive web experience built from a Figma design." },
+      { name: "twitter:description", content: "Berry Munch Website is a dynamic, interactive web experience built from a Figma design." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/50c7056a-2d2f-4ba8-963b-41ece12279a3/id-preview-daebc922--861b12b8-d1e2-4f48-959b-44bf215e496f.lovable.app-1777052804960.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/50c7056a-2d2f-4ba8-963b-41ece12279a3/id-preview-daebc922--861b12b8-d1e2-4f48-959b-44bf215e496f.lovable.app-1777052804960.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
