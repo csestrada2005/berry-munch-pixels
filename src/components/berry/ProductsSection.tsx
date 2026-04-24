@@ -66,22 +66,11 @@ export function ProductsSection() {
   }, []);
 
   return (
-    <section id="productos" className="relative z-20 bg-cream text-chocolate scroll-mt-24">
+    <section id="productos" className="relative z-20 bg-berry text-cream scroll-mt-24">
       <div ref={trackRef} className="relative h-[400vh]">
-        <div className="sticky top-0 isolate h-screen w-full overflow-hidden bg-cream">
+        <div className="sticky top-0 isolate h-screen w-full overflow-hidden bg-berry">
 
-          {/* z-10 — Berry red wipe */}
-          <motion.span
-            aria-hidden="true"
-            style={{
-              transform: wipeTransform,
-              willChange: "transform",
-              backgroundColor: "var(--berry)",
-            }}
-            className="absolute left-1/2 top-1/2 z-10 w-[120px] h-[120px] rounded-full pointer-events-none"
-          />
-
-          {/* z-20 — Cream-soft panel wipe */}
+          {/* z-10 — Cream-soft panel wipe (red → cream) */}
           <motion.span
             aria-hidden="true"
             style={{
@@ -89,18 +78,28 @@ export function ProductsSection() {
               willChange: "transform",
               backgroundColor: "var(--cream-soft)",
             }}
+            className="absolute left-1/2 top-1/2 z-10 w-[120px] h-[120px] rounded-full pointer-events-none"
+          />
+
+          {/* z-20 — Berry red wipe (cream → red, for finale) */}
+          <motion.span
+            aria-hidden="true"
+            style={{
+              transform: wipeTransform,
+              willChange: "transform",
+              backgroundColor: "var(--berry)",
+            }}
             className="absolute left-1/2 top-1/2 z-20 w-[120px] h-[120px] rounded-full pointer-events-none"
           />
 
-          {/* z-40 — Title */}
+          {/* z-40 — Title pinned to the top */}
           <motion.h2
             style={{
-              transform: titleTransform,
               opacity: titleOpacity,
               color: titleColor,
-              willChange: "transform, opacity, color",
+              willChange: "opacity, color",
             }}
-            className="absolute left-1/2 top-1/2 z-40 font-display font-bold text-3xl md:text-5xl tracking-wide text-center whitespace-nowrap pointer-events-none"
+            className="absolute left-1/2 top-24 md:top-28 z-40 -translate-x-1/2 font-display font-bold text-3xl md:text-5xl tracking-wide text-center whitespace-nowrap pointer-events-none"
           >
             NUESTROS BERRY BESTS
           </motion.h2>
