@@ -56,9 +56,7 @@ export function ProductsSection() {
   const panelScale = useTransform(scrollYProgress, [0.48, 0.58], [0, 40]);
   const panelTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${panelScale}, ${panelScale}, 1)`;
 
-  // CTA — appears with finale.
-  const ctaOpacity = useTransform(scrollYProgress, [0.82, 0.90], [0, 1]);
-  const ctaY = useTransform(scrollYProgress, [0.82, 0.90], [40, 0]);
+  // CTA appears with View 3 via AnimatePresence (no scroll-tied opacity, so it stays visible).
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const nextView: 0 | 1 | 2 | 3 = latest < 0.34 ? 0 : latest < 0.54 ? 1 : latest < 0.74 ? 2 : 3;
