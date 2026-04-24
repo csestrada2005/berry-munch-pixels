@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { useCallback, useRef, useState } from "react";
+import { motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 
 import { Tilt } from "./fx/Tilt";
 import { ConfettiBurst } from "./fx/ConfettiBurst";
@@ -20,14 +20,6 @@ export function ProductsSection() {
   const [floats, setFloats] = useState<Array<{ id: number; pid: number }>>([]);
   const [activeView, setActiveView] = useState<0 | 1 | 2 | 3>(0);
   const floatId = useRef(0);
-
-  // Preload all product images on mount so view swaps don't wait on the network
-  useEffect(() => {
-    products.forEach((p) => {
-      const img = new Image();
-      img.src = p.image;
-    });
-  }, []);
 
   const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
