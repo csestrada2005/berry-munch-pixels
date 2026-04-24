@@ -137,7 +137,7 @@ export function ProductsSection() {
 
         {/* Content sits above the sticky background */}
         <div className="relative -mt-screen" style={{ marginTop: "-100vh" }}>
-          <div id="pedir" className="relative mx-auto max-w-6xl px-6 pt-[40vh] pb-32 scroll-mt-24">
+          <div id="pedir" className="relative mx-auto max-w-6xl px-6 pt-[110vh] pb-32 scroll-mt-24">
             <motion.h2
               style={{ opacity: titleOpacity, y: titleY }}
               className="text-center font-display text-4xl md:text-6xl font-bold mb-20 tracking-wide text-berry"
