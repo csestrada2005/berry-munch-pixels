@@ -9,6 +9,9 @@ interface TiltProps {
 
 export function Tilt({ children, className = "", max = 8 }: TiltProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const isCoarse = useRef(
+    typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches,
+  );
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -21,8 +24,7 @@ export function Tilt({ children, className = "", max = 8 }: TiltProps) {
 
   function handleMove(e: React.MouseEvent<HTMLDivElement>) {
     const el = ref.current;
-    if (!el) return;
-    if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return;
+    if (!el || isCoarse.current) return;
     const rect = el.getBoundingClientRect();
     x.set((e.clientX - rect.left) / rect.width - 0.5);
     y.set((e.clientY - rect.top) / rect.height - 0.5);
