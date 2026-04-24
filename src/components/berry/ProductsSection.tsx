@@ -61,17 +61,21 @@ export function ProductsSection() {
   const panelScale = useTransform(scrollYProgress, [0.56, 0.66], [0, 40]);
   const panelTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${panelScale}, ${panelScale}, 1)`;
 
-  // First 2 cards: appear on RED bg, fade out as cream wipes back.
-  const firstPairOpacity = useTransform(scrollYProgress, [0.46, 0.52, 0.58, 0.64], [0, 1, 1, 0]);
+  // First 2 cards: appear on RED bg, fade out as cream wipes back, fade back in for finale.
+  const firstPairOpacity = useTransform(
+    scrollYProgress,
+    [0.46, 0.52, 0.58, 0.64, 0.84, 0.90],
+    [0, 1, 1, 0, 0, 1],
+  );
   const firstPairY = useTransform(scrollYProgress, [0.46, 0.52], [60, 0]);
 
-  // Second 2 cards: appear on CREAM bg, fade out before finale.
-  const secondPairOpacity = useTransform(scrollYProgress, [0.66, 0.72, 0.78, 0.84], [0, 1, 1, 0]);
+  // Second 2 cards: appear on CREAM bg, stay visible through finale.
+  const secondPairOpacity = useTransform(
+    scrollYProgress,
+    [0.66, 0.72],
+    [0, 1],
+  );
   const secondPairY = useTransform(scrollYProgress, [0.66, 0.72], [60, 0]);
-
-  // Finale: all 4 cards visible.
-  const allFourOpacity = useTransform(scrollYProgress, [0.84, 0.90], [0, 1]);
-  const allFourY = useTransform(scrollYProgress, [0.84, 0.90], [60, 0]);
 
   // CTA button — slides in with the finale.
   const ctaOpacity = useTransform(scrollYProgress, [0.88, 0.96], [0, 1]);
