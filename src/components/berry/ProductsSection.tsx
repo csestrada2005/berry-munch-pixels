@@ -140,49 +140,31 @@ export function ProductsSection() {
             NUESTROS BERRY BESTS
           </motion.h2>
 
-          {/* 5) Products content */}
+          {/* 5) Products content — single 4-card grid; per-card opacity drives the choreography. */}
           <div
             id="pedir"
-            className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center px-6 pb-12 pt-[42vh]"
+            className="absolute inset-x-0 top-1/2 z-20 flex flex-col items-center px-6"
+            style={{ transform: "translateY(-30%)" }}
           >
-            <div className="w-full max-w-6xl mx-auto relative">
-              {/* First pair (cards 0,1) — visible before wipe */}
-              <motion.div
-                style={{
-                  opacity: firstPairOpacity,
-                  y: firstPairY,
-                  willChange: "transform, opacity",
-                }}
-                className="absolute inset-x-0 top-0 grid grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto"
-              >
-                {products.slice(0, 2).map((p) => renderCard(p, bursts, floats, handleAdd))}
-              </motion.div>
+            <div className="w-full max-w-6xl mx-auto">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
+                {products.map((p, i) => {
+                  // First pair (i<2): visible during RED phase + finale.
+                  // Second pair (i>=2): visible during CREAM phase + finale.
+                  const opacity = i < 2 ? firstPairOpacity : secondPairOpacity;
+                  const y = i < 2 ? firstPairY : secondPairY;
+                  return (
+                    <motion.div
+                      key={p.id}
+                      style={{ opacity, y, willChange: "transform, opacity" }}
+                    >
+                      {renderCard(p, bursts, floats, handleAdd)}
+                    </motion.div>
+                  );
+                })}
+              </div>
 
-              {/* Second pair (cards 2,3) — visible during berry wipe */}
-              <motion.div
-                style={{
-                  opacity: secondPairOpacity,
-                  y: secondPairY,
-                  willChange: "transform, opacity",
-                }}
-                className="absolute inset-x-0 top-0 grid grid-cols-2 gap-6 md:gap-10 max-w-3xl mx-auto"
-              >
-                {products.slice(2, 4).map((p) => renderCard(p, bursts, floats, handleAdd))}
-              </motion.div>
-
-              {/* All four — final reveal on cream-soft panel */}
-              <motion.div
-                style={{
-                  opacity: allFourOpacity,
-                  y: allFourY,
-                  willChange: "transform, opacity",
-                }}
-                className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10"
-              >
-                {products.map((p) => renderCard(p, bursts, floats, handleAdd))}
-              </motion.div>
-
-              {/* CTA button */}
+              {/* CTA button — appears in finale */}
               <motion.div
                 style={{
                   opacity: ctaOpacity,
