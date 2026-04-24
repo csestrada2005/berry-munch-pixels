@@ -74,16 +74,65 @@ export function ProductsSection() {
     <section id="productos" className="bg-berry text-cream scroll-mt-24">
       {/* Scroll-driven expanding background wrapper */}
       <div ref={wrapperRef} className="relative">
-        {/* Sticky stage holds the expanding cream square */}
+        {/* Sticky stage holds the expanding cream square + slot text + wipe */}
         <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none">
+          {/* 1) Cream box scales up */}
           <motion.div
             style={{
-              scale: bgScale,
               opacity: bgOpacity,
               borderRadius: bgRadius,
+              transform: bgTransform,
+              willChange: "transform",
             }}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-screen w-screen bg-cream origin-center"
+            className="absolute left-1/2 top-1/2 h-screen w-screen bg-cream origin-center"
           />
+
+          {/* 3) Berry wipe overlay — repaints stage in deep berry */}
+          <motion.span
+            aria-hidden="true"
+            style={{
+              transform: wipeTransform,
+              willChange: "transform",
+              backgroundColor: "var(--berry)",
+            }}
+            className="absolute left-1/2 top-1/2 w-[120px] h-[120px] rounded-full"
+          />
+
+          {/* 4) Cream-soft inner panel — reveals on top of berry wipe so cards land on cream */}
+          <motion.span
+            aria-hidden="true"
+            style={{
+              transform: panelTransform,
+              willChange: "transform",
+              backgroundColor: "var(--cream-soft)",
+            }}
+            className="absolute left-1/2 top-1/2 w-[120px] h-[120px] rounded-full"
+          />
+
+          {/* 2) Slot-machine text */}
+          <div
+            aria-hidden="true"
+            className="absolute top-[18%] left-1/2 -translate-x-1/2 z-20 overflow-hidden"
+            style={{ height: "1.2em", lineHeight: 1.2 }}
+          >
+            <motion.div
+              style={{ transform: textTransform, willChange: "transform" }}
+              className="font-display italic text-center"
+            >
+              <div
+                className="text-2xl md:text-4xl tracking-wide text-berry"
+                style={{ height: "1.2em", lineHeight: 1.2 }}
+              >
+                Hechas a mano, una a una.
+              </div>
+              <div
+                className="text-2xl md:text-4xl tracking-wide text-cream"
+                style={{ height: "1.2em", lineHeight: 1.2 }}
+              >
+                Recién dipped en chocolate.
+              </div>
+            </motion.div>
+          </div>
         </div>
 
         {/* Content sits above the sticky background */}
