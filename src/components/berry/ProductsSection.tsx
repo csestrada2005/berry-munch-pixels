@@ -27,39 +27,32 @@ export function ProductsSection() {
     offset: ["start start", "end end"],
   });
 
-  // Choreography:
-  //  0    → 0.14 : Cream canvas scales up
-  //  0.14 → 0.24 : Title slides into vertical center
-  //  0.24 → 0.32 : Title moves up to top
-  //  0.30 → 0.40 : Berry-red wipe expands → screen turns RED
-  //  0.34 → 0.54 : View 1 — first 2 cards on RED
-  //  0.48 → 0.58 : Cream-soft panel wipes back → CREAM
-  //  0.52 → 0.74 : View 2 — second 2 cards on CREAM
-  //  0.70 → 1.00 : View 3 — finale, all 4 cards in grid + CTA
-  const canvasScale = useTransform(scrollYProgress, [0, 0.14], [0.35, 1]);
-  const canvasRadius = useTransform(scrollYProgress, [0, 0.14], [48, 0]);
-  const canvasOpacity = useTransform(scrollYProgress, [0, 0.03], [0, 1]);
-  const canvasTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${canvasScale}, ${canvasScale}, 1)`;
-
-  const titleY = useTransform(scrollYProgress, [0.14, 0.24, 0.28, 0.38], [80, 0, 0, -30]);
-  const titleOpacity = useTransform(scrollYProgress, [0.12, 0.18], [0, 1]);
+  // Choreography (no intro square — section starts on cream):
+  //  0.00 → 0.08 : Title fades/slides into vertical center
+  //  0.08 → 0.20 : View 1 — first 2 cards on CREAM (with title)
+  //  0.20 → 0.32 : Berry-red wipe expands → screen turns RED
+  //  0.28 → 0.50 : View 2 — second 2 cards on RED
+  //  0.50 → 0.62 : Cream-soft panel wipes back → CREAM
+  //  0.62 → 1.00 : View 3 — finale, all 4 cards + CTA on CREAM
+  const titleY = useTransform(scrollYProgress, [0, 0.08, 0.18, 0.28], [40, 0, 0, -30]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.05], [0, 1]);
   const titleTransform = useMotionTemplate`translate3d(-50%, ${titleY}vh, 0)`;
   const titleColor = useTransform(
     scrollYProgress,
-    [0.34, 0.40, 0.50, 0.58],
+    [0.24, 0.32, 0.54, 0.62],
     ["#000000", "var(--cream)", "var(--cream)", "#000000"],
   );
 
-  const wipeScale = useTransform(scrollYProgress, [0.30, 0.40], [0, 40]);
+  const wipeScale = useTransform(scrollYProgress, [0.20, 0.32], [0, 40]);
   const wipeTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${wipeScale}, ${wipeScale}, 1)`;
 
-  const panelScale = useTransform(scrollYProgress, [0.48, 0.58], [0, 40]);
+  const panelScale = useTransform(scrollYProgress, [0.50, 0.62], [0, 40]);
   const panelTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${panelScale}, ${panelScale}, 1)`;
 
-  // CTA appears with View 3 via AnimatePresence (no scroll-tied opacity, so it stays visible).
-
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const nextView: 0 | 1 | 2 | 3 = latest < 0.34 ? 0 : latest < 0.54 ? 1 : latest < 0.74 ? 2 : 3;
+    // View 1 starts immediately (with title), View 2 after red wipe, View 3 after cream wipe.
+    const nextView: 0 | 1 | 2 | 3 =
+      latest < 0.06 ? 0 : latest < 0.28 ? 1 : latest < 0.62 ? 2 : 3;
     setActiveView((current) => (current === nextView ? current : nextView));
   });
 
