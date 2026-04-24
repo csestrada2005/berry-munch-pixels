@@ -74,7 +74,7 @@ export function Marquee() {
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden bg-cream py-4 border-y-2 border-chocolate/20 mt-24 md:mt-40"
+      className="overflow-hidden bg-cream py-4 border-y-2 border-chocolate/20"
     >
       <motion.div
         ref={trackRef}
