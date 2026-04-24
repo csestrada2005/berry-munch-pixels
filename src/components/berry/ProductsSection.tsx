@@ -55,9 +55,10 @@ export function ProductsSection() {
   const panelScale = useTransform(scrollYProgress, [0.52, 0.62], [0, 40]);
   const panelTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${panelScale}, ${panelScale}, 1)`;
 
-  // View opacities — three overlapping views.
-  const view1Opacity = useTransform(scrollYProgress, [0.40, 0.46, 0.50, 0.55], [0, 1, 1, 0]);
-  const view2Opacity = useTransform(scrollYProgress, [0.58, 0.64, 0.70, 0.74], [0, 1, 1, 0]);
+  // View opacities — three overlapping views with NO empty gaps.
+  // View1 stays visible until View2 starts taking over, etc.
+  const view1Opacity = useTransform(scrollYProgress, [0.42, 0.48, 0.58, 0.62], [0, 1, 1, 0]);
+  const view2Opacity = useTransform(scrollYProgress, [0.60, 0.66, 0.74, 0.78], [0, 1, 1, 0]);
   const view3Opacity = useTransform(scrollYProgress, [0.76, 0.84], [0, 1]);
   const view1PointerEvents = useTransform(view1Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
   const view2PointerEvents = useTransform(view2Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
