@@ -56,9 +56,7 @@ export function ProductsSection() {
   const panelScale = useTransform(scrollYProgress, [0.48, 0.58], [0, 40]);
   const panelTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${panelScale}, ${panelScale}, 1)`;
 
-  // CTA — appears with finale.
-  const ctaOpacity = useTransform(scrollYProgress, [0.82, 0.90], [0, 1]);
-  const ctaY = useTransform(scrollYProgress, [0.82, 0.90], [40, 0]);
+  // CTA appears with View 3 via AnimatePresence (no scroll-tied opacity, so it stays visible).
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const nextView: 0 | 1 | 2 | 3 = latest < 0.34 ? 0 : latest < 0.54 ? 1 : latest < 0.74 ? 2 : 3;
@@ -127,7 +125,7 @@ export function ProductsSection() {
           </motion.h2>
 
           {/* z-50 — Shared product stage with explicit height, centered in viewport */}
-          <div className="absolute inset-x-0 top-0 z-50 flex h-screen items-center justify-center px-6 pointer-events-none">
+          <div className="absolute inset-x-0 top-0 z-50 flex h-screen items-center justify-center px-6 pt-[10px] pointer-events-none">
             <div className="relative mx-auto h-[360px] w-full max-w-6xl md:h-[420px]">
               <AnimatePresence mode="wait" initial={false}>
                 {activeView === 1 && (
@@ -187,7 +185,9 @@ export function ProductsSection() {
                     </div>
 
                     <motion.div
-                      style={{ opacity: ctaOpacity, y: ctaY, willChange: "transform, opacity" }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
                       className="mt-8 text-center"
                     >
                       <a
