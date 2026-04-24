@@ -1,10 +1,8 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import chocolateDrip from "@/assets/chocolate-drip.png";
 import strawberryCupPour from "@/assets/strawberry-cup-pour.jpg";
 import berriesCup from "@/assets/berries-cup.png";
 import callouts from "@/assets/callouts.png";
-import { ChocolateDrip } from "./ChocolateDrip";
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -34,22 +32,9 @@ export function AboutSection() {
     <section
       id="sucursal"
       ref={sectionRef}
-      className="relative bg-cream text-chocolate scroll-mt-24"
+      className="relative bg-berry text-cream scroll-mt-24"
     >
-      <img
-        src={chocolateDrip}
-        alt=""
-        aria-hidden="true"
-        loading="lazy"
-        decoding="async"
-        className="block w-full h-auto -mt-px select-none pointer-events-none"
-      />
-      <ChocolateDrip
-        targetRef={sectionRef}
-        className="absolute left-0 right-0 -top-1 w-full h-12 md:h-16 text-chocolate pointer-events-none z-20"
-      />
-
-      <div className="mx-auto max-w-6xl px-6 pt-0 pb-16 -mt-32 md:-mt-48 relative z-10">
+      <div className="mx-auto max-w-6xl px-6 pt-16 pb-16 relative z-10">
         <div
           ref={textStageRef}
           className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center min-h-[80vh]"
@@ -90,7 +75,7 @@ export function AboutSection() {
             {/* Title */}
             <motion.h2
               style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
-              className="absolute font-display text-5xl md:text-6xl lg:text-7xl font-bold text-berry uppercase tracking-tight text-center"
+              className="absolute font-display text-5xl md:text-6xl lg:text-7xl font-bold text-cream uppercase tracking-tight text-center"
             >
               ¿Quiénes Somos?
             </motion.h2>
