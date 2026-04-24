@@ -131,8 +131,9 @@ export function BerriesGallery() {
                   <img
                     src={src}
                     alt={`Berry creation ${i + 1}`}
-                    className="absolute inset-0 h-full w-full object-cover"
                     loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="absolute bottom-4 left-4 bg-cream/90 text-berry px-3 py-1 rounded-full font-display font-bold text-sm">
                     #{String(i + 1).padStart(2, "0")}

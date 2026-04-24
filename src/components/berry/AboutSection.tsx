@@ -40,6 +40,8 @@ export function AboutSection() {
         src={chocolateDrip}
         alt=""
         aria-hidden="true"
+        loading="lazy"
+        decoding="async"
         className="block w-full h-auto -mt-px select-none pointer-events-none"
       />
       <ChocolateDrip
@@ -60,6 +62,8 @@ export function AboutSection() {
               <img
                 src={strawberryCupPour}
                 alt="Vaso de fresas con chocolate derretido cayendo — Berry Munch"
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover drop-shadow-2xl"
                 style={{
                   // Strawberry silhouette via clip-path (heart-like teardrop with bumps for seeds outline)
@@ -118,11 +122,15 @@ export function AboutSection() {
                   src={callouts}
                   alt=""
                   aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-contain pointer-events-none"
                 />
                 <img
                   src={berriesCup}
                   alt="Vaso de fresas frescas — Berries before Worries"
+                  loading="lazy"
+                  decoding="async"
                   className="relative w-full h-auto"
                 />
               </div>

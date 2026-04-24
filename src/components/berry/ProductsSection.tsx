@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 
 import { Tilt } from "./fx/Tilt";
@@ -65,7 +65,7 @@ export function ProductsSection() {
     setActiveView((current) => (current === nextView ? current : nextView));
   });
 
-  function handleAdd(pid: number) {
+  const handleAdd = useCallback((pid: number) => {
     setBursts((b) => ({ ...b, [pid]: true }));
     const id = ++floatId.current;
     setFloats((f) => [...f, { id, pid }]);
@@ -73,7 +73,7 @@ export function ProductsSection() {
       setBursts((b) => ({ ...b, [pid]: false }));
       setFloats((f) => f.filter((x) => x.id !== id));
     }, 800);
-  }
+  }, []);
 
   return (
     <section id="productos" className="relative z-20 bg-berry text-cream scroll-mt-24">
@@ -191,7 +191,7 @@ export function ProductsSection() {
                       className="mt-8 text-center"
                     >
                       <a
-                        href="#loyalty"
+                        href="#pedir"
                         className="hover-jiggle inline-flex items-center rounded-full bg-berry px-8 py-3 font-display italic text-lg text-cream transition-transform"
                       >
                         Ir a tienda <span className="ml-2 animate-arrow">→</span>
@@ -205,12 +205,6 @@ export function ProductsSection() {
         </div>
       </div>
 
-      <style>{`
-        @keyframes float-up {
-          0% { transform: translate(-50%, 0); opacity: 1; }
-          100% { transform: translate(-50%, -40px); opacity: 0; }
-        }
-      `}</style>
     </section>
   );
 }
@@ -241,6 +235,8 @@ function renderCard(
         <img
           src={p.image}
           alt={p.name}
+          loading="lazy"
+          decoding="async"
           className={`absolute ${p.topClass} left-1/2 -translate-x-1/2 ${p.imgClass} w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg] z-10 transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110`}
         />
 

@@ -21,6 +21,7 @@ export function HeroSection() {
             loop
             muted
             playsInline
+            preload="auto"
             className="h-full w-full object-cover"
           />
           {/* Paper grain overlay */}
@@ -31,6 +32,8 @@ export function HeroSection() {
         <img
           src={berryMunchLogo}
           alt="Berry Munch"
+          fetchPriority="high"
+          decoding="async"
           className="pointer-events-none absolute left-1/2 -top-10 md:-top-14 -translate-x-1/2 z-20 w-48 md:w-64 lg:w-72 h-auto animate-logo-drop drop-shadow-2xl"
         />
       </div>

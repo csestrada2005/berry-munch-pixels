@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -26,7 +26,7 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  function handleNavClick(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setOpen(false);
     const id = href.replace("#", "");
@@ -35,7 +35,7 @@ export function Nav() {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
       history.replaceState(null, "", href);
     }
-  }
+  }, []);
 
   // Auto-expand when in scrolled (top-bar) mode
   const isExpanded = expanded || scrolled;
