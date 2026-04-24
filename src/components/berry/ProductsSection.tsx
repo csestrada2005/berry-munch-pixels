@@ -134,9 +134,9 @@ export function ProductsSection() {
           {/* 5) Products content — revealed inside the sticky stage after the wipe */}
           <div
             id="pedir"
-            className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 scroll-mt-24 overflow-y-auto"
+            className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 scroll-mt-24 pt-28 pb-8"
           >
-            <div className="w-full max-w-6xl mx-auto pt-24 pb-12">
+            <div className="w-full max-w-6xl mx-auto">
               <motion.h2
                 style={{ opacity: titleOpacity, y: titleY, willChange: "transform, opacity" }}
                 className="text-center font-display text-3xl md:text-5xl font-bold mb-10 md:mb-16 tracking-wide text-berry"
