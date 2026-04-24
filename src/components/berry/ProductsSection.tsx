@@ -187,7 +187,9 @@ export function ProductsSection() {
                     </div>
 
                     <motion.div
-                      style={{ opacity: ctaOpacity, y: ctaY, willChange: "transform, opacity" }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
                       className="mt-8 text-center"
                     >
                       <a
