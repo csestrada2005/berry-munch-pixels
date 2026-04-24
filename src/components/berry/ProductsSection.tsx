@@ -132,9 +132,10 @@ export function ProductsSection() {
             style={{
               transform: titleTransform,
               opacity: titleOpacity,
-              willChange: "transform, opacity",
+              color: titleColor,
+              willChange: "transform, opacity, color",
             }}
-            className="absolute left-1/2 top-1/2 z-30 font-display font-bold text-3xl md:text-5xl tracking-wide text-center text-black whitespace-nowrap pointer-events-none"
+            className="absolute left-1/2 top-1/2 z-40 font-display font-bold text-3xl md:text-5xl tracking-wide text-center whitespace-nowrap pointer-events-none"
           >
             NUESTROS BERRY BESTS
           </motion.h2>
