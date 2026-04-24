@@ -109,22 +109,22 @@ export function ProductsSection() {
           {/* 4) Slot-machine text */}
           <div
             aria-hidden="true"
-            className="absolute top-[14%] left-1/2 -translate-x-1/2 z-20 overflow-hidden pointer-events-none"
-            style={{ height: "1.2em", lineHeight: 1.2 }}
+            className="absolute top-[10%] left-1/2 -translate-x-1/2 z-20 overflow-hidden pointer-events-none px-4"
+            style={{ height: "1.6em", lineHeight: 1.6 }}
           >
             <motion.div
               style={{ transform: textTransform, willChange: "transform" }}
               className="font-display italic text-center"
             >
               <div
-                className="text-2xl md:text-4xl tracking-wide text-berry"
-                style={{ height: "1.2em", lineHeight: 1.2 }}
+                className="text-2xl md:text-4xl tracking-wide text-berry whitespace-nowrap"
+                style={{ height: "1.6em", lineHeight: 1.6 }}
               >
                 Hechas a mano, una a una.
               </div>
               <div
-                className="text-2xl md:text-4xl tracking-wide text-cream"
-                style={{ height: "1.2em", lineHeight: 1.2 }}
+                className="text-2xl md:text-4xl tracking-wide text-cream whitespace-nowrap"
+                style={{ height: "1.6em", lineHeight: 1.6 }}
               >
                 Recién dipped en chocolate.
               </div>
@@ -134,12 +134,12 @@ export function ProductsSection() {
           {/* 5) Products content — revealed inside the sticky stage after the wipe */}
           <div
             id="pedir"
-            className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 scroll-mt-24 overflow-y-auto"
+            className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 scroll-mt-24 pt-28 pb-8"
           >
-            <div className="w-full max-w-6xl mx-auto pt-24 pb-12">
+            <div className="w-full max-w-6xl mx-auto">
               <motion.h2
                 style={{ opacity: titleOpacity, y: titleY, willChange: "transform, opacity" }}
-                className="text-center font-display text-3xl md:text-5xl font-bold mb-10 md:mb-16 tracking-wide text-berry"
+                className="text-center font-display text-2xl md:text-4xl font-bold mb-6 md:mb-10 tracking-wide text-berry"
               >
                 NUESTROS BERRY BESTS
               </motion.h2>
