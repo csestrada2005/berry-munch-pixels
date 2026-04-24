@@ -75,7 +75,7 @@ export function AboutSection() {
             {/* Title */}
             <motion.h2
               style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
-              className="absolute font-display text-5xl md:text-6xl lg:text-7xl font-bold text-berry uppercase tracking-tight text-center"
+              className="absolute font-display text-5xl md:text-6xl lg:text-7xl font-bold text-cream uppercase tracking-tight text-center"
             >
               ¿Quiénes Somos?
             </motion.h2>
