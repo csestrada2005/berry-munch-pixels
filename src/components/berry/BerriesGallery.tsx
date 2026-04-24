@@ -9,57 +9,57 @@ import g5 from "@/assets/berry-gallery-5.jpg";
 const images = [g1, g2, g3, g4, g5];
 
 export function BerriesGallery() {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
-  // Tall scroll track — extra height to accommodate text slot + wipe + horizontal travel
+  // Scroll track — defines the duration of the pinned animation.
+  const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: wrapperRef,
+    target: trackRef,
     offset: ["start start", "end end"],
   });
 
-  // 1) Background scales from small square → fullscreen pastel pink (0 → 0.15)
-  const bgScale = useTransform(scrollYProgress, [0, 0.15], [0.4, 1]);
-  const bgRadius = useTransform(scrollYProgress, [0, 0.15], [56, 0]);
-  const bgOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
-  const bgTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${bgScale}, ${bgScale}, 1)`;
+  // Choreography:
+  //  0    → 0.15 : Canvas (pastel pink box) scales from small → fullscreen
+  //  0.15 → 0.28 : Slot-machine text shifts (Line A → Line B)
+  //  0.28 → 0.40 : Berry wipe deepens the backdrop
+  //  0.38 → 0.50 : "Our Berries" title fades out as carousel takes over
+  //  0.42 → 1.00 : Horizontal carousel translates -78%
+  const canvasScale = useTransform(scrollYProgress, [0, 0.15], [0.4, 1]);
+  const canvasRadius = useTransform(scrollYProgress, [0, 0.15], [56, 0]);
+  const canvasOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
+  const canvasTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${canvasScale}, ${canvasScale}, 1)`;
 
-  // 2) Slot-machine text track — slides Line A → Line B (0.15 → 0.30)
-  const textShift = useTransform(scrollYProgress, [0.15, 0.30], [0, -50]);
+  const textShift = useTransform(scrollYProgress, [0.15, 0.28], [0, -50]);
   const textTransform = useMotionTemplate`translate3d(0, ${textShift}%, 0)`;
 
-  // 3) Wipe overlay — circle expands to fill stage (0.30 → 0.42)
-  const wipeScale = useTransform(scrollYProgress, [0.30, 0.42], [0, 40]);
+  const wipeScale = useTransform(scrollYProgress, [0.28, 0.40], [0, 40]);
   const wipeTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${wipeScale}, ${wipeScale}, 1)`;
 
-  // 4) "Our Berries" title slides off as horizontal phase begins (0.40 → 0.50)
-  const titleOpacity = useTransform(scrollYProgress, [0.40, 0.50], [1, 0]);
-  const titleX = useTransform(scrollYProgress, [0.40, 0.50], [0, -40]);
+  const titleOpacity = useTransform(scrollYProgress, [0.38, 0.50], [1, 0]);
+  const titleX = useTransform(scrollYProgress, [0.38, 0.50], [0, -40]);
   const titleTransform = useMotionTemplate`translate3d(${titleX}%, 0, 0)`;
 
-  // 5) Horizontal carousel translation (0.42 → 0.95)
-  const trackX = useTransform(scrollYProgress, [0.42, 0.95], [0, -78]);
+  const trackX = useTransform(scrollYProgress, [0.42, 1.0], [0, -78]);
   const trackTransform = useMotionTemplate`translate3d(${trackX}%, 0, 0)`;
 
   return (
     <section id="berries-gallery" className="bg-cream">
-      {/* Tall wrapper drives the scroll progress */}
-      <div ref={wrapperRef} className="relative h-[420vh]">
-        {/* Sticky stage */}
+      {/* Scroll track */}
+      <div ref={trackRef} className="relative h-[400vh]">
+        {/* Sticky stage — holds EVERYTHING */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
-          {/* Expanding pastel-pink background */}
+          {/* 1) Canvas: pastel pink box scales up */}
           <motion.div
+            aria-hidden="true"
             style={{
-              opacity: bgOpacity,
-              borderRadius: bgRadius,
+              opacity: canvasOpacity,
+              borderRadius: canvasRadius,
               backgroundColor: "#FFD9E1",
-              transform: bgTransform,
+              transform: canvasTransform,
               willChange: "transform",
             }}
-            aria-hidden="true"
-            className="absolute left-1/2 top-1/2 h-screen w-screen origin-center"
+            className="absolute left-1/2 top-1/2 h-screen w-screen origin-center pointer-events-none"
           />
 
-          {/* Wipe overlay — small circle expands to repaint stage in deeper berry tone */}
+          {/* 2) Berry wipe — repaints stage in deeper berry tone */}
           <motion.span
             aria-hidden="true"
             style={{
@@ -70,49 +70,52 @@ export function BerriesGallery() {
             className="absolute left-1/2 top-1/2 w-[120px] h-[120px] rounded-full pointer-events-none"
           />
 
-          {/* Content stage above background */}
-          <div className="relative h-full w-full flex items-center">
-            {/* Slot-machine text mask — sits centered above the stage */}
-            <div
-              aria-hidden="true"
-              className="absolute top-[14%] left-1/2 -translate-x-1/2 z-20 pointer-events-none overflow-hidden"
-              style={{ height: "1.1em", lineHeight: 1.1 }}
-            >
-              <motion.div
-                style={{ transform: textTransform, willChange: "transform" }}
-                className="font-display italic text-cream"
-              >
-                <div
-                  className="text-2xl md:text-4xl tracking-wide text-berry-deep"
-                  style={{ height: "1.1em", lineHeight: 1.1 }}
-                >
-                  Pequeñas obras dulces.
-                </div>
-                <div
-                  className="text-2xl md:text-4xl tracking-wide text-cream"
-                  style={{ height: "1.1em", lineHeight: 1.1 }}
-                >
-                  Hand-picked, hand-dipped.
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Left: "Our Berries" title */}
+          {/* 3) Slot-machine text */}
+          <div
+            aria-hidden="true"
+            className="absolute top-[14%] left-1/2 -translate-x-1/2 z-20 overflow-hidden pointer-events-none"
+            style={{ height: "1.2em", lineHeight: 1.2 }}
+          >
             <motion.div
-              style={{ opacity: titleOpacity, transform: titleTransform, willChange: "transform" }}
-              className="absolute left-0 top-1/2 -translate-y-1/2 pl-6 md:pl-16 lg:pl-24 z-10 pointer-events-none"
+              style={{ transform: textTransform, willChange: "transform" }}
+              className="font-display italic text-center"
             >
-              <h2
-                className="font-display font-black text-[18vw] md:text-[14vw] lg:text-[12vw] leading-[0.85] tracking-tight text-cream"
-                style={{ textShadow: "4px 4px 0 rgba(0,0,0,0.15)" }}
+              <div
+                className="text-2xl md:text-4xl tracking-wide text-berry-deep"
+                style={{ height: "1.2em", lineHeight: 1.2 }}
               >
-                Our
-                <br />
-                Berries
-              </h2>
+                Pequeñas obras dulces.
+              </div>
+              <div
+                className="text-2xl md:text-4xl tracking-wide text-cream"
+                style={{ height: "1.2em", lineHeight: 1.2 }}
+              >
+                Hand-picked, hand-dipped.
+              </div>
             </motion.div>
+          </div>
 
-            {/* Horizontal carousel track */}
+          {/* 4) "Our Berries" headline */}
+          <motion.div
+            style={{
+              opacity: titleOpacity,
+              transform: titleTransform,
+              willChange: "transform, opacity",
+            }}
+            className="absolute left-0 top-1/2 -translate-y-1/2 pl-6 md:pl-16 lg:pl-24 z-10 pointer-events-none"
+          >
+            <h2
+              className="font-display font-black text-[18vw] md:text-[14vw] lg:text-[12vw] leading-[0.85] tracking-tight text-cream"
+              style={{ textShadow: "4px 4px 0 rgba(0,0,0,0.15)" }}
+            >
+              Our
+              <br />
+              Berries
+            </h2>
+          </motion.div>
+
+          {/* 5) Horizontal carousel track */}
+          <div className="absolute inset-0 flex items-center z-10">
             <motion.div
               style={{ transform: trackTransform, willChange: "transform" }}
               className="flex items-center gap-6 md:gap-10 pl-[55vw] pr-[10vw]"
@@ -137,11 +140,11 @@ export function BerriesGallery() {
                 </div>
               ))}
             </motion.div>
+          </div>
 
-            {/* Scroll hint */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cream/80 font-display italic text-sm tracking-wide z-20">
-              ← scroll to explore →
-            </div>
+          {/* Scroll hint */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cream/80 font-display italic text-sm tracking-wide z-20 pointer-events-none">
+            ← scroll to explore →
           </div>
         </div>
       </div>
