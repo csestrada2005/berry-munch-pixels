@@ -55,9 +55,10 @@ export function ProductsSection() {
   const panelScale = useTransform(scrollYProgress, [0.52, 0.62], [0, 40]);
   const panelTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${panelScale}, ${panelScale}, 1)`;
 
-  // View opacities — three overlapping views.
-  const view1Opacity = useTransform(scrollYProgress, [0.40, 0.46, 0.50, 0.55], [0, 1, 1, 0]);
-  const view2Opacity = useTransform(scrollYProgress, [0.58, 0.64, 0.70, 0.74], [0, 1, 1, 0]);
+  // View opacities — three overlapping views with NO empty gaps.
+  // View1 stays visible until View2 starts taking over, etc.
+  const view1Opacity = useTransform(scrollYProgress, [0.42, 0.48, 0.58, 0.62], [0, 1, 1, 0]);
+  const view2Opacity = useTransform(scrollYProgress, [0.60, 0.66, 0.74, 0.78], [0, 1, 1, 0]);
   const view3Opacity = useTransform(scrollYProgress, [0.76, 0.84], [0, 1]);
   const view1PointerEvents = useTransform(view1Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
   const view2PointerEvents = useTransform(view2Opacity, (value) => (value <= 0.05 ? "none" : "auto"));
@@ -128,67 +129,69 @@ export function ProductsSection() {
             NUESTROS BERRY BESTS
           </motion.h2>
 
-          {/* z-50 — Product views (always above wipes) */}
-          {/* View 1 — first 2 cards (RED phase) */}
-          <motion.div
-            style={{ opacity: view1Opacity, pointerEvents: view1PointerEvents, willChange: "opacity" }}
-            className="absolute inset-0 z-50 flex items-center justify-center px-6"
-          >
-            <div className="flex justify-center items-start gap-6 md:gap-10 w-full max-w-4xl mx-auto pt-16">
-              {products.slice(0, 2).map((p) => (
-                <motion.div key={p.id} className="w-1/2 max-w-xs">
-                  {renderCard(p, bursts, floats, handleAdd)}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* View 2 — second 2 cards (CREAM phase) */}
-          <motion.div
-            style={{ opacity: view2Opacity, pointerEvents: view2PointerEvents, willChange: "opacity" }}
-            className="absolute inset-0 z-50 flex items-center justify-center px-6"
-          >
-            <div className="flex justify-center items-start gap-6 md:gap-10 w-full max-w-4xl mx-auto pt-16">
-              {products.slice(2, 4).map((p) => (
-                <motion.div key={p.id} className="w-1/2 max-w-xs">
-                  {renderCard(p, bursts, floats, handleAdd)}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* View 3 — finale, all 4 in grid + CTA */}
-          <motion.div
-            id="pedir"
-            style={{ opacity: view3Opacity, pointerEvents: view3PointerEvents, willChange: "opacity" }}
-            className="absolute inset-0 z-50 flex flex-col items-center justify-center px-6"
-          >
-            <div className="w-full max-w-6xl mx-auto pt-16">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
-                {products.map((p) => (
-                  <motion.div key={p.id}>
-                    {renderCard(p, bursts, floats, handleAdd)}
-                  </motion.div>
-                ))}
-              </div>
-
+          {/* z-50 — Shared product stage with explicit height, centered in viewport */}
+          <div className="absolute inset-x-0 top-0 z-50 h-screen flex items-center justify-center px-6 pt-24 pointer-events-none">
+            <div className="relative w-full max-w-6xl mx-auto h-[420px] md:h-[460px]">
+              {/* View 1 — first 2 cards (RED phase) */}
               <motion.div
-                style={{
-                  opacity: ctaOpacity,
-                  y: ctaY,
-                  willChange: "transform, opacity",
-                }}
-                className="mt-10 text-center"
+                style={{ opacity: view1Opacity, pointerEvents: view1PointerEvents, willChange: "opacity" }}
+                className="absolute inset-0 flex items-center justify-center"
               >
-                <a
-                  href="#loyalty"
-                  className="hover-jiggle inline-flex items-center rounded-full bg-berry px-8 py-3 font-display italic text-lg text-cream transition-transform"
+                <div className="flex justify-center items-center gap-6 md:gap-10 w-full max-w-3xl mx-auto">
+                  {products.slice(0, 2).map((p) => (
+                    <div key={p.id} className="w-1/2 max-w-[220px]">
+                      {renderCard(p, bursts, floats, handleAdd)}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* View 2 — second 2 cards (CREAM phase) */}
+              <motion.div
+                style={{ opacity: view2Opacity, pointerEvents: view2PointerEvents, willChange: "opacity" }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div className="flex justify-center items-center gap-6 md:gap-10 w-full max-w-3xl mx-auto">
+                  {products.slice(2, 4).map((p) => (
+                    <div key={p.id} className="w-1/2 max-w-[220px]">
+                      {renderCard(p, bursts, floats, handleAdd)}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* View 3 — finale, all 4 in grid + CTA */}
+              <motion.div
+                id="pedir"
+                style={{ opacity: view3Opacity, pointerEvents: view3PointerEvents, willChange: "opacity" }}
+                className="absolute inset-0 flex flex-col items-center justify-center"
+              >
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 w-full">
+                  {products.map((p) => (
+                    <div key={p.id}>
+                      {renderCard(p, bursts, floats, handleAdd)}
+                    </div>
+                  ))}
+                </div>
+
+                <motion.div
+                  style={{
+                    opacity: ctaOpacity,
+                    y: ctaY,
+                    willChange: "transform, opacity",
+                  }}
+                  className="mt-8 text-center"
                 >
-                  Ir a tienda <span className="ml-2 animate-arrow">→</span>
-                </a>
+                  <a
+                    href="#loyalty"
+                    className="hover-jiggle inline-flex items-center rounded-full bg-berry px-8 py-3 font-display italic text-lg text-cream transition-transform"
+                  >
+                    Ir a tienda <span className="ml-2 animate-arrow">→</span>
+                  </a>
+                </motion.div>
               </motion.div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
