@@ -196,9 +196,11 @@ export function ProductsSection() {
 function PolaroidPair({
   items,
   show,
+  parallaxY,
 }: {
   items: Array<{ src: string; alt: string; side: "left" | "right" }>;
   show: boolean;
+  parallaxY: MotionValue<number>;
 }) {
   return (
     <div aria-hidden={!show} className="pointer-events-none absolute inset-0 z-0 hidden md:block">
@@ -211,13 +213,14 @@ function PolaroidPair({
           initial={false}
           animate={{
             opacity: show ? 1 : 0,
-            y: show ? [0, -8, 0, 6, 0] : 18,
-            rotate: item.side === "left" ? [-8, -5, -9, -6, -8] : [8, 5, 9, 6, 8],
+            x: show ? 0 : item.side === "left" ? -26 : 26,
+            rotate: item.side === "left" ? -7 : 7,
           }}
+          style={{ y: parallaxY }}
           transition={{
-            opacity: { duration: 0.3, ease: "easeOut" },
-            y: { duration: 4.5 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
-            rotate: { duration: 4.5 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
+            opacity: { duration: 0.45, ease: "easeOut", delay: index * 0.04 },
+            x: { duration: 0.55, ease: "easeOut", delay: index * 0.04 },
+            rotate: { duration: 0.55, ease: "easeOut", delay: index * 0.04 },
           }}
           className={`absolute top-[38%] h-64 w-48 -translate-y-1/2 rounded-sm border-[12px] border-cream bg-cream object-cover shadow-2xl lg:h-72 lg:w-56 ${item.side === "left" ? "left-6 lg:left-12" : "right-6 lg:right-12"}`}
         />
