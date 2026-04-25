@@ -191,6 +191,39 @@ export function ProductsSection() {
   );
 }
 
+function PolaroidPair({
+  items,
+  show,
+}: {
+  items: Array<{ src: string; alt: string; side: "left" | "right" }>;
+  show: boolean;
+}) {
+  return (
+    <div aria-hidden={!show} className="pointer-events-none absolute inset-0 z-0 hidden md:block">
+      {items.map((item, index) => (
+        <motion.img
+          key={item.src}
+          src={item.src}
+          alt={item.alt}
+          loading="lazy"
+          initial={false}
+          animate={{
+            opacity: show ? 1 : 0,
+            y: show ? [0, -8, 0, 6, 0] : 18,
+            rotate: item.side === "left" ? [-8, -5, -9, -6, -8] : [8, 5, 9, 6, 8],
+          }}
+          transition={{
+            opacity: { duration: 0.3, ease: "easeOut" },
+            y: { duration: 4.5 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
+            rotate: { duration: 4.5 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
+          }}
+          className={`absolute top-1/2 h-52 w-40 -translate-y-1/2 rounded-sm border-[10px] border-cream bg-cream object-cover shadow-2xl ${item.side === "left" ? "left-0 lg:-left-8" : "right-0 lg:-right-8"}`}
+        />
+      ))}
+    </div>
+  );
+}
+
 function renderCard(
   p: typeof products[number],
   bursts: Record<number, boolean>,
