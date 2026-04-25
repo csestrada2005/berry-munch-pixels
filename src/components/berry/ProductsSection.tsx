@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { motion, type MotionValue, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 
 import { Tilt } from "./fx/Tilt";
 import { ConfettiBurst } from "./fx/ConfettiBurst";
@@ -62,6 +62,8 @@ export function ProductsSection() {
   // Second wipe: cream → red (covers the panel)
   const wipeScale = useTransform(scrollYProgress, [0.60, 0.72], [0, 40]);
   const wipeTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${wipeScale}, ${wipeScale}, 1)`;
+  const firstPolaroidY = useTransform(scrollYProgress, [0.06, 0.36], [12, -12]);
+  const secondPolaroidY = useTransform(scrollYProgress, [0.36, 0.66], [12, -12]);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const nextView: 0 | 1 | 2 | 3 =
@@ -141,7 +143,7 @@ export function ProductsSection() {
                 style={{ pointerEvents: activeView === 1 ? "auto" : "none" }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <PolaroidPair items={firstPolaroids} show={activeView === 1} />
+                <PolaroidPair items={firstPolaroids} show={activeView === 1} parallaxY={firstPolaroidY} />
                 <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                   {products.slice(0, 2).map((p) => (
                     <div key={p.id} className="w-1/2 max-w-[220px]">
@@ -158,7 +160,7 @@ export function ProductsSection() {
                 style={{ pointerEvents: activeView === 2 ? "auto" : "none" }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <PolaroidPair items={secondPolaroids} show={activeView === 2} />
+                <PolaroidPair items={secondPolaroids} show={activeView === 2} parallaxY={secondPolaroidY} />
                 <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                   {products.slice(2, 4).map((p) => (
                     <div key={p.id} className="w-1/2 max-w-[220px]">
