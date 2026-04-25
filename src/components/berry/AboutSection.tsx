@@ -11,16 +11,16 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.62, 0.76], [1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.34, 0.46], [0, -130, -130]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.54, 0.66], [1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.32, 0.42], [0, -130, -130]);
   const titleScale = useTransform(scrollYProgress, [0, 0.34], [1, 0.9]);
 
-  const paraOpacity = useTransform(scrollYProgress, [0.46, 0.56, 0.62, 0.76], [0, 1, 1, 0]);
-  const paraY = useTransform(scrollYProgress, [0.46, 0.56], [34, 0]);
+  const paraOpacity = useTransform(scrollYProgress, [0.42, 0.5, 0.56, 0.66], [0, 1, 1, 0]);
+  const paraY = useTransform(scrollYProgress, [0.42, 0.5], [24, 0]);
 
-  const cupOpacity = useTransform(scrollYProgress, [0.8, 0.94], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.8, 0.94], [0.88, 1]);
-  const cupY = useTransform(scrollYProgress, [0.8, 0.94], [42, 0]);
+  const cupOpacity = useTransform(scrollYProgress, [0.68, 0.8], [0, 1]);
+  const cupScale = useTransform(scrollYProgress, [0.68, 0.8], [0.88, 1]);
+  const cupY = useTransform(scrollYProgress, [0.68, 0.8], [42, 0]);
 
   return (
     <section
@@ -29,15 +29,15 @@ export function AboutSection() {
     >
       <div ref={trackRef} className="relative h-[260vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
-          <div className="mx-auto grid h-full max-w-6xl grid-cols-1 items-center gap-10 px-6 pt-16 pb-16 md:grid-cols-2 md:gap-16">
-          <div className="order-2 flex -translate-y-8 justify-center md:order-1 md:-translate-y-14 md:justify-start lg:-translate-y-20">
-            <div className="relative w-72 overflow-hidden rounded-sm shadow-2xl md:w-96 lg:w-[28rem]">
+          <div className="mx-auto grid h-full max-w-6xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-2 md:items-stretch md:gap-16">
+          <div className="order-2 flex h-full justify-center md:order-1 md:justify-start">
+            <div className="relative h-full w-72 overflow-hidden rounded-sm shadow-2xl md:w-96 lg:w-[28rem]">
               <img
                 src={berryAboutCollage}
                 alt="Collage editorial Berry Munch con vaso de fresas y chocolate"
                 loading="lazy"
                 decoding="async"
-                className="block h-auto w-full object-cover"
+                className="block h-full w-full object-cover"
               />
             </div>
           </div>
@@ -55,7 +55,7 @@ export function AboutSection() {
             {/* Paragraph */}
             <motion.p
               style={{ opacity: paraOpacity, y: paraY }}
-              className="absolute left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 pt-12 text-center text-base md:text-lg leading-relaxed"
+              className="absolute left-1/2 top-[58%] w-full max-w-md -translate-x-1/2 -translate-y-1/2 text-center text-base md:text-lg leading-relaxed"
               data-font="serif"
             >
               <span style={{ fontFamily: '"Playfair Display", Georgia, serif' }}>
