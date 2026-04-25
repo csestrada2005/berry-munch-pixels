@@ -230,7 +230,7 @@ function renderCard(
               </span>
             ))}
           <div className="relative mt-3 flex items-center justify-between gap-4">
-            <p className="ml-2 font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
+            <p className="ml-4 font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
               {p.price}
             </p>
             <ConfettiBurst show={!!bursts[p.id]} />
