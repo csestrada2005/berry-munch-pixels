@@ -18,16 +18,16 @@ export function AboutSection() {
   const paraOpacity = useTransform(scrollYProgress, [0.4, 0.48, 0.52, 0.62], [0, 1, 1, 0]);
   const paraY = useTransform(scrollYProgress, [0.4, 0.48], [20, 0]);
 
-  const cupOpacity = useTransform(scrollYProgress, [0.64, 0.74], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.64, 0.74], [0.9, 1]);
-  const cupY = useTransform(scrollYProgress, [0.64, 0.74], [34, 0]);
+  const cupOpacity = useTransform(scrollYProgress, [0.62, 0.72], [0, 1]);
+  const cupScale = useTransform(scrollYProgress, [0.62, 0.72], [0.9, 1]);
+  const cupY = useTransform(scrollYProgress, [0.62, 0.72], [34, 0]);
 
   return (
     <section
       id="sucursal"
       className="relative bg-berry text-cream scroll-mt-24"
     >
-      <div ref={trackRef} className="relative h-[260vh]">
+      <div ref={trackRef} className="relative h-[230vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
           <div className="mx-auto grid h-full max-w-6xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-2 md:items-stretch md:gap-16">
           <div className="order-2 flex h-full min-h-screen justify-center self-stretch md:order-1 md:justify-start">
@@ -55,7 +55,7 @@ export function AboutSection() {
             {/* Paragraph */}
             <motion.p
               style={{ opacity: paraOpacity, y: paraY }}
-              className="absolute left-1/2 top-[53%] w-full max-w-md -translate-x-1/2 -translate-y-1/2 text-center text-base md:text-lg leading-relaxed"
+              className="absolute left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 text-center text-base md:text-lg leading-relaxed"
               data-font="serif"
             >
               <span style={{ fontFamily: '"Playfair Display", Georgia, serif' }}>
