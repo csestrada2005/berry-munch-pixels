@@ -130,7 +130,7 @@ export function ProductsSection() {
                 <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                   {products.slice(0, 2).map((p) => (
                     <div key={p.id} className="w-1/2 max-w-[220px]">
-                      {renderCard(p, bursts, floats, handleAdd, "cream")}
+                      {renderCard(p, bursts, floats, handleAdd, "cream", "cream")}
                     </div>
                   ))}
                 </div>
@@ -162,7 +162,7 @@ export function ProductsSection() {
                 <div className="grid w-full grid-cols-2 gap-6 md:gap-10 lg:grid-cols-4">
                   {products.map((p) => (
                     <div key={p.id}>
-                      {renderCard(p, bursts, floats, handleAdd, "cream")}
+                      {renderCard(p, bursts, floats, handleAdd, "cream", "cream")}
                     </div>
                   ))}
                 </div>
@@ -181,11 +181,13 @@ function renderCard(
   floats: Array<{ id: number; pid: number }>,
   handleAdd: (pid: number) => void,
   sparkleColor: "berry" | "cream" = "berry",
+  edgeColor: "berry" | "cream" = "berry",
 ) {
   const sparkleClassName = sparkleColor === "cream" ? "text-cream" : "text-berry";
+  const edgeClassName = edgeColor === "cream" ? "ring-cream" : "ring-berry";
   return (
     <Tilt key={p.id} className="relative pt-24 md:pt-28 group">
-      <div className="relative rounded-2xl bg-berry/5 ring-2 ring-berry pt-16 md:pt-20 shadow-xl transition-shadow duration-300 group-hover:shadow-2xl">
+      <div className={`relative rounded-2xl bg-berry/5 ring-2 ${edgeClassName} pt-16 md:pt-20 shadow-xl transition-shadow duration-300 group-hover:shadow-2xl`}>
         <svg
           aria-hidden="true"
           viewBox="0 0 80 40"
@@ -230,7 +232,7 @@ function renderCard(
                 +1
               </span>
             ))}
-          <div className="relative inline-block mt-2">
+          <div className="relative mt-4 flex justify-end pr-3">
             <ConfettiBurst show={!!bursts[p.id]} />
             <button
               onClick={() => handleAdd(p.id)}
