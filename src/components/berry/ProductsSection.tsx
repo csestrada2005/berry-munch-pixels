@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { motion, type MotionValue, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 
 import { Tilt } from "./fx/Tilt";
 import { ConfettiBurst } from "./fx/ConfettiBurst";
@@ -62,6 +62,8 @@ export function ProductsSection() {
   // Second wipe: cream → red (covers the panel)
   const wipeScale = useTransform(scrollYProgress, [0.60, 0.72], [0, 40]);
   const wipeTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${wipeScale}, ${wipeScale}, 1)`;
+  const firstPolaroidY = useTransform(scrollYProgress, [0.06, 0.36], [12, -12]);
+  const secondPolaroidY = useTransform(scrollYProgress, [0.36, 0.66], [12, -12]);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const nextView: 0 | 1 | 2 | 3 =
@@ -141,7 +143,7 @@ export function ProductsSection() {
                 style={{ pointerEvents: activeView === 1 ? "auto" : "none" }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <PolaroidPair items={firstPolaroids} show={activeView === 1} />
+                <PolaroidPair items={firstPolaroids} show={activeView === 1} parallaxY={firstPolaroidY} />
                 <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                   {products.slice(0, 2).map((p) => (
                     <div key={p.id} className="w-1/2 max-w-[220px]">
@@ -158,7 +160,7 @@ export function ProductsSection() {
                 style={{ pointerEvents: activeView === 2 ? "auto" : "none" }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <PolaroidPair items={secondPolaroids} show={activeView === 2} />
+                <PolaroidPair items={secondPolaroids} show={activeView === 2} parallaxY={secondPolaroidY} />
                 <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                   {products.slice(2, 4).map((p) => (
                     <div key={p.id} className="w-1/2 max-w-[220px]">
@@ -194,9 +196,11 @@ export function ProductsSection() {
 function PolaroidPair({
   items,
   show,
+  parallaxY,
 }: {
   items: Array<{ src: string; alt: string; side: "left" | "right" }>;
   show: boolean;
+  parallaxY: MotionValue<number>;
 }) {
   return (
     <div aria-hidden={!show} className="pointer-events-none absolute inset-0 z-0 hidden md:block">
@@ -209,13 +213,14 @@ function PolaroidPair({
           initial={false}
           animate={{
             opacity: show ? 1 : 0,
-            y: show ? [0, -8, 0, 6, 0] : 18,
-            rotate: item.side === "left" ? [-8, -5, -9, -6, -8] : [8, 5, 9, 6, 8],
+            x: show ? 0 : item.side === "left" ? -26 : 26,
+            rotate: item.side === "left" ? -7 : 7,
           }}
+          style={{ y: parallaxY }}
           transition={{
-            opacity: { duration: 0.3, ease: "easeOut" },
-            y: { duration: 4.5 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
-            rotate: { duration: 4.5 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
+            opacity: { duration: 0.45, ease: "easeOut", delay: index * 0.04 },
+            x: { duration: 0.55, ease: "easeOut", delay: index * 0.04 },
+            rotate: { duration: 0.55, ease: "easeOut", delay: index * 0.04 },
           }}
           className={`absolute top-[38%] h-64 w-48 -translate-y-1/2 rounded-sm border-[12px] border-cream bg-cream object-cover shadow-2xl lg:h-72 lg:w-56 ${item.side === "left" ? "left-6 lg:left-12" : "right-6 lg:right-12"}`}
         />
