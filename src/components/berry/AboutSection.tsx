@@ -11,16 +11,16 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.58, 0.72], [1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.42, 0.58], [0, -130, -130]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.42], [1, 0.9]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.62, 0.76], [1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.34, 0.46], [0, -130, -130]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.34], [1, 0.9]);
 
-  const paraOpacity = useTransform(scrollYProgress, [0.24, 0.42, 0.58, 0.72], [0, 1, 1, 0]);
-  const paraY = useTransform(scrollYProgress, [0.24, 0.42], [34, 0]);
+  const paraOpacity = useTransform(scrollYProgress, [0.46, 0.56, 0.62, 0.76], [0, 1, 1, 0]);
+  const paraY = useTransform(scrollYProgress, [0.46, 0.56], [34, 0]);
 
-  const cupOpacity = useTransform(scrollYProgress, [0.78, 0.92], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.78, 0.92], [0.88, 1]);
-  const cupY = useTransform(scrollYProgress, [0.78, 0.92], [42, 0]);
+  const cupOpacity = useTransform(scrollYProgress, [0.8, 0.94], [0, 1]);
+  const cupScale = useTransform(scrollYProgress, [0.8, 0.94], [0.88, 1]);
+  const cupY = useTransform(scrollYProgress, [0.8, 0.94], [42, 0]);
 
   return (
     <section
@@ -30,7 +30,7 @@ export function AboutSection() {
       <div ref={trackRef} className="relative h-[260vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
           <div className="mx-auto grid h-full max-w-6xl grid-cols-1 items-center gap-10 px-6 pt-16 pb-16 md:grid-cols-2 md:gap-16">
-          <div className="order-2 flex justify-center md:order-1 md:justify-start">
+          <div className="order-2 flex -translate-y-8 justify-center md:order-1 md:-translate-y-14 md:justify-start lg:-translate-y-20">
             <div className="relative w-72 overflow-hidden rounded-sm shadow-2xl md:w-96 lg:w-[28rem]">
               <img
                 src={berryAboutCollage}
