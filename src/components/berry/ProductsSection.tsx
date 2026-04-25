@@ -25,8 +25,8 @@ const firstPolaroids = [
 ];
 
 const secondPolaroids = [
-  { src: polaroid3, alt: "Postres Berry Munch en vaso", side: "left" as const, edge: "dark" as const },
-  { src: polaroid4, alt: "Vaso Berry Munch con uvas y chocolate", side: "right" as const, edge: "dark" as const },
+  { src: polaroid3, alt: "Postres Berry Munch en vaso", side: "left" as const, edge: "berry" as const },
+  { src: polaroid4, alt: "Vaso Berry Munch con uvas y chocolate", side: "right" as const, edge: "berry" as const },
 ];
 
 const instagramUrl = "https://www.instagram.com/berrymunch__/?hl=es";
@@ -64,8 +64,8 @@ export function ProductsSection() {
   // Second wipe: cream → red (covers the panel)
   const wipeScale = useTransform(scrollYProgress, [0.60, 0.72], [0, 40]);
   const wipeTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${wipeScale}, ${wipeScale}, 1)`;
-  const firstPolaroidY = useTransform(scrollYProgress, [0.06, 0.36], [12, -12]);
-  const secondPolaroidY = useTransform(scrollYProgress, [0.36, 0.66], [12, -12]);
+  const firstPolaroidY = useTransform(scrollYProgress, [0.06, 0.36], [28, -28]);
+  const secondPolaroidY = useTransform(scrollYProgress, [0.36, 0.66], [28, -28]);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const nextView: 0 | 1 | 2 | 3 =
@@ -200,7 +200,7 @@ function PolaroidPair({
   show,
   parallaxY,
 }: {
-  items: Array<{ src: string; alt: string; side: "left" | "right"; edge: "cream" | "dark" }>;
+  items: Array<{ src: string; alt: string; side: "left" | "right"; edge: "cream" | "berry" }>;
   show: boolean;
   parallaxY: MotionValue<number>;
 }) {
@@ -227,7 +227,7 @@ function PolaroidPair({
             y: { duration: 0.25, ease: "easeOut" },
             scale: { duration: 0.25, ease: "easeOut" },
           }}
-          className={`group/polaroid absolute top-[38%] h-64 w-48 -translate-y-1/2 rounded-sm border-[12px] ${item.edge === "dark" ? "border-polaroid-edge-dark bg-polaroid-edge-dark" : "border-cream bg-cream"} shadow-2xl transition-shadow duration-300 hover:shadow-[0_24px_48px_-18px_var(--color-chocolate)] focus:outline-none focus-visible:ring-4 focus-visible:ring-gold lg:h-72 lg:w-56 ${item.side === "left" ? "left-6 lg:left-12" : "right-6 lg:right-12"}`}
+          className={`group/polaroid absolute top-[38%] h-64 w-48 -translate-y-1/2 rounded-sm border-[12px] ${item.edge === "berry" ? "border-berry bg-berry" : "border-cream bg-cream"} shadow-2xl transition-shadow duration-300 hover:shadow-[0_24px_48px_-18px_var(--color-chocolate)] focus:outline-none focus-visible:ring-4 focus-visible:ring-gold lg:h-72 lg:w-56 ${item.side === "left" ? "left-6 lg:left-12" : "right-6 lg:right-12"}`}
         >
           <img src={item.src} alt={item.alt} className="h-full w-full object-cover" />
           <span className="pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap rounded-full bg-cream px-4 py-1.5 font-display text-sm font-bold text-berry opacity-0 shadow-lg transition-all duration-300 group-hover/polaroid:translate-y-1 group-hover/polaroid:opacity-100 group-focus-visible/polaroid:translate-y-1 group-focus-visible/polaroid:opacity-100">
