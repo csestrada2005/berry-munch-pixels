@@ -218,9 +218,6 @@ function renderCard(
           <p className="font-display font-bold text-xs md:text-sm uppercase leading-tight tracking-wide">
             {p.name}
           </p>
-          <p className="mt-1 font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
-            {p.price}
-          </p>
           {floats
             .filter((f) => f.pid === p.id)
             .map((f) => (
@@ -232,7 +229,10 @@ function renderCard(
                 +1
               </span>
             ))}
-          <div className="relative mt-4 flex justify-end pr-3">
+          <div className="relative mt-3 flex items-center justify-between gap-4">
+            <p className="font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
+              {p.price}
+            </p>
             <ConfettiBurst show={!!bursts[p.id]} />
             <button
               onClick={() => handleAdd(p.id)}
