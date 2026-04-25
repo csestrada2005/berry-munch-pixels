@@ -217,7 +217,7 @@ function PolaroidPair({
             y: { duration: 4.5 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
             rotate: { duration: 4.5 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
           }}
-          className={`absolute top-1/2 h-64 w-48 -translate-y-1/2 rounded-sm border-[12px] border-cream bg-cream object-cover shadow-2xl lg:h-72 lg:w-56 ${item.side === "left" ? "left-16 lg:left-24" : "right-16 lg:right-24"}`}
+          className={`absolute top-[44%] h-64 w-48 -translate-y-1/2 rounded-sm border-[12px] border-cream bg-cream object-cover shadow-2xl lg:h-72 lg:w-56 ${item.side === "left" ? "left-12 lg:left-20" : "right-12 lg:right-20"}`}
         />
       ))}
     </div>
