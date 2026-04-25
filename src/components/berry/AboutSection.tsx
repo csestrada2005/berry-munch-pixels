@@ -11,8 +11,8 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.5, 0.62], [1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.3, 0.4], [0, -130, -130]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.52, 0.62], [1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.3, 0.4], [0, -170, -170]);
   const titleScale = useTransform(scrollYProgress, [0, 0.34], [1, 0.9]);
 
   const paraOpacity = useTransform(scrollYProgress, [0.4, 0.48, 0.52, 0.62], [0, 1, 1, 0]);
@@ -55,7 +55,7 @@ export function AboutSection() {
             {/* Paragraph */}
             <motion.p
               style={{ opacity: paraOpacity, y: paraY }}
-              className="absolute left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 text-center text-base md:text-lg leading-relaxed"
+              className="absolute left-1/2 top-[54%] w-full max-w-md -translate-x-1/2 -translate-y-1/2 text-center text-base md:text-lg leading-relaxed"
               data-font="serif"
             >
               <span style={{ fontFamily: '"Playfair Display", Georgia, serif' }}>
