@@ -37,6 +37,7 @@
   --color-cream: var(--cream);
   --color-cream-soft: var(--cream-soft);
   --color-chocolate: var(--chocolate);
+  --color-polaroid-edge-dark: var(--polaroid-edge-dark);
   --color-gold: var(--gold);
   --font-display: "Playfair Display", Georgia, serif;
   --font-script: "Great Vibes", cursive;
@@ -52,6 +53,7 @@
   --cream: oklch(0.94 0.04 85);
   --cream-soft: oklch(0.96 0.025 85);
   --chocolate: oklch(0.25 0.05 40);
+  --polaroid-edge-dark: oklch(0.16 0.02 40);
   --gold: oklch(0.72 0.12 75);
 
   --background: oklch(0.94 0.04 85);
