@@ -198,6 +198,7 @@ function renderCard(
   handleAdd: (pid: number) => void,
   sparkleColor: "berry" | "cream" = "berry",
   edgeColor: "berry" | "cream" = "berry",
+  matchFirstPricePosition = false,
 ) {
   const sparkleClassName = sparkleColor === "cream" ? "text-cream" : "text-berry";
   const edgeClassName = edgeColor === "cream" ? "ring-cream" : "ring-berry";
@@ -246,7 +247,7 @@ function renderCard(
               </span>
             ))}
           <div className="relative mt-3 flex items-center justify-between gap-4">
-            <p className="ml-4 font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
+            <p className={`${matchFirstPricePosition ? "ml-4" : "ml-4"} font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block`}>
               {p.price}
             </p>
             <ConfettiBurst show={!!bursts[p.id]} />
