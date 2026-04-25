@@ -1,42 +1,38 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import strawberryCupPour from "@/assets/strawberry-cup-pour.jpg";
+import berryAboutCollage from "@/assets/berry-about-collage.png";
 import berriesCup from "@/assets/berries-cup.png";
 import callouts from "@/assets/callouts.png";
 
 export function AboutSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const textStageRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  // Scroll progress through the text stage
   const { scrollYProgress } = useScroll({
-    target: textStageRef,
-    offset: ["start 80%", "end 30%"],
+    target: trackRef,
+    offset: ["start start", "end end"],
   });
 
-  // Title fades out in the first 35% of the stage
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.25, 0.45], [1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.45], [0, -30]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.45], [1, 0.92]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.78, 0.92], [1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.46, 0.78], [0, -86, -86]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.46], [1, 0.86]);
 
-  // Paragraph fades in mid-scroll
-  const paraOpacity = useTransform(scrollYProgress, [0.35, 0.55, 0.8], [0, 1, 1]);
-  const paraY = useTransform(scrollYProgress, [0.35, 0.55], [30, 0]);
+  const paraOpacity = useTransform(scrollYProgress, [0.22, 0.42, 0.78, 0.92], [0, 1, 1, 0]);
+  const paraY = useTransform(scrollYProgress, [0.22, 0.46], [34, 0]);
 
-  // Strawberry cup reveals at the end
-  const cupOpacity = useTransform(scrollYProgress, [0.65, 0.85], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.65, 0.95], [0.85, 1]);
-  const cupY = useTransform(scrollYProgress, [0.65, 0.95], [40, 0]);
+  const cupOpacity = useTransform(scrollYProgress, [0.58, 0.76], [0, 1]);
+  const cupScale = useTransform(scrollYProgress, [0.58, 0.82], [0.85, 1]);
+  const cupY = useTransform(scrollYProgress, [0.58, 0.82], [42, 0]);
+  const leftImageY = useTransform(scrollYProgress, [0, 1], [36, -36]);
 
   return (
     <section
       id="sucursal"
-      ref={sectionRef}
       className="relative bg-berry text-cream scroll-mt-24"
     >
-      <div className="mx-auto max-w-6xl px-6 pt-16 pb-16 relative z-10">
+      <div ref={trackRef} className="relative h-[260vh]">
+        <div className="sticky top-0 h-screen overflow-hidden">
+          <div className="mx-auto grid h-full max-w-6xl grid-cols-1 items-center gap-10 px-6 pt-16 pb-16 md:grid-cols-2 md:gap-16">
         <div
-          ref={textStageRef}
           className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center min-h-[80vh]"
         >
           {/* LEFT: strawberry-shaped image */}
