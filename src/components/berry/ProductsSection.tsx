@@ -141,6 +141,7 @@ export function ProductsSection() {
                 style={{ pointerEvents: activeView === 1 ? "auto" : "none" }}
                 className="absolute inset-0 flex items-center justify-center"
               >
+                <PolaroidPair items={firstPolaroids} show={activeView === 1} />
                 <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                   {products.slice(0, 2).map((p) => (
                     <div key={p.id} className="w-1/2 max-w-[220px]">
@@ -157,6 +158,7 @@ export function ProductsSection() {
                 style={{ pointerEvents: activeView === 2 ? "auto" : "none" }}
                 className="absolute inset-0 flex items-center justify-center"
               >
+                <PolaroidPair items={secondPolaroids} show={activeView === 2} />
                 <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                   {products.slice(2, 4).map((p) => (
                     <div key={p.id} className="w-1/2 max-w-[220px]">
@@ -176,7 +178,7 @@ export function ProductsSection() {
                 <div className="grid w-full grid-cols-2 gap-6 md:gap-10 lg:grid-cols-4">
                   {products.map((p) => (
                     <div key={p.id}>
-                      {renderCard(p, bursts, floats, handleAdd, "cream", "cream")}
+                      {renderCard(p, bursts, floats, handleAdd, "cream", "cream", true)}
                     </div>
                   ))}
                 </div>
