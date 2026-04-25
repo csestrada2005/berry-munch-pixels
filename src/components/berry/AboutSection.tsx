@@ -11,27 +11,27 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.68, 0.78], [1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.34, 0.46], [0, -170, -170]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.72, 0.82], [1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.38, 0.72], [0, -160, -160]);
   const titleScale = useTransform(scrollYProgress, [0, 0.38], [1, 0.9]);
 
-  const paraOpacity = useTransform(scrollYProgress, [0.58, 0.68, 0.7, 0.78], [0, 1, 1, 0]);
-  const paraY = useTransform(scrollYProgress, [0.58, 0.68], [22, 0]);
+  const paraOpacity = useTransform(scrollYProgress, [0.54, 0.64, 0.72, 0.82], [0, 1, 1, 0]);
+  const paraY = useTransform(scrollYProgress, [0.54, 0.64], [20, 0]);
 
-  const cupOpacity = useTransform(scrollYProgress, [0.74, 0.82], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.74, 0.82], [0.86, 1]);
-  const cupY = useTransform(scrollYProgress, [0.74, 0.82], [28, 0]);
+  const cupOpacity = useTransform(scrollYProgress, [0.82, 0.9], [0, 1]);
+  const cupScale = useTransform(scrollYProgress, [0.82, 0.9], [0.84, 1]);
+  const cupY = useTransform(scrollYProgress, [0.82, 0.9], [30, 0]);
 
   return (
     <section
       id="sucursal"
       className="relative bg-berry text-cream scroll-mt-24"
     >
-      <div ref={trackRef} className="relative h-[230vh]">
+      <div ref={trackRef} className="relative h-[280vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
-          <div className="mx-auto grid h-full max-w-6xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-[minmax(14rem,0.9fr)_minmax(0,1.1fr)] md:items-stretch md:gap-8 lg:gap-16">
-          <div className="order-2 flex h-full min-h-screen justify-center self-stretch md:order-1 md:justify-start">
-            <div className="relative h-full min-h-screen w-full max-w-72 overflow-hidden rounded-sm shadow-2xl md:max-w-none lg:max-w-[28rem]">
+          <div className="mx-auto grid h-full max-w-6xl grid-cols-[minmax(11rem,0.82fr)_minmax(0,1.18fr)] items-stretch gap-5 px-4 sm:grid-cols-[minmax(13rem,0.9fr)_minmax(0,1.1fr)] sm:gap-8 sm:px-6 lg:gap-16">
+          <div className="flex h-full min-h-screen justify-start self-stretch">
+            <div className="relative h-full min-h-screen w-full overflow-hidden rounded-sm shadow-2xl lg:max-w-[28rem]">
               <img
                 src={berryAboutCollage}
                 alt="Collage editorial Berry Munch con vaso de fresas y chocolate"
@@ -43,7 +43,7 @@ export function AboutSection() {
           </div>
 
           {/* RIGHT: scroll-driven text → reveals cup */}
-          <div className="order-1 md:order-2 relative min-h-[28rem] flex items-center justify-center">
+          <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
             {/* Title */}
             <motion.h2
               style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
@@ -55,7 +55,7 @@ export function AboutSection() {
             {/* Paragraph */}
             <motion.p
               style={{ opacity: paraOpacity, y: paraY }}
-              className="absolute left-1/2 top-[50%] z-10 w-full max-w-md -translate-x-1/2 -translate-y-1/2 text-center text-base md:text-lg leading-relaxed"
+              className="absolute left-1/2 top-[54%] z-10 w-full max-w-md -translate-x-1/2 -translate-y-1/2 text-center text-sm leading-relaxed sm:text-base md:text-lg"
               data-font="serif"
             >
               <span style={{ fontFamily: '"Playfair Display", Georgia, serif' }}>
@@ -69,7 +69,7 @@ export function AboutSection() {
             {/* Cup reveal */}
             <motion.div
               style={{ opacity: cupOpacity, scale: cupScale, y: cupY }}
-              className="absolute left-1/2 top-1/2 z-30 w-full max-w-xs -translate-x-1/2 -translate-y-1/2 md:max-w-sm lg:max-w-md"
+              className="absolute left-1/2 top-1/2 z-20 w-full max-w-[17rem] -translate-x-1/2 -translate-y-1/2 sm:max-w-sm lg:max-w-md"
             >
               <img
                 src={berriesCup}
