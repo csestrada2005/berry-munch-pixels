@@ -11,16 +11,16 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.52, 0.62], [1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.3, 0.4], [0, -170, -170]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.34], [1, 0.9]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.62, 0.72], [1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.34, 0.46], [0, -170, -170]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.38], [1, 0.9]);
 
-  const paraOpacity = useTransform(scrollYProgress, [0.4, 0.48, 0.52, 0.62], [0, 1, 1, 0]);
-  const paraY = useTransform(scrollYProgress, [0.4, 0.48], [20, 0]);
+  const paraOpacity = useTransform(scrollYProgress, [0.54, 0.64, 0.68, 0.76], [0, 1, 1, 0]);
+  const paraY = useTransform(scrollYProgress, [0.54, 0.64], [22, 0]);
 
-  const cupOpacity = useTransform(scrollYProgress, [0.62, 0.72], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.62, 0.72], [0.9, 1]);
-  const cupY = useTransform(scrollYProgress, [0.62, 0.72], [34, 0]);
+  const cupOpacity = useTransform(scrollYProgress, [0.78, 0.88], [0, 1]);
+  const cupScale = useTransform(scrollYProgress, [0.78, 0.88], [0.86, 1]);
+  const cupY = useTransform(scrollYProgress, [0.78, 0.88], [28, 0]);
 
   return (
     <section
@@ -69,7 +69,7 @@ export function AboutSection() {
             {/* Cup reveal */}
             <motion.div
               style={{ opacity: cupOpacity, scale: cupScale, y: cupY }}
-              className="absolute left-1/2 top-1/2 w-full max-w-xs -translate-x-1/2 -translate-y-1/2 md:max-w-sm"
+              className="absolute left-1/2 top-1/2 z-10 w-full max-w-xs -translate-x-1/2 -translate-y-1/2 md:max-w-sm"
             >
               <img
                 src={berriesCup}
