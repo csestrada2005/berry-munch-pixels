@@ -7,12 +7,26 @@ import cup1 from "@/assets/cup1.png";
 import cup2 from "@/assets/cup2.png";
 import cup3 from "@/assets/cup3.png";
 import cup6 from "@/assets/cup6.png";
+import polaroid1 from "@/assets/berry-polaroid-1.jpg";
+import polaroid2 from "@/assets/berry-polaroid-2.jpg";
+import polaroid3 from "@/assets/berry-polaroid-3.jpg";
+import polaroid4 from "@/assets/berry-polaroid-4.jpg";
 
 const products = [
   { id: 1, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup1, imgClass: "h-44 md:h-52 lg:h-56", topClass: "-top-16 md:-top-20", sparkleClass: "-top-24 md:-top-28" },
   { id: 2, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup2, imgClass: "h-44 md:h-52 lg:h-56", topClass: "-top-16 md:-top-20", sparkleClass: "-top-24 md:-top-28" },
   { id: 3, name: "Dubai Pistachio Strawberry", price: "$ 140.0", image: cup3, imgClass: "h-44 md:h-52 lg:h-56", topClass: "-top-16 md:-top-20", sparkleClass: "-top-24 md:-top-28" },
   { id: 4, name: "Berry Marshmallow", price: "$ 140.0", image: cup6, imgClass: "h-32 md:h-36 lg:h-40", topClass: "-top-2 md:-top-1", sparkleClass: "-top-8 md:-top-10" },
+];
+
+const firstPolaroids = [
+  { src: polaroid1, alt: "Fresa con chocolate Berry Munch", side: "left" as const },
+  { src: polaroid2, alt: "Vaso de fresas con chocolate Berry Munch", side: "right" as const },
+];
+
+const secondPolaroids = [
+  { src: polaroid3, alt: "Postres Berry Munch en vaso", side: "left" as const },
+  { src: polaroid4, alt: "Vaso Berry Munch con uvas y chocolate", side: "right" as const },
 ];
 
 export function ProductsSection() {
@@ -127,6 +141,7 @@ export function ProductsSection() {
                 style={{ pointerEvents: activeView === 1 ? "auto" : "none" }}
                 className="absolute inset-0 flex items-center justify-center"
               >
+                <PolaroidPair items={firstPolaroids} show={activeView === 1} />
                 <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                   {products.slice(0, 2).map((p) => (
                     <div key={p.id} className="w-1/2 max-w-[220px]">
@@ -143,6 +158,7 @@ export function ProductsSection() {
                 style={{ pointerEvents: activeView === 2 ? "auto" : "none" }}
                 className="absolute inset-0 flex items-center justify-center"
               >
+                <PolaroidPair items={secondPolaroids} show={activeView === 2} />
                 <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-6 md:gap-10">
                   {products.slice(2, 4).map((p) => (
                     <div key={p.id} className="w-1/2 max-w-[220px]">
@@ -162,7 +178,7 @@ export function ProductsSection() {
                 <div className="grid w-full grid-cols-2 gap-6 md:gap-10 lg:grid-cols-4">
                   {products.map((p) => (
                     <div key={p.id}>
-                      {renderCard(p, bursts, floats, handleAdd, "cream", "cream")}
+                      {renderCard(p, bursts, floats, handleAdd, "cream", "cream", true)}
                     </div>
                   ))}
                 </div>
@@ -175,6 +191,39 @@ export function ProductsSection() {
   );
 }
 
+function PolaroidPair({
+  items,
+  show,
+}: {
+  items: Array<{ src: string; alt: string; side: "left" | "right" }>;
+  show: boolean;
+}) {
+  return (
+    <div aria-hidden={!show} className="pointer-events-none absolute inset-0 z-0 hidden md:block">
+      {items.map((item, index) => (
+        <motion.img
+          key={item.src}
+          src={item.src}
+          alt={item.alt}
+          loading="lazy"
+          initial={false}
+          animate={{
+            opacity: show ? 1 : 0,
+            y: show ? [0, -8, 0, 6, 0] : 18,
+            rotate: item.side === "left" ? [-8, -5, -9, -6, -8] : [8, 5, 9, 6, 8],
+          }}
+          transition={{
+            opacity: { duration: 0.3, ease: "easeOut" },
+            y: { duration: 4.5 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
+            rotate: { duration: 4.5 + index * 0.4, repeat: Infinity, ease: "easeInOut" },
+          }}
+          className={`absolute top-1/2 h-52 w-40 -translate-y-1/2 rounded-sm border-[10px] border-cream bg-cream object-cover shadow-2xl ${item.side === "left" ? "left-0 lg:-left-8" : "right-0 lg:-right-8"}`}
+        />
+      ))}
+    </div>
+  );
+}
+
 function renderCard(
   p: typeof products[number],
   bursts: Record<number, boolean>,
@@ -182,6 +231,7 @@ function renderCard(
   handleAdd: (pid: number) => void,
   sparkleColor: "berry" | "cream" = "berry",
   edgeColor: "berry" | "cream" = "berry",
+  matchFirstPricePosition = false,
 ) {
   const sparkleClassName = sparkleColor === "cream" ? "text-cream" : "text-berry";
   const edgeClassName = edgeColor === "cream" ? "ring-cream" : "ring-berry";
@@ -230,7 +280,7 @@ function renderCard(
               </span>
             ))}
           <div className="relative mt-3 flex items-center justify-between gap-4">
-            <p className="ml-4 font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block">
+            <p className={`${matchFirstPricePosition ? "ml-4" : "ml-4"} font-bold text-sm md:text-base text-[oklch(0.55_0.15_145)] transition-transform duration-300 group-hover:scale-110 inline-block`}>
               {p.price}
             </p>
             <ConfettiBurst show={!!bursts[p.id]} />
