@@ -11,16 +11,16 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.62, 0.72], [1, 1, 0]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.68, 0.78], [1, 1, 0]);
   const titleY = useTransform(scrollYProgress, [0, 0.34, 0.46], [0, -170, -170]);
   const titleScale = useTransform(scrollYProgress, [0, 0.38], [1, 0.9]);
 
-  const paraOpacity = useTransform(scrollYProgress, [0.54, 0.64, 0.68, 0.76], [0, 1, 1, 0]);
-  const paraY = useTransform(scrollYProgress, [0.54, 0.64], [22, 0]);
+  const paraOpacity = useTransform(scrollYProgress, [0.62, 0.72, 0.76, 0.84], [0, 1, 1, 0]);
+  const paraY = useTransform(scrollYProgress, [0.62, 0.72], [22, 0]);
 
-  const cupOpacity = useTransform(scrollYProgress, [0.78, 0.88], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.78, 0.88], [0.86, 1]);
-  const cupY = useTransform(scrollYProgress, [0.78, 0.88], [28, 0]);
+  const cupOpacity = useTransform(scrollYProgress, [0.84, 0.92], [0, 1]);
+  const cupScale = useTransform(scrollYProgress, [0.84, 0.92], [0.86, 1]);
+  const cupY = useTransform(scrollYProgress, [0.84, 0.92], [28, 0]);
 
   return (
     <section
@@ -47,7 +47,7 @@ export function AboutSection() {
             {/* Title */}
             <motion.h2
               style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
-              className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 font-display text-5xl md:text-6xl lg:text-7xl font-bold text-cream uppercase tracking-tight text-center"
+              className="absolute left-1/2 top-1/2 z-10 w-full -translate-x-1/2 -translate-y-1/2 font-display text-5xl md:text-6xl lg:text-7xl font-bold text-cream uppercase tracking-tight text-center"
             >
               ¿Quiénes Somos?
             </motion.h2>
@@ -55,7 +55,7 @@ export function AboutSection() {
             {/* Paragraph */}
             <motion.p
               style={{ opacity: paraOpacity, y: paraY }}
-              className="absolute left-1/2 top-[50%] w-full max-w-md -translate-x-1/2 -translate-y-1/2 text-center text-base md:text-lg leading-relaxed"
+              className="absolute left-1/2 top-[50%] z-10 w-full max-w-md -translate-x-1/2 -translate-y-1/2 text-center text-base md:text-lg leading-relaxed"
               data-font="serif"
             >
               <span style={{ fontFamily: '"Playfair Display", Georgia, serif' }}>
@@ -69,7 +69,7 @@ export function AboutSection() {
             {/* Cup reveal */}
             <motion.div
               style={{ opacity: cupOpacity, scale: cupScale, y: cupY }}
-              className="absolute left-1/2 top-1/2 z-20 w-full max-w-xs -translate-x-1/2 -translate-y-1/2 md:max-w-sm"
+              className="absolute left-1/2 top-1/2 z-30 w-full max-w-xs -translate-x-1/2 -translate-y-1/2 md:max-w-sm lg:max-w-md"
             >
               <img
                 src={berriesCup}
