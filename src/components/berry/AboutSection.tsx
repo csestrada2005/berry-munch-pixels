@@ -32,38 +32,19 @@ export function AboutSection() {
       <div ref={trackRef} className="relative h-[260vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
           <div className="mx-auto grid h-full max-w-6xl grid-cols-1 items-center gap-10 px-6 pt-16 pb-16 md:grid-cols-2 md:gap-16">
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center min-h-[80vh]"
-        >
-          {/* LEFT: strawberry-shaped image */}
-          <div className="order-2 md:order-1 flex justify-center md:justify-start">
-            <div className="relative w-72 md:w-96 lg:w-[28rem] aspect-[3/4] animate-wiggle"
-              style={{ ["--wiggle-base" as string]: "-2deg" }}
+          <div className="order-2 flex justify-center md:order-1 md:justify-start">
+            <motion.div
+              style={{ y: leftImageY }}
+              className="relative w-72 overflow-hidden rounded-sm shadow-2xl md:w-96 lg:w-[28rem]"
             >
               <img
-                src={strawberryCupPour}
-                alt="Vaso de fresas con chocolate derretido cayendo — Berry Munch"
+                src={berryAboutCollage}
+                alt="Collage editorial Berry Munch con vaso de fresas y chocolate"
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover drop-shadow-2xl"
-                style={{
-                  // Strawberry silhouette via clip-path (heart-like teardrop with bumps for seeds outline)
-                  clipPath:
-                    "path('M 50% 4% C 30% 4%, 8% 18%, 8% 40% C 8% 62%, 24% 80%, 36% 90% C 42% 95%, 47% 98%, 50% 99% C 53% 98%, 58% 95%, 64% 90% C 76% 80%, 92% 62%, 92% 40% C 92% 18%, 70% 4%, 50% 4% Z')",
-                }}
+                className="block h-auto w-full object-cover"
               />
-              {/* Leafy crown on top */}
-              <svg
-                viewBox="0 0 200 60"
-                className="absolute -top-6 left-1/2 -translate-x-1/2 w-3/5 h-auto text-berry"
-                fill="currentColor"
-                aria-hidden
-              >
-                <path d="M100 55 C 80 30, 50 25, 30 30 C 50 38, 60 48, 70 52 C 50 50, 35 45, 20 50 C 40 56, 60 58, 100 55 Z" fill="hsl(120 40% 30%)" />
-                <path d="M100 55 C 120 30, 150 25, 170 30 C 150 38, 140 48, 130 52 C 150 50, 165 45, 180 50 C 160 56, 140 58, 100 55 Z" fill="hsl(120 45% 33%)" />
-                <path d="M100 55 C 95 20, 100 5, 105 5 C 110 5, 110 25, 100 55 Z" fill="hsl(120 50% 28%)" />
-              </svg>
-            </div>
+            </motion.div>
           </div>
 
           {/* RIGHT: scroll-driven text → reveals cup */}
@@ -116,6 +97,7 @@ export function AboutSection() {
                 />
               </div>
             </motion.div>
+          </div>
           </div>
         </div>
       </div>
