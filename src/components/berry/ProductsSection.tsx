@@ -200,7 +200,7 @@ function PolaroidPair({
   show,
   parallaxY,
 }: {
-  items: Array<{ src: string; alt: string; side: "left" | "right" }>;
+  items: Array<{ src: string; alt: string; side: "left" | "right"; edge: "cream" | "dark" }>;
   show: boolean;
   parallaxY: MotionValue<number>;
 }) {
@@ -213,7 +213,6 @@ function PolaroidPair({
           target="_blank"
           rel="noreferrer"
           aria-label="Ir a Instagram"
-          loading="lazy"
           initial={false}
           animate={{
             opacity: show ? 1 : 0,
@@ -221,7 +220,7 @@ function PolaroidPair({
             rotate: 0,
           }}
           style={{ y: parallaxY }}
-          whileHover={show ? { y: -8, scale: 1.04 } : undefined}
+          whileHover={show ? { scale: 1.04 } : undefined}
           transition={{
             opacity: { duration: 0.45, ease: "easeOut", delay: index * 0.04 },
             x: { duration: 0.55, ease: "easeOut", delay: index * 0.04 },
