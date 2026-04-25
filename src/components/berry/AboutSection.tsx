@@ -15,12 +15,12 @@ export function AboutSection() {
   const titleY = useTransform(scrollYProgress, [0, 0.34, 0.46], [0, -170, -170]);
   const titleScale = useTransform(scrollYProgress, [0, 0.38], [1, 0.9]);
 
-  const paraOpacity = useTransform(scrollYProgress, [0.62, 0.72, 0.76, 0.84], [0, 1, 1, 0]);
-  const paraY = useTransform(scrollYProgress, [0.62, 0.72], [22, 0]);
+  const paraOpacity = useTransform(scrollYProgress, [0.58, 0.68, 0.7, 0.78], [0, 1, 1, 0]);
+  const paraY = useTransform(scrollYProgress, [0.58, 0.68], [22, 0]);
 
-  const cupOpacity = useTransform(scrollYProgress, [0.84, 0.92], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.84, 0.92], [0.86, 1]);
-  const cupY = useTransform(scrollYProgress, [0.84, 0.92], [28, 0]);
+  const cupOpacity = useTransform(scrollYProgress, [0.74, 0.82], [0, 1]);
+  const cupScale = useTransform(scrollYProgress, [0.74, 0.82], [0.86, 1]);
+  const cupY = useTransform(scrollYProgress, [0.74, 0.82], [28, 0]);
 
   return (
     <section
@@ -76,7 +76,7 @@ export function AboutSection() {
                 alt="Vaso de fresas frescas — Berries before Worries"
                 loading="lazy"
                 decoding="async"
-                className="relative w-full h-auto"
+                className="relative block h-auto w-full"
               />
             </motion.div>
           </div>
