@@ -332,7 +332,7 @@ function renderCard(
           decoding="async"
           // @ts-expect-error - fetchpriority is a valid HTML attribute
           fetchpriority="high"
-          className={`absolute ${p.topClass} left-1/2 -translate-x-1/2 ${p.imgClass} w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg] z-10 transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110`}
+          className={`absolute ${p.topClass} left-[56%] -translate-x-1/2 ${p.imgClass} w-auto object-contain drop-shadow-2xl pointer-events-none rotate-6 md:rotate-[8deg] z-10 transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110`}
         />
 
         <div className="h-16 md:h-20" />
