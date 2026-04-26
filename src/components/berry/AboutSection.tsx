@@ -48,7 +48,13 @@ export function AboutSection() {
             {/* Title */}
             <div className="absolute left-1/2 top-1/2 z-10 w-full -translate-x-1/2 -translate-y-1/2">
               <motion.h2
-                style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
+                initial={false}
+                animate={{
+                  opacity: activeView === 3 ? 0 : 1,
+                  y: activeView === 0 ? 0 : -210,
+                  scale: activeView === 0 ? 1 : 0.86,
+                }}
+                transition={{ duration: 0.42, ease: "easeOut" }}
                 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-cream uppercase tracking-tight text-center"
               >
                 ¿Quiénes Somos?
@@ -58,7 +64,12 @@ export function AboutSection() {
             {/* Paragraph */}
             <div className="absolute left-1/2 top-[54%] z-10 w-full max-w-md -translate-x-1/2 -translate-y-1/2">
               <motion.p
-                style={{ opacity: paraOpacity, y: paraY }}
+                initial={false}
+                animate={{
+                  opacity: activeView === 1 || activeView === 2 ? 1 : 0,
+                  y: activeView === 1 || activeView === 2 ? 0 : 28,
+                }}
+                transition={{ duration: 0.38, ease: "easeOut" }}
                 className="text-center text-sm leading-relaxed sm:text-base md:text-lg"
                 data-font="serif"
               >
@@ -72,18 +83,22 @@ export function AboutSection() {
             </div>
 
             {/* Cup reveal */}
-            <motion.div
-              style={{ opacity: cupOpacity, scale: cupScale, y: cupY }}
-              className="absolute left-1/2 top-1/2 z-20 w-full max-w-[17rem] -translate-x-1/2 -translate-y-1/2 sm:max-w-sm lg:max-w-md"
-            >
-              <img
+            <div className="absolute left-1/2 top-1/2 z-20 w-full max-w-[17rem] -translate-x-1/2 -translate-y-1/2 sm:max-w-sm lg:max-w-md">
+              <motion.img
                 src={berriesCup}
                 alt="Vaso de fresas frescas — Berries before Worries"
                 loading="lazy"
                 decoding="async"
+                initial={false}
+                animate={{
+                  opacity: activeView === 3 ? 1 : 0,
+                  scale: activeView === 3 ? 1 : 0.84,
+                  y: activeView === 3 ? 0 : 30,
+                }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
                 className="relative block h-auto w-full"
               />
-            </motion.div>
+            </div>
           </div>
           </div>
         </div>
