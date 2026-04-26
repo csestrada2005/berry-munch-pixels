@@ -12,21 +12,29 @@ const images = [g1, g2, g3, g4, g5];
 export function BerriesGallery() {
   // Scroll track — defines the duration of the pinned animation.
   const trackRef = useRef<HTMLDivElement>(null);
+  const shrinkRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: trackRef,
     offset: ["start start", "end end"],
+  });
+  const { scrollYProgress: shrinkProgress } = useScroll({
+    target: shrinkRef,
+    offset: ["start end", "end start"],
   });
 
   // Choreography:
   //  0    → 0.15 : Canvas (pastel pink box) scales from larger start → fullscreen
   //  0.15 → 0.28 : Slot-machine text shifts (Line A → Line B)
   //  0.28 → 0.42 : Carousel takes over while the title remains fully visible
-  //  0.42 → 0.86 : Horizontal carousel translates to the final visible set
-  //  0.86 → 1.00 : Pink canvas shrinks back to its original size as the sticky flow exits
-  const canvasScale = useTransform(scrollYProgress, [0, 0.15, 0.86, 1], [0.533, 1, 1, 0.533]);
-  const canvasRadius = useTransform(scrollYProgress, [0, 0.15, 0.86, 1], [56, 0, 0, 56]);
+  //  0.42 → 1.00 : Horizontal carousel translates to the final visible set, then sticky releases
+  const canvasScale = useTransform(scrollYProgress, [0, 0.15], [0.533, 1]);
+  const canvasRadius = useTransform(scrollYProgress, [0, 0.15], [56, 0]);
   const canvasOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
   const canvasTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${canvasScale}, ${canvasScale}, 1)`;
+
+  const shrinkScale = useTransform(shrinkProgress, [0, 0.85], [1, 0.533]);
+  const shrinkRadius = useTransform(shrinkProgress, [0, 0.85], [0, 56]);
+  const shrinkTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${shrinkScale}, ${shrinkScale}, 1)`;
 
   const textShift = useTransform(scrollYProgress, [0.15, 0.28], [0, -50]);
   const textTransform = useMotionTemplate`translate3d(0, ${textShift}%, 0)`;
@@ -34,13 +42,13 @@ export function BerriesGallery() {
   const titleX = useTransform(scrollYProgress, [0.28, 0.42], [0, -40]);
   const titleTransform = useMotionTemplate`translate3d(${titleX}%, 0, 0)`;
 
-  const trackX = useTransform(scrollYProgress, [0.42, 0.86], [0, -58]);
+  const trackX = useTransform(scrollYProgress, [0.42, 1], [0, -58]);
   const trackTransform = useMotionTemplate`translate3d(${trackX}%, 0, 0)`;
 
   return (
     <section id="berries-gallery" className="bg-berry">
       {/* Scroll track */}
-      <div ref={trackRef} className="relative h-[400vh]">
+      <div ref={trackRef} className="relative h-[320vh]">
         {/* Sticky stage — holds EVERYTHING */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           {/* 1) Canvas: pastel pink box scales up */}
@@ -129,6 +137,18 @@ export function BerriesGallery() {
             </motion.div>
           </div>
         </div>
+      </div>
+      <div ref={shrinkRef} className="relative h-[90vh] overflow-hidden bg-berry">
+        <motion.div
+          aria-hidden="true"
+          style={{
+            borderRadius: shrinkRadius,
+            backgroundColor: "var(--berry-pink)",
+            transform: shrinkTransform,
+            willChange: "transform",
+          }}
+          className="absolute left-1/2 top-1/2 h-screen w-screen origin-center pointer-events-none"
+        />
       </div>
     </section>
   );
