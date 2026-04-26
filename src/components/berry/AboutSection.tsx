@@ -13,13 +13,13 @@ export function AboutSection() {
   });
 
   // Choreography, modeled after ProductsSection's explicit staged flow:
-  //  0.00 → 0.22 : Title centered only
-  //  0.22 → 0.48 : Title moves up while paragraph fades in
-  //  0.48 → 0.68 : Title + paragraph hold fully visible
-  //  0.68 → 1.00 : Text exits and the cup reveal takes over
+  //  0.00 → 0.20 : Title centered only
+  //  0.20 → 0.40 : Title moves up by itself
+  //  0.40 → 0.72 : Paragraph appears with title already up
+  //  0.72 → 1.00 : Text exits and the cup reveal takes over
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const nextView: 0 | 1 | 2 | 3 =
-      latest < 0.22 ? 0 : latest < 0.48 ? 1 : latest < 0.68 ? 2 : 3;
+      latest < 0.2 ? 0 : latest < 0.4 ? 1 : latest < 0.72 ? 2 : 3;
     setActiveView((current) => (current === nextView ? current : nextView));
   });
 
@@ -28,7 +28,7 @@ export function AboutSection() {
       id="sucursal"
       className="relative bg-berry text-cream scroll-mt-24"
     >
-      <div ref={trackRef} className="relative h-[300vh]">
+      <div ref={trackRef} className="relative h-[360vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
           <div className="mx-auto grid h-full max-w-6xl grid-cols-[minmax(11rem,0.82fr)_minmax(0,1.18fr)] items-stretch gap-5 px-4 sm:grid-cols-[minmax(13rem,0.9fr)_minmax(0,1.1fr)] sm:gap-8 sm:px-6 lg:gap-16">
           <div className="flex h-full min-h-screen justify-start self-stretch">
@@ -51,7 +51,7 @@ export function AboutSection() {
                 initial={false}
                 animate={{
                   opacity: activeView === 3 ? 0 : 1,
-                  y: activeView === 0 ? 0 : -210,
+                  y: activeView === 0 ? 0 : -230,
                   scale: activeView === 0 ? 1 : 0.86,
                 }}
                 transition={{ duration: 0.42, ease: "easeOut" }}
@@ -66,8 +66,8 @@ export function AboutSection() {
               <motion.p
                 initial={false}
                 animate={{
-                  opacity: activeView === 1 || activeView === 2 ? 1 : 0,
-                  y: activeView === 1 || activeView === 2 ? 0 : 28,
+                  opacity: activeView === 2 ? 1 : 0,
+                  y: activeView === 2 ? 0 : 28,
                 }}
                 transition={{ duration: 0.38, ease: "easeOut" }}
                 className="text-center text-sm leading-relaxed sm:text-base md:text-lg"
@@ -87,7 +87,7 @@ export function AboutSection() {
               <motion.img
                 src={berriesCup}
                 alt="Vaso de fresas frescas — Berries before Worries"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 initial={false}
                 animate={{
