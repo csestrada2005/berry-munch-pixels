@@ -12,7 +12,7 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  // Choreography, modeled after ProductsSection's explicit staged flow:
+  // Choreography, modeled after ProductsSection's explicit staged flow, with no legacy transform refs:
   //  0.00 → 0.20 : Title centered only
   //  0.20 → 0.44 : Title moves up by itself
   //  0.44 → 0.78 : Paragraph appears with title already up
