@@ -94,10 +94,10 @@ export function BerriesGallery() {
                   key={i}
                   to="/berries/$berryId"
                   params={{ berryId: String(i + 1) }}
-                  className="group relative shrink-0 w-[60vw] md:w-[42vw] lg:w-[32vw] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-cream hover:shadow-[0_24px_70px_rgba(0,0,0,0.28)] focus:outline-none focus-visible:ring-8 focus-visible:ring-cream/70"
+                  className="group relative shrink-0 w-[60vw] md:w-[42vw] lg:w-[32vw] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-cream focus:outline-none focus-visible:ring-8 focus-visible:ring-cream/70"
                   style={{
                     rotate: `${i % 2 === 0 ? -2 : 2}deg`,
-                    transition: "transform 350ms ease, box-shadow 350ms ease",
+                    transition: "transform 350ms ease",
                   }}
                   aria-label={`Open berry creation ${i + 1}`}
                 >
@@ -108,6 +108,9 @@ export function BerriesGallery() {
                     decoding="async"
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                  <span className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full bg-cream px-6 py-3 font-display text-lg font-bold tracking-wide text-berry opacity-0 shadow-lg transition-all duration-300 group-hover:translate-y-[-4px] group-hover:opacity-100 group-focus-visible:opacity-100">
+                    comprar
+                  </span>
                 </Link>
               ))}
             </motion.div>
