@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
 import g1 from "@/assets/berry-gallery-1.jpg";
 import g2 from "@/assets/berry-gallery-2.jpg";
@@ -17,12 +18,13 @@ export function BerriesGallery() {
   });
 
   // Choreography:
-  //  0    → 0.15 : Canvas (pastel pink box) scales from small → fullscreen
+  //  0    → 0.15 : Canvas (pastel pink box) scales from larger start → fullscreen
   //  0.15 → 0.28 : Slot-machine text shifts (Line A → Line B)
   //  0.28 → 0.42 : Carousel takes over while the title remains fully visible
-  //  0.42 → 1.00 : Horizontal carousel translates -78%
-  const canvasScale = useTransform(scrollYProgress, [0, 0.15], [0.4, 1]);
-  const canvasRadius = useTransform(scrollYProgress, [0, 0.15], [56, 0]);
+  //  0.42 → 0.86 : Horizontal carousel translates to the final visible set
+  //  0.86 → 1.00 : Pink canvas shrinks back to its original size as the sticky flow exits
+  const canvasScale = useTransform(scrollYProgress, [0, 0.15, 0.86, 1], [0.533, 1, 1, 0.533]);
+  const canvasRadius = useTransform(scrollYProgress, [0, 0.15, 0.86, 1], [56, 0, 0, 56]);
   const canvasOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
   const canvasTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${canvasScale}, ${canvasScale}, 1)`;
 
@@ -32,7 +34,7 @@ export function BerriesGallery() {
   const titleX = useTransform(scrollYProgress, [0.28, 0.42], [0, -40]);
   const titleTransform = useMotionTemplate`translate3d(${titleX}%, 0, 0)`;
 
-  const trackX = useTransform(scrollYProgress, [0.42, 1.0], [0, -78]);
+  const trackX = useTransform(scrollYProgress, [0.42, 0.86], [0, -58]);
   const trackTransform = useMotionTemplate`translate3d(${trackX}%, 0, 0)`;
 
   return (
@@ -104,31 +106,27 @@ export function BerriesGallery() {
               className="flex items-center gap-6 md:gap-10 pl-[55vw] pr-[10vw]"
             >
               {images.map((src, i) => (
-                <div
+                <Link
                   key={i}
-                  className="relative shrink-0 w-[60vw] md:w-[42vw] lg:w-[32vw] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-cream"
+                  to="/berries/$berryId"
+                  params={{ berryId: String(i + 1) }}
+                  className="group relative shrink-0 w-[60vw] md:w-[42vw] lg:w-[32vw] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-cream hover:shadow-[0_24px_70px_rgba(0,0,0,0.28)] focus:outline-none focus-visible:ring-8 focus-visible:ring-cream/70"
                   style={{
-                    transform: `rotate(${i % 2 === 0 ? -2 : 2}deg) translate3d(0,0,0)`,
+                    rotate: `${i % 2 === 0 ? -2 : 2}deg`,
+                    transition: "transform 350ms ease, box-shadow 350ms ease",
                   }}
+                  aria-label={`Open berry creation ${i + 1}`}
                 >
                   <img
                     src={src}
                     alt={`Berry creation ${i + 1}`}
                     loading="lazy"
                     decoding="async"
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute bottom-4 left-4 bg-cream/90 text-berry px-3 py-1 rounded-full font-display font-bold text-sm">
-                    #{String(i + 1).padStart(2, "0")}
-                  </div>
-                </div>
+                </Link>
               ))}
             </motion.div>
-          </div>
-
-          {/* Scroll hint */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cream/80 font-display italic text-sm tracking-wide z-20 pointer-events-none">
-            ← scroll to explore →
           </div>
         </div>
       </div>
