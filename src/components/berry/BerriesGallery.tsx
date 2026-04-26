@@ -19,28 +19,23 @@ export function BerriesGallery() {
 
   // Choreography:
   //  0    → 0.15 : Canvas (pastel pink box) scales from larger start → fullscreen
-  //  0.15 → 0.28 : Slot-machine text shifts (Line A → Line B)
-  //  0.28 → 0.42 : Carousel takes over while the title remains fully visible
-  //  0.42 → 0.86 : Horizontal carousel translates to the final visible set
-  //  0.86 → 1.00 : Pink canvas shrinks back to its original size as the sticky flow exits
-  const canvasScale = useTransform(scrollYProgress, [0, 0.15, 0.86, 1], [0.533, 1, 1, 0.533]);
-  const canvasRadius = useTransform(scrollYProgress, [0, 0.15, 0.86, 1], [56, 0, 0, 56]);
+  //  0.18 → 0.32 : Carousel takes over while the title remains fully visible
+  //  0.32 → 1.00 : Horizontal carousel translates until the sticky flow exits
+  const canvasScale = useTransform(scrollYProgress, [0, 0.15], [0.533, 1]);
+  const canvasRadius = useTransform(scrollYProgress, [0, 0.15], [56, 0]);
   const canvasOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
   const canvasTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${canvasScale}, ${canvasScale}, 1)`;
 
-  const textShift = useTransform(scrollYProgress, [0.15, 0.28], [0, -50]);
-  const textTransform = useMotionTemplate`translate3d(0, ${textShift}%, 0)`;
-
-  const titleX = useTransform(scrollYProgress, [0.28, 0.42], [0, -40]);
+  const titleX = useTransform(scrollYProgress, [0.18, 0.32], [0, -40]);
   const titleTransform = useMotionTemplate`translate3d(${titleX}%, 0, 0)`;
 
-  const trackX = useTransform(scrollYProgress, [0.42, 0.86], [0, -58]);
+  const trackX = useTransform(scrollYProgress, [0.32, 1], [0, -58]);
   const trackTransform = useMotionTemplate`translate3d(${trackX}%, 0, 0)`;
 
   return (
     <section id="berries-gallery" className="bg-berry">
       {/* Scroll track */}
-      <div ref={trackRef} className="relative h-[400vh]">
+      <div ref={trackRef} className="relative h-[320vh]">
         {/* Sticky stage — holds EVERYTHING */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           {/* 1) Canvas: pastel pink box scales up */}
@@ -56,32 +51,7 @@ export function BerriesGallery() {
             className="absolute left-1/2 top-1/2 h-screen w-screen origin-center pointer-events-none"
           />
 
-          {/* 2) Slot-machine text */}
-          <div
-            aria-hidden="true"
-            className="absolute top-[14%] left-1/2 -translate-x-1/2 z-20 overflow-hidden pointer-events-none"
-            style={{ height: "1.2em", lineHeight: 1.2 }}
-          >
-            <motion.div
-              style={{ transform: textTransform, willChange: "transform" }}
-              className="font-display italic text-center"
-            >
-              <div
-                className="text-2xl md:text-4xl tracking-wide text-berry-deep"
-                style={{ height: "1.2em", lineHeight: 1.2 }}
-              >
-                Pequeñas obras dulces.
-              </div>
-              <div
-                className="text-2xl md:text-4xl tracking-wide text-cream"
-                style={{ height: "1.2em", lineHeight: 1.2 }}
-              >
-                Hand-picked, hand-dipped.
-              </div>
-            </motion.div>
-          </div>
-
-          {/* 3) "Our Berries" headline */}
+          {/* 2) "Our Berries" headline */}
           <motion.div
             style={{
               transform: titleTransform,
@@ -99,7 +69,7 @@ export function BerriesGallery() {
             </h2>
           </motion.div>
 
-          {/* 4) Horizontal carousel track */}
+          {/* 3) Horizontal carousel track */}
           <div className="absolute inset-0 flex items-center z-10">
             <motion.div
               style={{ transform: trackTransform, willChange: "transform" }}
