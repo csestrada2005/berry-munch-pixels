@@ -24,7 +24,7 @@ export function BerriesGallery() {
   const canvasScale = useTransform(scrollYProgress, [0, 0.15], [0.533, 1]);
   const canvasRadius = useTransform(scrollYProgress, [0, 0.15], [56, 0]);
   const canvasOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
-  const canvasRedShift = useTransform(scrollYProgress, [0.32, 1], [0, 1]);
+  const canvasRedShift = useTransform(scrollYProgress, [0.42, 1], [0, 1]);
   const canvasTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${canvasScale}, ${canvasScale}, 1)`;
 
   const titleX = useTransform(scrollYProgress, [0.18, 0.32], [0, -40]);
@@ -45,7 +45,7 @@ export function BerriesGallery() {
             style={{
               opacity: canvasOpacity,
               borderRadius: canvasRadius,
-              backgroundColor: "var(--berry-pink)",
+              backgroundColor: "var(--berry-blush)",
               transform: canvasTransform,
               willChange: "transform",
             }}
