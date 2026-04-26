@@ -1,10 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Nav } from "@/components/berry/Nav";
 import {
+  fetchCatalogProducts,
   products,
   productPrice,
+  registerWhatsappOrder,
   toppings,
-  whatsappUrl,
   type BerryProduct,
 } from "@/components/berry/productCatalog";
 import berryLogo from "@/assets/berry-munch-logo.png";
@@ -28,8 +30,12 @@ export const Route = createFileRoute("/tienda")({
 });
 
 function TiendaPage() {
-  const featured = products.filter((product) => product.featured);
-  const rest = products.filter((product) => !product.featured);
+  const [catalogProducts, setCatalogProducts] = useState<BerryProduct[]>(products);
+  const featured = catalogProducts.filter((product) => product.featured);
+
+  useEffect(() => {
+    fetchCatalogProducts().then(setCatalogProducts).catch(() => setCatalogProducts(products));
+  }, []);
 
   return (
     <main className="min-h-screen bg-berry text-cream">
@@ -69,7 +75,7 @@ function TiendaPage() {
         <div className="mx-auto max-w-6xl">
           <h2 className="font-display text-4xl font-black tracking-normal md:text-6xl">Menú</h2>
           <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => (
+            {catalogProducts.map((product) => (
               <ProductTile key={product.id} product={product} />
             ))}
           </div>
@@ -123,14 +129,13 @@ function ProductTile({ product, compact = false }: { product: BerryProduct; comp
       </Link>
       {!compact && (
         <div className="px-5 pb-5">
-          <a
-            href={whatsappUrl(product)}
-            target="_blank"
-            rel="noreferrer"
+          <button
+            type="button"
+            onClick={() => registerWhatsappOrder(product)}
             className="inline-flex w-full justify-center rounded-full bg-berry px-5 py-2.5 font-display font-bold text-cream transition-transform hover:scale-[1.02]"
           >
             Comprar
-          </a>
+          </button>
         </div>
       )}
     </article>
