@@ -11,16 +11,16 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.65, 0.8], [1, 1, 0]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.6, 0.72], [1, 1, 0]);
   const titleY = useTransform(scrollYProgress, [0.2, 0.45], [0, -160]);
   const titleScale = useTransform(scrollYProgress, [0.2, 0.45], [1, 0.9]);
 
-  const paraOpacity = useTransform(scrollYProgress, [0, 0.2, 0.45, 0.65, 0.8], [0, 0, 1, 1, 0]);
+  const paraOpacity = useTransform(scrollYProgress, [0, 0.2, 0.45, 0.6, 0.72], [0, 0, 1, 1, 0]);
   const paraY = useTransform(scrollYProgress, [0, 0.2, 0.45], [20, 20, 0]);
 
-  const cupOpacity = useTransform(scrollYProgress, [0.8, 0.95], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.8, 0.95], [0.84, 1]);
-  const cupY = useTransform(scrollYProgress, [0.8, 0.95], [30, 0]);
+  const cupOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, 1]);
+  const cupScale = useTransform(scrollYProgress, [0.68, 0.88], [0.84, 1]);
+  const cupY = useTransform(scrollYProgress, [0.68, 0.88], [30, 0]);
 
   return (
     <section
@@ -45,26 +45,30 @@ export function AboutSection() {
           {/* RIGHT: scroll-driven text → reveals cup */}
           <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
             {/* Title */}
-            <motion.h2
-              style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
-              className="absolute left-1/2 top-1/2 z-10 w-full -translate-x-1/2 -translate-y-1/2 font-display text-5xl md:text-6xl lg:text-7xl font-bold text-cream uppercase tracking-tight text-center"
-            >
-              ¿Quiénes Somos?
-            </motion.h2>
+            <div className="absolute left-1/2 top-1/2 z-10 w-full -translate-x-1/2 -translate-y-1/2">
+              <motion.h2
+                style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
+                className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-cream uppercase tracking-tight text-center"
+              >
+                ¿Quiénes Somos?
+              </motion.h2>
+            </div>
 
             {/* Paragraph */}
-            <motion.p
-              style={{ opacity: paraOpacity, y: paraY }}
-              className="absolute left-1/2 top-[54%] z-10 w-full max-w-md -translate-x-1/2 -translate-y-1/2 text-center text-sm leading-relaxed sm:text-base md:text-lg"
-              data-font="serif"
-            >
-              <span style={{ fontFamily: '"Playfair Display", Georgia, serif' }}>
-                En Berrymunch, diseñamos momentos de pausa. Creemos en la elegancia de los pocos
-                ingredientes cuando estos son excepcionales. Nuestra obsesión es el equilibrio:
-                entre lo amargo y lo dulce, entre la textura y la suavidad, entre la naturaleza y
-                la técnica.
-              </span>
-            </motion.p>
+            <div className="absolute left-1/2 top-[54%] z-10 w-full max-w-md -translate-x-1/2 -translate-y-1/2">
+              <motion.p
+                style={{ opacity: paraOpacity, y: paraY }}
+                className="text-center text-sm leading-relaxed sm:text-base md:text-lg"
+                data-font="serif"
+              >
+                <span style={{ fontFamily: '"Playfair Display", Georgia, serif' }}>
+                  En Berrymunch, diseñamos momentos de pausa. Creemos en la elegancia de los pocos
+                  ingredientes cuando estos son excepcionales. Nuestra obsesión es el equilibrio:
+                  entre lo amargo y lo dulce, entre la textura y la suavidad, entre la naturaleza y
+                  la técnica.
+                </span>
+              </motion.p>
+            </div>
 
             {/* Cup reveal */}
             <motion.div
