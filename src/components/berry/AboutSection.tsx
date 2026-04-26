@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import berryAboutCollage from "@/assets/berry-about-collage.png";
-import berriesCup from "@/assets/berries-cup.png";
+import aboutCupsFlow from "@/assets/about-cups-flow.png";
 
 export function AboutSection() {
   const [activeView, setActiveView] = useState<0 | 1 | 2 | 3>(0);
@@ -51,7 +51,7 @@ export function AboutSection() {
                 initial={false}
                 animate={{
                   opacity: activeView === 3 ? 0 : 1,
-                  y: activeView === 0 ? 0 : -230,
+                  y: activeView === 0 ? 0 : -190,
                   scale: activeView === 0 ? 1 : 0.86,
                 }}
                 transition={{ duration: 0.42, ease: "easeOut" }}
@@ -85,8 +85,8 @@ export function AboutSection() {
             {/* Cup reveal */}
             <div className="absolute left-1/2 top-1/2 z-20 w-full max-w-[17rem] -translate-x-1/2 -translate-y-1/2 sm:max-w-sm lg:max-w-md">
               <motion.img
-                src={berriesCup}
-                alt="Vaso de fresas frescas — Berries before Worries"
+                src={aboutCupsFlow}
+                alt="Colección de vasos Berry Munch con fresas, chocolate y toppings"
                 loading="eager"
                 decoding="async"
                 initial={false}
