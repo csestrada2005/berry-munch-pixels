@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TiendaRouteImport } from './routes/tienda'
+import { Route as EventosRouteImport } from './routes/eventos'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BerriesBerryIdRouteImport } from './routes/berries.$berryId'
 
 const TiendaRoute = TiendaRouteImport.update({
   id: '/tienda',
   path: '/tienda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventosRoute = EventosRouteImport.update({
+  id: '/eventos',
+  path: '/eventos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -31,30 +37,34 @@ const BerriesBerryIdRoute = BerriesBerryIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/eventos': typeof EventosRoute
   '/tienda': typeof TiendaRoute
   '/berries/$berryId': typeof BerriesBerryIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/eventos': typeof EventosRoute
   '/tienda': typeof TiendaRoute
   '/berries/$berryId': typeof BerriesBerryIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/eventos': typeof EventosRoute
   '/tienda': typeof TiendaRoute
   '/berries/$berryId': typeof BerriesBerryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/tienda' | '/berries/$berryId'
+  fullPaths: '/' | '/eventos' | '/tienda' | '/berries/$berryId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/tienda' | '/berries/$berryId'
-  id: '__root__' | '/' | '/tienda' | '/berries/$berryId'
+  to: '/' | '/eventos' | '/tienda' | '/berries/$berryId'
+  id: '__root__' | '/' | '/eventos' | '/tienda' | '/berries/$berryId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EventosRoute: typeof EventosRoute
   TiendaRoute: typeof TiendaRoute
   BerriesBerryIdRoute: typeof BerriesBerryIdRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/tienda'
       fullPath: '/tienda'
       preLoaderRoute: typeof TiendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eventos': {
+      id: '/eventos'
+      path: '/eventos'
+      fullPath: '/eventos'
+      preLoaderRoute: typeof EventosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EventosRoute: EventosRoute,
   TiendaRoute: TiendaRoute,
   BerriesBerryIdRoute: BerriesBerryIdRoute,
 }

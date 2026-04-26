@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
   { href: "/tienda", label: "TIENDA", route: true },
+  { href: "/eventos", label: "EVENTOS", route: true },
   { href: "#pedir", label: "PEDIR" },
   { href: "#sucursal", label: "SUCURSAL" },
 ];
@@ -100,7 +101,7 @@ export function Nav() {
                   <li key={l.href} className="relative">
                     {l.route ? (
                       <Link
-                        to="/tienda"
+                        to={l.href as "/tienda" | "/eventos"}
                         onMouseEnter={() => setHovered(l.href)}
                         className="relative inline-flex items-center px-4 py-2 rounded-full"
                       >
@@ -170,7 +171,7 @@ export function Nav() {
                 <li key={l.href}>
                   {l.route ? (
                     <Link
-                      to="/tienda"
+                      to={l.href as "/tienda" | "/eventos"}
                       onClick={() => setOpen(false)}
                       className="block font-display text-sm font-bold text-chocolate tracking-[0.2em] px-2 py-2 rounded-md hover:bg-berry-deep hover:text-cream transition-colors"
                     >

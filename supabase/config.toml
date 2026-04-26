@@ -1,1 +1,4 @@
 project_id = "alvojxiufxcgdznfzawc"
+
+[functions.berry-chat]
+verify_jwt = false
