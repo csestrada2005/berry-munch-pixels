@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TiendaRouteImport } from './routes/tienda'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BerriesBerryIdRouteImport } from './routes/berries.$berryId'
 
 const TiendaRoute = TiendaRouteImport.update({
   id: '/tienda',
@@ -22,31 +23,40 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BerriesBerryIdRoute = BerriesBerryIdRouteImport.update({
+  id: '/berries/$berryId',
+  path: '/berries/$berryId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/tienda': typeof TiendaRoute
+  '/berries/$berryId': typeof BerriesBerryIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/tienda': typeof TiendaRoute
+  '/berries/$berryId': typeof BerriesBerryIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/tienda': typeof TiendaRoute
+  '/berries/$berryId': typeof BerriesBerryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/tienda'
+  fullPaths: '/' | '/tienda' | '/berries/$berryId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/tienda'
-  id: '__root__' | '/' | '/tienda'
+  to: '/' | '/tienda' | '/berries/$berryId'
+  id: '__root__' | '/' | '/tienda' | '/berries/$berryId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TiendaRoute: typeof TiendaRoute
+  BerriesBerryIdRoute: typeof BerriesBerryIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/berries/$berryId': {
+      id: '/berries/$berryId'
+      path: '/berries/$berryId'
+      fullPath: '/berries/$berryId'
+      preLoaderRoute: typeof BerriesBerryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TiendaRoute: TiendaRoute,
+  BerriesBerryIdRoute: BerriesBerryIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
