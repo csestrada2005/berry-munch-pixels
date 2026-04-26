@@ -1,33 +1,51 @@
-I analyzed `ProductsSection.tsx` and the key difference is that it does not rely only on overlapping continuous opacity transforms for major scene changes. It derives an `activeView` from `scrollYProgress` with `useMotionValueEvent`, then each scene is explicitly shown/hidden with `animate`, `pointerEvents`, and stable absolute positioning.
+Plan to complete the remaining Berry Munch website without Shopify:
 
-Problem in `AboutSection.tsx`:
-- The paragraph still uses continuous opacity transforms, so it can become visible while the title is still visually centered.
-- The cup reveal still has Framer Motion transform values on the same element that also uses Tailwind translate-centering classes, so the centering transform can be overridden and the image can appear off-position/clipped.
-- The title movement distance is too small for the paragraph position, so even when the title starts moving they still visually collide.
+1. Build a dedicated Tienda section/page
+- Add a new `/tienda` route with its own title/description metadata.
+- Use the uploaded menu PDF content as the product catalog:
+  - Berry Munch — $140
+  - Berry Bite — $120
+  - Premium sizes: Fresas Dubái, Fresas Lotus, Mix Dubái
+  - Mix: Uvas / Blueberry
+  - Toppings
+  - Relleno Dubai — $500
+  - Dulces: Bombones, Pretzels
+- Style it with the existing Berry Munch visual language: berry red, cream cards, chocolate accents, rounded editorial sections, and product-image collage moments from the PDF/assets.
 
-Fix plan for `src/components/berry/AboutSection.tsx` only:
-1. Convert the About flow to the same robust stage approach used in `ProductsSection.tsx`.
-   - Add `useState` + `useMotionValueEvent`.
-   - Track stages from scroll progress:
-     - Stage 0: title centered only.
-     - Stage 1: title moves up and paragraph fades in.
-     - Stage 2: title + paragraph hold fully visible.
-     - Stage 3: text fades out and cup appears.
+2. Create product detail pages
+- Replace the current “Coming soon” berry/product stub with a real product detail page.
+- Use dynamic URLs such as `/berries/$berryId` for individual product/menu items.
+- Each product page will show:
+  - Product name
+  - Price or size-price table
+  - Description/category
+  - Available toppings where relevant
+  - “Comprar”/order CTA pointing to WhatsApp using the menu phone number: `+52 221 348 5534`
+- Use TanStack Router params correctly with `to="/berries/$berryId"` and `params={{ berryId }}`.
 
-2. Keep all centering transforms on wrapper divs, not animated elements.
-   - Wrapper handles `left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`.
-   - Motion children handle only `opacity`, `y`, and `scale`.
-   - Apply this to title, paragraph, and cup.
+3. Connect existing CTAs and navigation
+- Update the nav so “TIENDA” points to the new store route instead of only scrolling to the products section.
+- Update “comprar” buttons in “Our Berries” to link into the correct product detail pages.
+- Update/keep “PEDIR” as the direct ordering/contact CTA, likely WhatsApp or the footer order area.
 
-3. Increase the title’s upward movement so it clears the paragraph.
-   - Move the title higher than the current `-160`, so the paragraph cannot overlap it while entering.
+4. Add a better ordering experience without a full cart
+- Since this is not Shopify, implement a lightweight order flow:
+  - Product cards/details have “Comprar” buttons.
+  - Buttons open WhatsApp with a prefilled message like “Hola Berry Munch, quiero pedir Fresas Dubái tamaño M…”
+  - No inventory, checkout, or payments backend.
 
-4. Reveal the cup reliably after the text stage.
-   - Cup wrapper remains centered in the right column.
-   - Cup animates in with `opacity`, `scale`, and small `y` movement after the text has been readable.
+5. Reuse and add visual assets
+- Use existing project product assets where they match.
+- Copy selected extracted PDF images into `src/assets` if needed for the tienda/product presentation.
+- Keep image imports bundled through React assets.
 
-Expected result:
-- Paragraph is fully hidden while the title is centered.
-- Paragraph only appears once the title is actually moving/has moved upward.
-- Title and paragraph are readable without collision.
-- The cup image appears in the right column after the text/title stage.
+Technical notes
+- Files likely to change/add:
+  - `src/routes/tienda.tsx`
+  - `src/routes/berries.$berryId.tsx`
+  - `src/components/berry/Nav.tsx`
+  - `src/components/berry/BerriesGallery.tsx`
+  - optionally a shared catalog file/component, e.g. `src/components/berry/productCatalog.ts` or `src/components/berry/TiendaSection.tsx`
+- No Shopify integration will be used.
+- No database changes are needed unless you later want saved orders, accounts, or an admin-managed menu.
+- After implementation, run the app/typecheck to catch route and import issues.
