@@ -147,18 +147,7 @@ export function BerriesGallery() {
           </div>
         </div>
       </div>
-      <div ref={shrinkRef} className="relative h-[90vh] overflow-hidden bg-berry">
-        <motion.div
-          aria-hidden="true"
-          style={{
-            borderRadius: shrinkRadius,
-            backgroundColor: "var(--berry-pink)",
-            transform: shrinkTransform,
-            willChange: "transform",
-          }}
-          className="absolute left-1/2 top-1/2 h-screen w-screen origin-center pointer-events-none"
-        />
-      </div>
+      <div ref={shrinkRef} className="relative z-10 h-[90vh] bg-transparent" />
     </section>
   );
 }
