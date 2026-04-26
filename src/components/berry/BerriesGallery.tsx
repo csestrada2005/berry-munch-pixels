@@ -6,6 +6,7 @@ import g2 from "@/assets/berry-gallery-2.jpg";
 import g3 from "@/assets/berry-gallery-3.jpg";
 import g4 from "@/assets/berry-gallery-4.jpg";
 import g5 from "@/assets/berry-gallery-5.jpg";
+import { featuredGalleryProductIds } from "./productCatalog";
 
 const images = [g1, g2, g3, g4, g5];
 
@@ -93,13 +94,13 @@ export function BerriesGallery() {
                 <Link
                   key={i}
                   to="/berries/$berryId"
-                  params={{ berryId: String(i + 1) }}
+                  params={{ berryId: featuredGalleryProductIds[i] }}
                   className="group relative shrink-0 w-[60vw] md:w-[42vw] lg:w-[32vw] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-4 ring-cream focus:outline-none focus-visible:ring-8 focus-visible:ring-cream/70"
                   style={{
                     rotate: `${i % 2 === 0 ? -2 : 2}deg`,
                     transition: "transform 350ms ease",
                   }}
-                  aria-label={`Open berry creation ${i + 1}`}
+                  aria-label="Ver producto Berry Munch"
                 >
                   <img
                     src={src}
