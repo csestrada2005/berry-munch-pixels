@@ -1,9 +1,10 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import berryAboutCollage from "@/assets/berry-about-collage.png";
 import berriesCup from "@/assets/berries-cup.png";
 
 export function AboutSection() {
+  const [activeView, setActiveView] = useState<0 | 1 | 2 | 3>(0);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -11,23 +12,23 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.6, 0.72], [1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0.2, 0.45], [0, -160]);
-  const titleScale = useTransform(scrollYProgress, [0.2, 0.45], [1, 0.9]);
-
-  const paraOpacity = useTransform(scrollYProgress, [0, 0.2, 0.45, 0.6, 0.72], [0, 0, 1, 1, 0]);
-  const paraY = useTransform(scrollYProgress, [0, 0.2, 0.45], [20, 20, 0]);
-
-  const cupOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.68, 0.88], [0.84, 1]);
-  const cupY = useTransform(scrollYProgress, [0.68, 0.88], [30, 0]);
+  // Choreography, modeled after ProductsSection's explicit staged flow:
+  //  0.00 → 0.20 : Title centered only
+  //  0.20 → 0.44 : Title moves up by itself
+  //  0.44 → 0.78 : Paragraph appears with title already up
+  //  0.78 → 1.00 : Text exits and the cup reveal takes over
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const nextView: 0 | 1 | 2 | 3 =
+      latest < 0.2 ? 0 : latest < 0.44 ? 1 : latest < 0.78 ? 2 : 3;
+    setActiveView((current) => (current === nextView ? current : nextView));
+  });
 
   return (
     <section
       id="sucursal"
       className="relative bg-berry text-cream scroll-mt-24"
     >
-      <div ref={trackRef} className="relative h-[300vh]">
+      <div ref={trackRef} className="relative h-[360vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
           <div className="mx-auto grid h-full max-w-6xl grid-cols-[minmax(11rem,0.82fr)_minmax(0,1.18fr)] items-stretch gap-5 px-4 sm:grid-cols-[minmax(13rem,0.9fr)_minmax(0,1.1fr)] sm:gap-8 sm:px-6 lg:gap-16">
           <div className="flex h-full min-h-screen justify-start self-stretch">
@@ -47,7 +48,13 @@ export function AboutSection() {
             {/* Title */}
             <div className="absolute left-1/2 top-1/2 z-10 w-full -translate-x-1/2 -translate-y-1/2">
               <motion.h2
-                style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
+                initial={false}
+                animate={{
+                  opacity: activeView === 3 ? 0 : 1,
+                  y: activeView === 0 ? 0 : -230,
+                  scale: activeView === 0 ? 1 : 0.86,
+                }}
+                transition={{ duration: 0.42, ease: "easeOut" }}
                 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-cream uppercase tracking-tight text-center"
               >
                 ¿Quiénes Somos?
@@ -55,9 +62,14 @@ export function AboutSection() {
             </div>
 
             {/* Paragraph */}
-            <div className="absolute left-1/2 top-[54%] z-10 w-full max-w-md -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute left-1/2 top-[56%] z-10 w-full max-w-md -translate-x-1/2 -translate-y-1/2">
               <motion.p
-                style={{ opacity: paraOpacity, y: paraY }}
+                initial={false}
+                animate={{
+                  opacity: activeView === 2 ? 1 : 0,
+                  y: activeView === 2 ? 0 : 28,
+                }}
+                transition={{ duration: 0.38, ease: "easeOut" }}
                 className="text-center text-sm leading-relaxed sm:text-base md:text-lg"
                 data-font="serif"
               >
@@ -71,18 +83,22 @@ export function AboutSection() {
             </div>
 
             {/* Cup reveal */}
-            <motion.div
-              style={{ opacity: cupOpacity, scale: cupScale, y: cupY }}
-              className="absolute left-1/2 top-1/2 z-20 w-full max-w-[17rem] -translate-x-1/2 -translate-y-1/2 sm:max-w-sm lg:max-w-md"
-            >
-              <img
+            <div className="absolute left-1/2 top-1/2 z-20 w-full max-w-[17rem] -translate-x-1/2 -translate-y-1/2 sm:max-w-sm lg:max-w-md">
+              <motion.img
                 src={berriesCup}
                 alt="Vaso de fresas frescas — Berries before Worries"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
+                initial={false}
+                animate={{
+                  opacity: activeView === 3 ? 1 : 0,
+                  scale: activeView === 3 ? 1 : 0.84,
+                  y: activeView === 3 ? 0 : 30,
+                }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
                 className="relative block h-auto w-full"
               />
-            </motion.div>
+            </div>
           </div>
           </div>
         </div>
