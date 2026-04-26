@@ -24,6 +24,7 @@ export function BerriesGallery() {
   const canvasScale = useTransform(scrollYProgress, [0, 0.15], [0.533, 1]);
   const canvasRadius = useTransform(scrollYProgress, [0, 0.15], [56, 0]);
   const canvasOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
+  const canvasRedShift = useTransform(scrollYProgress, [0.32, 1], [0, 1]);
   const canvasTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${canvasScale}, ${canvasScale}, 1)`;
 
   const titleX = useTransform(scrollYProgress, [0.18, 0.32], [0, -40]);
@@ -47,6 +48,19 @@ export function BerriesGallery() {
               backgroundColor: "var(--berry-pink)",
               transform: canvasTransform,
               willChange: "transform",
+            }}
+            className="absolute left-1/2 top-1/2 h-screen w-screen origin-center pointer-events-none"
+          />
+
+          {/* Red shift: blends the pink canvas into the following section color as images scroll */}
+          <motion.div
+            aria-hidden="true"
+            style={{
+              opacity: canvasRedShift,
+              borderRadius: canvasRadius,
+              backgroundColor: "var(--berry)",
+              transform: canvasTransform,
+              willChange: "opacity, transform",
             }}
             className="absolute left-1/2 top-1/2 h-screen w-screen origin-center pointer-events-none"
           />
