@@ -1,5 +1,5 @@
-import { useCallback, useRef, useState } from "react";
-import { motion, type MotionValue, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { useCallback, useRef, useState, type MouseEvent } from "react";
+import { motion, type MotionValue, useMotionTemplate, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 
 import { Tilt } from "./fx/Tilt";
 import { ConfettiBurst } from "./fx/ConfettiBurst";
@@ -207,35 +207,93 @@ function PolaroidPair({
   return (
     <div aria-hidden={!show} className="absolute inset-0 z-0 hidden md:block">
       {items.map((item, index) => (
-        <motion.a
+        <PolaroidCard
           key={item.src}
-          href={instagramUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Ir a Instagram"
-          initial={false}
-          animate={{
-            opacity: show ? 1 : 0,
-            x: show ? 0 : item.side === "left" ? -26 : 26,
-            rotate: 0,
-          }}
-          style={{ y: parallaxY }}
-          whileHover={show ? { scale: 1.04, x: item.side === "left" ? -18 : 18 } : undefined}
-          transition={{
-            opacity: { duration: 0.45, ease: "easeOut", delay: index * 0.04 },
-            x: { duration: 0.55, ease: "easeOut", delay: index * 0.04 },
-            y: { duration: 0.25, ease: "easeOut" },
-            scale: { duration: 0.25, ease: "easeOut" },
-          }}
-          className={`group/polaroid absolute top-[38%] h-64 w-48 -translate-y-1/2 rounded-sm border-[12px] ${item.edge === "berry" ? "border-berry bg-berry" : "border-cream bg-cream"} shadow-2xl transition-shadow duration-300 hover:shadow-[0_24px_48px_-18px_var(--color-chocolate)] focus:outline-none focus-visible:ring-4 focus-visible:ring-gold lg:h-72 lg:w-56 ${item.side === "left" ? "left-6 lg:left-12" : "right-6 lg:right-12"}`}
-        >
-          <img src={item.src} alt={item.alt} className="h-full w-full object-cover" />
-          <span className="pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap rounded-full bg-cream px-4 py-1.5 font-display text-sm font-bold text-berry opacity-0 shadow-lg transition-all duration-300 group-hover/polaroid:translate-y-1 group-hover/polaroid:opacity-100 group-focus-visible/polaroid:translate-y-1 group-focus-visible/polaroid:opacity-100">
-            Ir a Instagram
-          </span>
-        </motion.a>
+          item={item}
+          index={index}
+          show={show}
+          parallaxY={parallaxY}
+        />
       ))}
     </div>
+  );
+}
+
+function PolaroidCard({
+  item,
+  index,
+  show,
+  parallaxY,
+}: {
+  item: { src: string; alt: string; side: "left" | "right"; edge: "cream" | "berry" };
+  index: number;
+  show: boolean;
+  parallaxY: MotionValue<number>;
+}) {
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothX = useSpring(pointerX, { stiffness: 220, damping: 22, mass: 0.35 });
+  const smoothY = useSpring(pointerY, { stiffness: 220, damping: 22, mass: 0.35 });
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [8, -8]);
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [-7, 7]);
+  const imageX = useTransform(smoothX, [-0.5, 0.5], [10, -10]);
+  const imageY = useTransform(smoothY, [-0.5, 0.5], [10, -10]);
+
+  function handleMouseMove(event: MouseEvent<HTMLAnchorElement>) {
+    if (!show) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    pointerX.set((event.clientX - rect.left) / rect.width - 0.5);
+    pointerY.set((event.clientY - rect.top) / rect.height - 0.5);
+  }
+
+  function handleMouseLeave() {
+    pointerX.set(0);
+    pointerY.set(0);
+  }
+
+  return (
+    <motion.a
+      href={instagramUrl}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Ir a Instagram"
+      initial={false}
+      animate={{
+        opacity: show ? 1 : 0,
+        x: show ? 0 : item.side === "left" ? -26 : 26,
+        rotate: 0,
+      }}
+      style={{
+        y: parallaxY,
+        rotateX,
+        rotateY,
+        transformPerspective: 900,
+        transformStyle: "preserve-3d",
+        willChange: "transform, opacity",
+      }}
+      whileHover={show ? { scale: 1.035 } : undefined}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      transition={{
+        opacity: { duration: 0.45, ease: "easeOut", delay: index * 0.04 },
+        x: { duration: 0.55, ease: "easeOut", delay: index * 0.04 },
+        y: { duration: 0.25, ease: "easeOut" },
+        scale: { duration: 0.25, ease: "easeOut" },
+      }}
+      className={`group/polaroid absolute top-[38%] h-64 w-48 -translate-y-1/2 overflow-visible rounded-sm border-[12px] ${item.edge === "berry" ? "border-berry bg-berry" : "border-cream bg-cream"} shadow-2xl transition-shadow duration-300 hover:shadow-[0_24px_48px_-18px_var(--color-chocolate)] focus:outline-none focus-visible:ring-4 focus-visible:ring-gold lg:h-72 lg:w-56 ${item.side === "left" ? "left-6 lg:left-12" : "right-6 lg:right-12"}`}
+    >
+      <span className="absolute inset-0 overflow-hidden rounded-[2px]" style={{ transform: "translateZ(18px)" }}>
+        <motion.img
+          src={item.src}
+          alt={item.alt}
+          style={{ x: imageX, y: imageY }}
+          className="absolute -inset-3 h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)] object-cover"
+        />
+      </span>
+      <span className="pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap rounded-full bg-cream px-4 py-1.5 font-display text-sm font-bold text-berry opacity-0 shadow-lg transition-all duration-300 group-hover/polaroid:translate-y-1 group-hover/polaroid:opacity-100 group-focus-visible/polaroid:translate-y-1 group-focus-visible/polaroid:opacity-100">
+        Ir a Instagram
+      </span>
+    </motion.a>
   );
 }
 
