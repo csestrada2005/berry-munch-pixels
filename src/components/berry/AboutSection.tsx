@@ -51,7 +51,7 @@ export function AboutSection() {
                 initial={false}
                 animate={{
                   opacity: activeView === 3 ? 0 : 1,
-                  y: activeView === 0 ? 0 : -190,
+                  y: activeView === 0 ? 0 : -160,
                   scale: activeView === 0 ? 1 : 0.86,
                 }}
                 transition={{ duration: 0.42, ease: "easeOut" }}
