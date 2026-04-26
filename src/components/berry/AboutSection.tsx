@@ -11,23 +11,23 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.72, 0.82], [1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.38, 0.72], [0, -160, -160]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.38], [1, 0.9]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.65, 0.8], [1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0.2, 0.45], [0, -160]);
+  const titleScale = useTransform(scrollYProgress, [0.2, 0.45], [1, 0.9]);
 
-  const paraOpacity = useTransform(scrollYProgress, [0.54, 0.64, 0.72, 0.82], [0, 1, 1, 0]);
-  const paraY = useTransform(scrollYProgress, [0.54, 0.64], [20, 0]);
+  const paraOpacity = useTransform(scrollYProgress, [0.2, 0.45, 0.65, 0.8], [0, 1, 1, 0]);
+  const paraY = useTransform(scrollYProgress, [0.2, 0.45], [20, 0]);
 
-  const cupOpacity = useTransform(scrollYProgress, [0.82, 0.9], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.82, 0.9], [0.84, 1]);
-  const cupY = useTransform(scrollYProgress, [0.82, 0.9], [30, 0]);
+  const cupOpacity = useTransform(scrollYProgress, [0.8, 0.95], [0, 1]);
+  const cupScale = useTransform(scrollYProgress, [0.8, 0.95], [0.84, 1]);
+  const cupY = useTransform(scrollYProgress, [0.8, 0.95], [30, 0]);
 
   return (
     <section
       id="sucursal"
       className="relative bg-berry text-cream scroll-mt-24"
     >
-      <div ref={trackRef} className="relative h-[280vh]">
+      <div ref={trackRef} className="relative h-[300vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
           <div className="mx-auto grid h-full max-w-6xl grid-cols-[minmax(11rem,0.82fr)_minmax(0,1.18fr)] items-stretch gap-5 px-4 sm:grid-cols-[minmax(13rem,0.9fr)_minmax(0,1.1fr)] sm:gap-8 sm:px-6 lg:gap-16">
           <div className="flex h-full min-h-screen justify-start self-stretch">
