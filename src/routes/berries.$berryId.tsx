@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Nav } from "@/components/berry/Nav";
 import {
+  findCatalogProduct,
   findProduct,
   productPrice,
   registerWhatsappOrder,
@@ -31,7 +33,14 @@ export const Route = createFileRoute("/berries/$berryId")({
 });
 
 function ProductPage() {
-  const product = Route.useLoaderData();
+  const initialProduct = Route.useLoaderData();
+  const [product, setProduct] = useState(initialProduct);
+
+  useEffect(() => {
+    findCatalogProduct(initialProduct.id).then((nextProduct) => {
+      if (nextProduct) setProduct(nextProduct);
+    });
+  }, [initialProduct.id]);
 
   return (
     <main className="min-h-screen bg-berry text-cream">
