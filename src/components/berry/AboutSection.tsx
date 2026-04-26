@@ -15,8 +15,8 @@ export function AboutSection() {
   const titleY = useTransform(scrollYProgress, [0.2, 0.45], [0, -160]);
   const titleScale = useTransform(scrollYProgress, [0.2, 0.45], [1, 0.9]);
 
-  const paraOpacity = useTransform(scrollYProgress, [0.2, 0.45, 0.65, 0.8], [0, 1, 1, 0]);
-  const paraY = useTransform(scrollYProgress, [0.2, 0.45], [20, 0]);
+  const paraOpacity = useTransform(scrollYProgress, [0, 0.2, 0.45, 0.65, 0.8], [0, 0, 1, 1, 0]);
+  const paraY = useTransform(scrollYProgress, [0, 0.2, 0.45], [20, 20, 0]);
 
   const cupOpacity = useTransform(scrollYProgress, [0.8, 0.95], [0, 1]);
   const cupScale = useTransform(scrollYProgress, [0.8, 0.95], [0.84, 1]);
