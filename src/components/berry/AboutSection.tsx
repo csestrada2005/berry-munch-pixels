@@ -1,9 +1,10 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import berryAboutCollage from "@/assets/berry-about-collage.png";
 import berriesCup from "@/assets/berries-cup.png";
 
 export function AboutSection() {
+  const [activeView, setActiveView] = useState<0 | 1 | 2 | 3>(0);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -11,16 +12,16 @@ export function AboutSection() {
     offset: ["start start", "end end"],
   });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.6, 0.72], [1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0.2, 0.45], [0, -160]);
-  const titleScale = useTransform(scrollYProgress, [0.2, 0.45], [1, 0.9]);
-
-  const paraOpacity = useTransform(scrollYProgress, [0, 0.2, 0.45, 0.6, 0.72], [0, 0, 1, 1, 0]);
-  const paraY = useTransform(scrollYProgress, [0, 0.2, 0.45], [20, 20, 0]);
-
-  const cupOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, 1]);
-  const cupScale = useTransform(scrollYProgress, [0.68, 0.88], [0.84, 1]);
-  const cupY = useTransform(scrollYProgress, [0.68, 0.88], [30, 0]);
+  // Choreography, modeled after ProductsSection's explicit staged flow:
+  //  0.00 → 0.22 : Title centered only
+  //  0.22 → 0.48 : Title moves up while paragraph fades in
+  //  0.48 → 0.68 : Title + paragraph hold fully visible
+  //  0.68 → 1.00 : Text exits and the cup reveal takes over
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const nextView: 0 | 1 | 2 | 3 =
+      latest < 0.22 ? 0 : latest < 0.48 ? 1 : latest < 0.68 ? 2 : 3;
+    setActiveView((current) => (current === nextView ? current : nextView));
+  });
 
   return (
     <section
