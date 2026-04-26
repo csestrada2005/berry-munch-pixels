@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
-  { href: "#productos", label: "PRODUCTOS" },
+  { href: "/tienda", label: "TIENDA", route: true },
   { href: "#pedir", label: "PEDIR" },
   { href: "#sucursal", label: "SUCURSAL" },
 ];
@@ -97,12 +98,34 @@ export function Nav() {
                 )}
                 {links.map((l) => (
                   <li key={l.href} className="relative">
-                    <a
-                      href={l.href}
-                      onClick={(e) => handleNavClick(e, l.href)}
-                      onMouseEnter={() => setHovered(l.href)}
-                      className="relative inline-flex items-center px-4 py-2 rounded-full"
-                    >
+                    {l.route ? (
+                      <Link
+                        to="/tienda"
+                        onMouseEnter={() => setHovered(l.href)}
+                        className="relative inline-flex items-center px-4 py-2 rounded-full"
+                      >
+                        {hovered === l.href && (
+                          <motion.span
+                            layoutId="nav-highlight"
+                            className="absolute inset-0 -z-0 rounded-full bg-berry-deep"
+                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          />
+                        )}
+                        <span
+                          className={`relative z-10 font-display text-xs font-bold tracking-[0.2em] whitespace-nowrap transition-colors duration-200 ${
+                            hovered === l.href ? "text-cream" : "text-chocolate"
+                          }`}
+                        >
+                          {l.label}
+                        </span>
+                      </Link>
+                    ) : (
+                      <a
+                        href={l.href}
+                        onClick={(e) => handleNavClick(e, l.href)}
+                        onMouseEnter={() => setHovered(l.href)}
+                        className="relative inline-flex items-center px-4 py-2 rounded-full"
+                      >
                       {hovered === l.href && (
                         <motion.span
                           layoutId="nav-highlight"
@@ -117,7 +140,8 @@ export function Nav() {
                       >
                         {l.label}
                       </span>
-                    </a>
+                      </a>
+                    )}
                   </li>
                 ))}
               </motion.ul>
@@ -144,13 +168,23 @@ export function Nav() {
             <ul className="flex flex-col gap-2">
               {links.map((l) => (
                 <li key={l.href}>
-                  <a
-                    href={l.href}
-                    onClick={(e) => handleNavClick(e, l.href)}
-                    className="block font-display text-sm font-bold text-chocolate tracking-[0.2em] px-2 py-2 rounded-md hover:bg-berry-deep hover:text-cream transition-colors"
-                  >
-                    {l.label}
-                  </a>
+                  {l.route ? (
+                    <Link
+                      to="/tienda"
+                      onClick={() => setOpen(false)}
+                      className="block font-display text-sm font-bold text-chocolate tracking-[0.2em] px-2 py-2 rounded-md hover:bg-berry-deep hover:text-cream transition-colors"
+                    >
+                      {l.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={l.href}
+                      onClick={(e) => handleNavClick(e, l.href)}
+                      className="block font-display text-sm font-bold text-chocolate tracking-[0.2em] px-2 py-2 rounded-md hover:bg-berry-deep hover:text-cream transition-colors"
+                    >
+                      {l.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
