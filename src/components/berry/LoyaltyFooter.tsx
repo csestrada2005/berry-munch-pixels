@@ -56,7 +56,7 @@ export function LoyaltyFooter() {
         style={{
           scale,
           opacity,
-          backgroundColor: "var(--berry)",
+          backgroundColor: "var(--chocolate)",
           borderTopLeftRadius: "8rem",
           borderTopRightRadius: "8rem",
           borderBottomLeftRadius: "2rem",
