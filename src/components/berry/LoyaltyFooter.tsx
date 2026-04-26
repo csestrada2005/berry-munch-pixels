@@ -23,7 +23,7 @@ export function LoyaltyFooter() {
     offset: ["start end", "end end"],
   });
   const scale = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.4], [0.7, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -50,13 +50,13 @@ export function LoyaltyFooter() {
   }
 
   return (
-    <div ref={wrapperRef} className="bg-cream px-3 md:px-6 pb-3 md:pb-6 pt-12">
+    <div ref={wrapperRef} className="bg-berry px-3 md:px-6 pb-3 md:pb-6 pt-12">
       <motion.footer
         id="pedir"
         style={{
           scale,
           opacity,
-          backgroundColor: "#3E2723",
+          backgroundColor: "var(--berry)",
           borderTopLeftRadius: "8rem",
           borderTopRightRadius: "8rem",
           borderBottomLeftRadius: "2rem",
@@ -133,18 +133,18 @@ export function LoyaltyFooter() {
           </div>
 
           {/* RIGHT: location */}
-          <div className="text-cream max-w-xs mx-auto md:mx-0">
+          <div className="text-cream max-w-xs mx-auto md:mx-0 opacity-100">
             <h3 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-wide">
               UBICACIÓN
             </h3>
-            <p className="flex items-start gap-3 text-cream/90 text-base leading-relaxed">
+            <p className="flex items-start gap-3 text-cream text-base leading-relaxed">
               <MapPin size={22} className="mt-1 shrink-0 animate-bounce-soft" />
               Luxury Hall, Plaza Dorada, Parque Puebla
             </p>
           </div>
         </div>
 
-        <p className="pb-6 text-center text-sm text-cream/70">
+        <p className="pb-6 text-center text-sm text-cream">
           © 2026 Berry Munch. Todos los derechos reservados.
         </p>
       </motion.footer>
