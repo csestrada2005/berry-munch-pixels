@@ -1,10 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Nav } from "@/components/berry/Nav";
 import {
+  findCatalogProduct,
   findProduct,
   productPrice,
+  registerWhatsappOrder,
   toppings,
-  whatsappUrl,
+  type ProductSize,
 } from "@/components/berry/productCatalog";
 
 export const Route = createFileRoute("/berries/$berryId")({
@@ -30,7 +33,14 @@ export const Route = createFileRoute("/berries/$berryId")({
 });
 
 function ProductPage() {
-  const product = Route.useLoaderData();
+  const initialProduct = Route.useLoaderData();
+  const [product, setProduct] = useState(initialProduct);
+
+  useEffect(() => {
+    findCatalogProduct(initialProduct.id).then((nextProduct) => {
+      if (nextProduct) setProduct(nextProduct);
+    });
+  }, [initialProduct.id]);
 
   return (
     <main className="min-h-screen bg-berry text-cream">
@@ -63,30 +73,28 @@ function ProductPage() {
             <div className="mt-8 rounded-3xl bg-chocolate p-5 shadow-xl md:p-6">
               {product.sizes ? (
                 <div className="grid grid-cols-3 gap-3">
-                  {product.sizes.map((size) => (
-                    <a
+                  {product.sizes.map((size: ProductSize) => (
+                    <button
+                      type="button"
                       key={size.label}
-                      href={whatsappUrl(product, size.label)}
-                      target="_blank"
-                      rel="noreferrer"
+                      onClick={() => registerWhatsappOrder(product, size.label)}
                       className="rounded-2xl bg-cream px-4 py-5 text-center text-chocolate transition-transform hover:scale-105"
                     >
                       <span className="block font-display text-2xl font-black">{size.label}</span>
                       <span className="mt-1 block font-bold text-berry">{size.price}</span>
-                    </a>
+                    </button>
                   ))}
                 </div>
               ) : (
                 <div className="flex items-center justify-between gap-5 rounded-2xl bg-cream px-5 py-5 text-chocolate">
                   <span className="font-display text-3xl font-black text-berry">{productPrice(product)}</span>
-                  <a
-                    href={whatsappUrl(product)}
-                    target="_blank"
-                    rel="noreferrer"
+                  <button
+                    type="button"
+                    onClick={() => registerWhatsappOrder(product)}
                     className="rounded-full bg-berry px-6 py-3 font-display font-bold text-cream transition-transform hover:scale-105"
                   >
                     Comprar
-                  </a>
+                  </button>
                 </div>
               )}
             </div>

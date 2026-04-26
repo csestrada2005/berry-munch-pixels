@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TiendaRouteImport } from './routes/tienda'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as EventosRouteImport } from './routes/eventos'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BerriesBerryIdRouteImport } from './routes/berries.$berryId'
 
@@ -19,9 +21,19 @@ const TiendaRoute = TiendaRouteImport.update({
   path: '/tienda',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventosRoute = EventosRouteImport.update({
   id: '/eventos',
   path: '/eventos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,34 +49,61 @@ const BerriesBerryIdRoute = BerriesBerryIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/eventos': typeof EventosRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/tienda': typeof TiendaRoute
   '/berries/$berryId': typeof BerriesBerryIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/eventos': typeof EventosRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/tienda': typeof TiendaRoute
   '/berries/$berryId': typeof BerriesBerryIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/eventos': typeof EventosRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/tienda': typeof TiendaRoute
   '/berries/$berryId': typeof BerriesBerryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/eventos' | '/tienda' | '/berries/$berryId'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/eventos'
+    | '/reset-password'
+    | '/tienda'
+    | '/berries/$berryId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/eventos' | '/tienda' | '/berries/$berryId'
-  id: '__root__' | '/' | '/eventos' | '/tienda' | '/berries/$berryId'
+  to:
+    | '/'
+    | '/admin'
+    | '/eventos'
+    | '/reset-password'
+    | '/tienda'
+    | '/berries/$berryId'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/eventos'
+    | '/reset-password'
+    | '/tienda'
+    | '/berries/$berryId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   EventosRoute: typeof EventosRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   TiendaRoute: typeof TiendaRoute
   BerriesBerryIdRoute: typeof BerriesBerryIdRoute
 }
@@ -78,11 +117,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TiendaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/eventos': {
       id: '/eventos'
       path: '/eventos'
       fullPath: '/eventos'
       preLoaderRoute: typeof EventosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -104,7 +157,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   EventosRoute: EventosRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   TiendaRoute: TiendaRoute,
   BerriesBerryIdRoute: BerriesBerryIdRoute,
 }
