@@ -1,23 +1,17 @@
-I found the core issue in `AboutSection.tsx`: the right column is ordered first on the current viewport because the layout only switches to two columns at `md`. At the user’s current width (~811px), the breakpoint is not reliably giving the intended left-collage/right-content layout, so the full-height collage is visually taking over the section. On top of that, the cup image is in the same exact center position as the title/text with high z-index, so when its opacity begins it can cover the text instead of appearing as the final stage in a controlled sequence.
+Plan to update the Instagram polaroid hover effect in `ProductsSection.tsx`:
 
-Plan to fix it:
+1. Remove the current hover effect that moves the whole image left/right with `x` translation.
+2. Make each Instagram polaroid behave like a shallow 3D card:
+   - Track the mouse position inside the image.
+   - Rotate the card slightly on the X/Y axes based on where the cursor is.
+   - Add a subtle internal image/parallax shift opposite the cursor direction, so when the mouse is near the top-right, the photo content visually shifts left/down instead of the entire object sliding away.
+3. Keep the card anchored in place so its layout position does not jump or disturb the products.
+4. Preserve the existing scale, shadow, Instagram link, focus accessibility, and scroll entrance animation.
+5. Add a smooth reset on mouse leave so the card returns naturally to its resting position.
 
-1. Stabilize the section layout
-   - Force the About section to use a two-column sticky layout earlier, instead of waiting for the `md` breakpoint.
-   - Keep the collage locked on the left and the animated title/text/cup stage on the right for tablet-sized viewports like the current 811px preview.
-   - Make the collage fill the available vertical space without pushing/covering the right content.
-
-2. Rebuild the scroll sequence into three clear stages
-   - Stage 1: only `¿Quiénes Somos?` visible.
-   - Stage 2: title moves upward and stays above the paragraph; then `En Berrymunch, diseñamos...` fades in later.
-   - Stage 3: title and paragraph fade out completely, then `berries-cup.png` fades/scales into the right content area.
-
-3. Fix the cup image visibility
-   - Move the cup image into its own final-stage layer in the right column.
-   - Ensure it is not hidden by layout sizing or ending after the sticky section is already done.
-   - Make it appear earlier and remain visible long enough before the sticky flow ends.
-
-4. Visual verification after implementation
-   - Use the preview at the same approximate viewport size as the user.
-   - Check the beginning, middle, and end of the About scroll flow.
-   - Confirm: first only title, then delayed paragraph, then both disappear, then cup image appears on the right while the collage remains fixed on the left.
+Technical details:
+- Edit only `src/components/berry/ProductsSection.tsx`.
+- Add a small reusable `PolaroidCard` helper inside the same file.
+- Use Framer Motion motion values/springs (`useMotionValue`, `useSpring`, `useTransform`) for the 3D rotation and internal image shift.
+- Set `transformPerspective`/`transformStyle: preserve-3d` on the card and keep hover movement on transforms that do not change layout.
+- Replace `whileHover={{ scale: 1.04, x: ... }}` with a cursor-reactive 3D transform.
