@@ -14,12 +14,12 @@ export function AboutSection() {
 
   // Choreography, modeled after ProductsSection's explicit staged flow:
   //  0.00 → 0.20 : Title centered only
-  //  0.20 → 0.40 : Title moves up by itself
-  //  0.40 → 0.72 : Paragraph appears with title already up
-  //  0.72 → 1.00 : Text exits and the cup reveal takes over
+  //  0.20 → 0.44 : Title moves up by itself
+  //  0.44 → 0.78 : Paragraph appears with title already up
+  //  0.78 → 1.00 : Text exits and the cup reveal takes over
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const nextView: 0 | 1 | 2 | 3 =
-      latest < 0.2 ? 0 : latest < 0.4 ? 1 : latest < 0.72 ? 2 : 3;
+      latest < 0.2 ? 0 : latest < 0.44 ? 1 : latest < 0.78 ? 2 : 3;
     setActiveView((current) => (current === nextView ? current : nextView));
   });
 
@@ -62,7 +62,7 @@ export function AboutSection() {
             </div>
 
             {/* Paragraph */}
-            <div className="absolute left-1/2 top-[54%] z-10 w-full max-w-md -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute left-1/2 top-[56%] z-10 w-full max-w-md -translate-x-1/2 -translate-y-1/2">
               <motion.p
                 initial={false}
                 animate={{
