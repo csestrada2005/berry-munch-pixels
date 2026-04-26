@@ -220,7 +220,7 @@ function PolaroidPair({
             rotate: 0,
           }}
           style={{ y: parallaxY }}
-          whileHover={show ? { scale: 1.04 } : undefined}
+          whileHover={show ? { scale: 1.04, x: item.side === "left" ? -18 : 18 } : undefined}
           transition={{
             opacity: { duration: 0.45, ease: "easeOut", delay: index * 0.04 },
             x: { duration: 0.55, ease: "easeOut", delay: index * 0.04 },
