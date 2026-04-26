@@ -19,8 +19,7 @@ export function BerriesGallery() {
   // Choreography:
   //  0    → 0.15 : Canvas (pastel pink box) scales from small → fullscreen
   //  0.15 → 0.28 : Slot-machine text shifts (Line A → Line B)
-  //  0.28 → 0.40 : Berry wipe deepens the backdrop
-  //  0.38 → 0.50 : "Our Berries" title fades out as carousel takes over
+  //  0.28 → 0.42 : "Our Berries" title fades out as carousel takes over
   //  0.42 → 1.00 : Horizontal carousel translates -78%
   const canvasScale = useTransform(scrollYProgress, [0, 0.15], [0.4, 1]);
   const canvasRadius = useTransform(scrollYProgress, [0, 0.15], [56, 0]);
@@ -30,18 +29,15 @@ export function BerriesGallery() {
   const textShift = useTransform(scrollYProgress, [0.15, 0.28], [0, -50]);
   const textTransform = useMotionTemplate`translate3d(0, ${textShift}%, 0)`;
 
-  const wipeScale = useTransform(scrollYProgress, [0.28, 0.40], [0, 40]);
-  const wipeTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${wipeScale}, ${wipeScale}, 1)`;
-
-  const titleOpacity = useTransform(scrollYProgress, [0.38, 0.50], [1, 0]);
-  const titleX = useTransform(scrollYProgress, [0.38, 0.50], [0, -40]);
+  const titleOpacity = useTransform(scrollYProgress, [0.28, 0.42], [1, 0]);
+  const titleX = useTransform(scrollYProgress, [0.28, 0.42], [0, -40]);
   const titleTransform = useMotionTemplate`translate3d(${titleX}%, 0, 0)`;
 
   const trackX = useTransform(scrollYProgress, [0.42, 1.0], [0, -78]);
   const trackTransform = useMotionTemplate`translate3d(${trackX}%, 0, 0)`;
 
   return (
-    <section id="berries-gallery" className="bg-cream">
+    <section id="berries-gallery" className="bg-berry">
       {/* Scroll track */}
       <div ref={trackRef} className="relative h-[400vh]">
         {/* Sticky stage — holds EVERYTHING */}
@@ -52,25 +48,14 @@ export function BerriesGallery() {
             style={{
               opacity: canvasOpacity,
               borderRadius: canvasRadius,
-              backgroundColor: "#FFD9E1",
+              backgroundColor: "var(--berry)",
               transform: canvasTransform,
               willChange: "transform",
             }}
             className="absolute left-1/2 top-1/2 h-screen w-screen origin-center pointer-events-none"
           />
 
-          {/* 2) Berry wipe — repaints stage in deeper berry tone */}
-          <motion.span
-            aria-hidden="true"
-            style={{
-              transform: wipeTransform,
-              willChange: "transform",
-              backgroundColor: "var(--berry)",
-            }}
-            className="absolute left-1/2 top-1/2 w-[120px] h-[120px] rounded-full pointer-events-none"
-          />
-
-          {/* 3) Slot-machine text */}
+          {/* 2) Slot-machine text */}
           <div
             aria-hidden="true"
             className="absolute top-[14%] left-1/2 -translate-x-1/2 z-20 overflow-hidden pointer-events-none"
@@ -95,7 +80,7 @@ export function BerriesGallery() {
             </motion.div>
           </div>
 
-          {/* 4) "Our Berries" headline */}
+          {/* 3) "Our Berries" headline */}
           <motion.div
             style={{
               opacity: titleOpacity,
@@ -114,7 +99,7 @@ export function BerriesGallery() {
             </h2>
           </motion.div>
 
-          {/* 5) Horizontal carousel track */}
+          {/* 4) Horizontal carousel track */}
           <div className="absolute inset-0 flex items-center z-10">
             <motion.div
               style={{ transform: trackTransform, willChange: "transform" }}
