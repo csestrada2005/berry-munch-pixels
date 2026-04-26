@@ -34,6 +34,7 @@
   --color-ring-offset-background: var(--background);
   --color-berry: var(--berry);
   --color-berry-deep: var(--berry-deep);
+  --color-berry-pink: var(--berry-pink);
   --color-cream: var(--cream);
   --color-cream-soft: var(--cream-soft);
   --color-chocolate: var(--chocolate);
@@ -50,6 +51,7 @@
   /* Berry Munch brand */
   --berry: oklch(0.38 0.14 25);
   --berry-deep: oklch(0.32 0.14 25);
+  --berry-pink: oklch(0.82 0.12 5);
   --cream: oklch(0.94 0.04 85);
   --cream-soft: oklch(0.96 0.025 85);
   --chocolate: oklch(0.25 0.05 40);

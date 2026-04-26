@@ -19,7 +19,7 @@ export function BerriesGallery() {
   // Choreography:
   //  0    → 0.15 : Canvas (pastel pink box) scales from small → fullscreen
   //  0.15 → 0.28 : Slot-machine text shifts (Line A → Line B)
-  //  0.28 → 0.42 : "Our Berries" title fades out as carousel takes over
+  //  0.28 → 0.42 : Carousel takes over while the title remains fully visible
   //  0.42 → 1.00 : Horizontal carousel translates -78%
   const canvasScale = useTransform(scrollYProgress, [0, 0.15], [0.4, 1]);
   const canvasRadius = useTransform(scrollYProgress, [0, 0.15], [56, 0]);
@@ -29,7 +29,6 @@ export function BerriesGallery() {
   const textShift = useTransform(scrollYProgress, [0.15, 0.28], [0, -50]);
   const textTransform = useMotionTemplate`translate3d(0, ${textShift}%, 0)`;
 
-  const titleOpacity = useTransform(scrollYProgress, [0.28, 0.42], [1, 0]);
   const titleX = useTransform(scrollYProgress, [0.28, 0.42], [0, -40]);
   const titleTransform = useMotionTemplate`translate3d(${titleX}%, 0, 0)`;
 
@@ -48,7 +47,7 @@ export function BerriesGallery() {
             style={{
               opacity: canvasOpacity,
               borderRadius: canvasRadius,
-              backgroundColor: "var(--berry)",
+              backgroundColor: "var(--berry-pink)",
               transform: canvasTransform,
               willChange: "transform",
             }}
@@ -83,9 +82,8 @@ export function BerriesGallery() {
           {/* 3) "Our Berries" headline */}
           <motion.div
             style={{
-              opacity: titleOpacity,
               transform: titleTransform,
-              willChange: "transform, opacity",
+              willChange: "transform",
             }}
             className="absolute left-0 top-1/2 -translate-y-1/2 pl-6 md:pl-16 lg:pl-24 z-10 pointer-events-none"
           >
