@@ -27,14 +27,22 @@ export function BerriesGallery() {
   //  0.15 → 0.28 : Slot-machine text shifts (Line A → Line B)
   //  0.28 → 0.42 : Carousel takes over while the title remains fully visible
   //  0.42 → 1.00 : Horizontal carousel translates to the final visible set, then sticky releases
-  const canvasScale = useTransform(scrollYProgress, [0, 0.15], [0.533, 1]);
-  const canvasRadius = useTransform(scrollYProgress, [0, 0.15], [56, 0]);
+  const canvasScale = useTransform([scrollYProgress, shrinkProgress], ([stickyValue, shrinkValue]) => {
+    const shrinkAmount = Math.min(Number(shrinkValue) / 0.85, 1);
+    if (shrinkAmount > 0) return 1 - shrinkAmount * (1 - 0.533);
+
+    const growAmount = Math.min(Number(stickyValue) / 0.15, 1);
+    return 0.533 + growAmount * (1 - 0.533);
+  });
+  const canvasRadius = useTransform([scrollYProgress, shrinkProgress], ([stickyValue, shrinkValue]) => {
+    const shrinkAmount = Math.min(Number(shrinkValue) / 0.85, 1);
+    if (shrinkAmount > 0) return shrinkAmount * 56;
+
+    const growAmount = Math.min(Number(stickyValue) / 0.15, 1);
+    return 56 - growAmount * 56;
+  });
   const canvasOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
   const canvasTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${canvasScale}, ${canvasScale}, 1)`;
-
-  const shrinkScale = useTransform(shrinkProgress, [0, 0.85], [1, 0.533]);
-  const shrinkRadius = useTransform(shrinkProgress, [0, 0.85], [0, 56]);
-  const shrinkTransform = useMotionTemplate`translate3d(-50%, -50%, 0) scale3d(${shrinkScale}, ${shrinkScale}, 1)`;
 
   const textShift = useTransform(scrollYProgress, [0.15, 0.28], [0, -50]);
   const textTransform = useMotionTemplate`translate3d(0, ${textShift}%, 0)`;
@@ -46,14 +54,10 @@ export function BerriesGallery() {
   const trackTransform = useMotionTemplate`translate3d(${trackX}%, 0, 0)`;
 
   return (
-    <section id="berries-gallery" className="bg-berry">
-      {/* Scroll track */}
-      <div ref={trackRef} className="relative h-[320vh]">
-        {/* Sticky stage — holds EVERYTHING */}
+    <section id="berries-gallery" className="relative bg-berry">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
-          {/* 1) Canvas: pastel pink box scales up */}
           <motion.div
-            aria-hidden="true"
             style={{
               opacity: canvasOpacity,
               borderRadius: canvasRadius,
@@ -61,9 +65,14 @@ export function BerriesGallery() {
               transform: canvasTransform,
               willChange: "transform",
             }}
-            className="absolute left-1/2 top-1/2 h-screen w-screen origin-center pointer-events-none"
+            className="absolute left-1/2 top-1/2 h-screen w-screen origin-center"
           />
-
+        </div>
+      </div>
+      {/* Scroll track */}
+      <div ref={trackRef} className="relative z-10 h-[320vh]">
+        {/* Sticky stage — holds EVERYTHING */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
           {/* 2) Slot-machine text */}
           <div
             aria-hidden="true"
