@@ -13,14 +13,17 @@ export const Route = createFileRoute("/berries/$berryId")({
     if (!product) throw notFound();
     return product;
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${loaderData.name} — Berry Munch` },
-      { name: "description", content: loaderData.description },
-      { property: "og:title", content: `${loaderData.name} — Berry Munch` },
-      { property: "og:description", content: loaderData.description },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    const product = loaderData ?? findProduct("berry-munch")!;
+    return {
+      meta: [
+        { title: `${product.name} — Berry Munch` },
+        { name: "description", content: product.description },
+        { property: "og:title", content: `${product.name} — Berry Munch` },
+        { property: "og:description", content: product.description },
+      ],
+    };
+  },
   notFoundComponent: ProductNotFound,
   errorComponent: ProductError,
   component: ProductPage,
